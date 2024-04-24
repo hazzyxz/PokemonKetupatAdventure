@@ -1,0 +1,207 @@
+try test
+
+to do;
+
++----------------------------------------------------------------------------------+
+
+create stuff factory; creature class;
+
+creature class must consists attribute:
+-name
+-type
+-lvl
+-move -> 2 moves
+-strength -> type
+-weakness -> type
+-hp
+-exp
+
+-when to evolve
+
++----------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------+
+
+pokemon leveling scheme:
+
+levels 1-10, take 100exp to level up
+levels 10-30, take 200xp to level up,
+levels 30+ 300xp each,
+defeating a pokemon give ( 5 * enemy level ) of experience
+
+Pokemon evolution, 
+
+-after certain level, increase in powa, change stat and possibly colour??
+
+
++----------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------+
+
+Pokemon Battle:
+
+fight gym leader or fight wild pokemon
+
+1. display name pokemon[level 8] and HP,
+2. display pokemon strength and weakness
+3. RNG on who start first
+4. display moves
+5. Select moves
+6. RNG on the crit attack, suggesting 6.25%
+7. display effectiveness of attack
+8. display HP remaining
+
+NOTES:
+- can throw pokeball any time, but percentage nak dapat scale with HP of the pokemon
+- If own pokemon to die, move to next pokemon available
+- if own pokemon to die, revive at hospital
+- if menang, xp dropped can refer to level scheme, (5*enemy level) 
+
+
+
++----------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------+
+
+Gyms
+
+- has gyms leader, defeating gyms leader giving badges
+
+- each gyms leader has a few pokemon
+
+difficulty:
+
+1. Pewter City Gym
+2. Cerulean City Gym
+3. Vermilion Gym
+4. Celadon Gym
+5. Fuchsia City Gym
+6. Saffron City Gym
+7. Cinnabar City Gym
+8. Viridian City Gym
+
++----------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------+
+
+player attribute:
+
+-name
+-pokemon list
+-location on map
+-badges
+-player option
+-pokeball amount in pocket, // how to get pokeball meh, create money?? can use money also to revive and buy items
+-save and exit
+
+// boleh tambah, rasa mcam kurang
+
++----------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------+
+
+town attribute:
+
+- gym leader
+- adjacent town, sbb nak gerak
+- list wild pokemon dkt area tu
+- hospital ( heal pokemon ) //not all city
+
+NOTES: some town has special attribute
+
+such as, 
+
+Pallet town - doesnt have gym
+
+Lavender town - have pokemaze
+
+Saffron city - main aci ligan (Rival's Race)
+
+Fuchsia City - Safari Zone
+
+// kalau nak tambah boleh tambah
+
++----------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------+
+
+PokeMaze:
+
+buat maze je, sapa reti boleh ah roro
+
+dkt Lavender Town, 
+
+attribute:
+
+Ghastly --> movement boleh curi darkbound punya movement??
+Start
+End 
+Player
+Path
+Fog of war???
+
++----------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------+
+
+SafariZone
+
+sorting based on preference
+
+- pikachu tengah // cari size array, get middle, put pikachu in middle
+- Jigglypuff sebelah pikachu	
+- snorlax hujung last
+- Eeve depan
+- bulbasaur sebelah charmander
+- Machop sebelah Snorlax
+
+//chatgpt pon mcm lepas ni
+
++----------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------+
+
+Rival's Race
+
+Finding the shortest path Algorithm
+
+From Saffron City,
+
+select a random destination, display the shortest path to the location, no need to race meh
+
++----------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------+
+
+Main Menu
+
+- GUI --> asciiPanel, bob tolong ajar
+- new game
+- saved game
+- exit
+
++----------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------+
+
+Gameplay Element GUI
+
+- cadangan is to use asciiPanel for display, 
+- divide into picture and action section
+
+// might need further discussion about the design, any design is accepted right now 
+
++----------------------------------------------------------------------------------+
+
+what is bro yapping??
+
+
+
+
+
+
+
+
+
+
+
