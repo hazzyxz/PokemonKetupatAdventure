@@ -7,14 +7,14 @@ public class GymLeader {
 	
 	
 	//constructor
-	public GymLeader(String name, Pokemon pokemon1, Pokemon pokemon2, Pokemon pokemon3) {
+	public GymLeader(String name, Pokemon[] pokemon) {
 		this.Name = name;
-		this.pokemonList.add(pokemon1);
-		this.pokemonList.add(pokemon2);
-		this.pokemonList.add(pokemon3);
+		
+		for (int i = 0; i < pokemon.length; i++) {
+			pokemonList.add(pokemon[i]);
+		}
 		
 	}
-	
 	
 	//getter
 	public String getName() {

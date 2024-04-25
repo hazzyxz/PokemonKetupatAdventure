@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 
 class Pokemon{
@@ -16,10 +17,10 @@ class Pokemon{
 	*/
 	
 	private String Name;
-	private String type;
+	private ArrayList<String> type;
 	private int level = 5;
-	private String Strength;
-	private String Weakness;
+	private ArrayList<String> Strength;
+	private ArrayList<String> Weakness;
 	private double Health;
 	private double Exp;
 	private Moves Move1;
@@ -59,15 +60,25 @@ class Pokemon{
 	}
 	
 	//constructor for creature
-	public Pokemon(String name, double health, String type, String strength, String weakness, Moves move1, Moves move2) {
+	public Pokemon(String name, double health, String[] type, int level, String[] strength, String[] weakness, Moves move1, Moves move2) {
 		
 		this.Name = name;
 		this.Health = health;
-		this.type = type;
-		this.Strength = strength;
-		this.Weakness = weakness;
+	
+		for(int i = 0; i< type.length; i++)
+			this.type.add(type[i]);
+		
+		for(int i = 0; i< weakness.length; i++)
+			this.Weakness.add(weakness[i]);
+		
+
+		for(int i = 0; i< strength.length; i++)
+			this.Strength.add(strength[i]);
+		
 		this.Move1 = move1;
 		this.Move2 = move2;
+		
+		this.level = level;
 		
 	}
 	
@@ -75,6 +86,13 @@ class Pokemon{
 		
 		//TO-DO is to put evolve properties, 
 		//increase stat
+		
+	}
+	
+	public void increaseLevel() {
+		this.level +=1;
+		this.Move1.setDamage(Move1.getDamage() + 2);
+		this.Move2.setDamage(Move2.getDamage() + 2);
 		
 	}
 	
