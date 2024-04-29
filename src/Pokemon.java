@@ -21,10 +21,12 @@ class Pokemon{
 	private int level = 5;
 	private ArrayList<String> Strength;
 	private ArrayList<String> Weakness;
-	private double Health;
+	private double FullHealth;
 	private double Exp;
-	private Moves Move1;
-	private Moves Move2;
+	private Moves[] Move = new Moves[2];
+	private double CurrentHealth;
+	private boolean downed = false;
+	
 	
 	
 	// getter and setter
@@ -40,11 +42,14 @@ class Pokemon{
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	public double getHealth() {
-		return Health;
+	public double getFullHealth() {
+		return FullHealth;
 	}
-	public void setHealth(double health) {
-		Health = health;
+	public void setCurrentHealth(double health) {
+		CurrentHealth = health;
+	}
+	public double getCurrentHealth() {
+		return CurrentHealth;
 	}
 	public double getExp() {
 		return Exp;
@@ -52,18 +57,26 @@ class Pokemon{
 	public void setExp(double exp) {
 		Exp = exp;
 	}
-	public Moves getMove1() {
-		return Move1;
+	public Moves[] getMove() {
+		return Move;
 	}
-	public Moves getMove2() {
-		return Move2;
+	
+	public ArrayList<String> getType() {
+		return type;
+	}
+	public ArrayList<String> getWeakness() {
+		return Weakness;
+	}
+	public ArrayList<String> getStrength() {
+		return Strength;
 	}
 	
 	//constructor for creature
 	public Pokemon(String name, double health, String[] type, int level, String[] strength, String[] weakness, Moves move1, Moves move2) {
 		
 		this.Name = name;
-		this.Health = health;
+		this.FullHealth = health;
+		this.CurrentHealth = health;
 	
 		for(int i = 0; i< type.length; i++)
 			this.type.add(type[i]);
@@ -75,8 +88,8 @@ class Pokemon{
 		for(int i = 0; i< strength.length; i++)
 			this.Strength.add(strength[i]);
 		
-		this.Move1 = move1;
-		this.Move2 = move2;
+		this.Move[0] = move1;
+		this.Move[1] = move2;
 		
 		this.level = level;
 		
@@ -91,11 +104,14 @@ class Pokemon{
 	
 	public void increaseLevel() {
 		this.level +=1;
-		this.Move1.setDamage(Move1.getDamage() + 2);
-		this.Move2.setDamage(Move2.getDamage() + 2);
+		this.Move[0].setDamage(Move[0].getDamage() + 2);
+		this.Move[1].setDamage(Move[1].getDamage() + 2);
 		
 	}
 	
+	public boolean isDown() {	
+		return (this.CurrentHealth <= 0);
+	}
 	
 	
 	

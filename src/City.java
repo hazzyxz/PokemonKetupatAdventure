@@ -67,4 +67,19 @@ public class City {
 	}
 	
 	
+	public void pokemaze() {
+		//TO-DO create a maze
+	}
+	
+	public void RivalsRace() {
+		//TO-DO create rivals race
+		
+	}
+	
+	public void SafariZone() {
+		//TO-DO create Safari zone
+		
+	}
+	
+	
 }
