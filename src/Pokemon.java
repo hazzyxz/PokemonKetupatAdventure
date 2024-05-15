@@ -16,20 +16,23 @@ class Pokemon{
 	
 	*/
 	
+	//----------------Attribute----------------------------//
+	
 	private String Name;
-	private ArrayList<String> type;
+	private ArrayList<String> type = new ArrayList<String>();
 	private int level = 5;
-	private ArrayList<String> Strength;
-	private ArrayList<String> Weakness;
+	private ArrayList<String> Strength = new ArrayList<String>();
+	private ArrayList<String> Weakness = new ArrayList<String>();
 	private double FullHealth;
 	private double Exp;
 	private Moves[] Move = new Moves[2];
 	private double CurrentHealth;
 	private boolean downed = false;
 	
+	//----------------Attribute----------------------------//
 	
+	//-------------------setter and getter-----------------------//
 	
-	// getter and setter
 	public String getName() {
 		return Name;
 	}
@@ -39,8 +42,17 @@ class Pokemon{
 	public int getLevel() {
 		return level;
 	}
-	public void setLevel(int level) {
+	public Pokemon setLevel(int level) {
+		
+		this.Move[0].setDamage(Move[0].getDamage() + (2*level));
+		this.Move[1].setDamage(Move[1].getDamage() + (2*level));
+		this.FullHealth += level*30;
+		this.CurrentHealth = FullHealth;
+		
 		this.level = level;
+		
+		return this;
+		
 	}
 	public double getFullHealth() {
 		return FullHealth;
@@ -70,8 +82,18 @@ class Pokemon{
 	public ArrayList<String> getStrength() {
 		return Strength;
 	}
+	public void setDowned(boolean downed) {
+		this.downed = downed;
+	}
 	
-	//constructor for creature
+	public void setFullHealth(double fullHealth) {
+		FullHealth = fullHealth;
+	}
+	
+	//-------------------setter and getter-----------------------//
+	
+	//----------------constructor--------------------------//
+	
 	public Pokemon(String name, double health, String[] type, int level, String[] strength, String[] weakness, Moves move1, Moves move2) {
 		
 		this.Name = name;
@@ -95,6 +117,32 @@ class Pokemon{
 		
 	}
 	
+	//----------------constructor--------------------------//
+	
+	//---------------------public method------------------------//
+	
+	public void healFull() { //heal fully pokemon
+		CurrentHealth = FullHealth;
+	}
+	
+	public void heal(int hp) throws Exception { //heal partially, dont know what could be use for, but its here
+		if ((CurrentHealth + hp) > FullHealth)
+			throw new Exception("Exceed full health");
+		CurrentHealth += hp;
+	}
+	
+	public void revive() { //change the parameter, use easier naming, pretty much the same as setter for downed
+		this.downed = false;
+		
+	}
+	
+
+	// Clone method
+    public Pokemon clone() {
+        return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0], this.Move[1]);
+    }
+	
+	
 	public void evolve () {
 		
 		//TO-DO is to put evolve properties, 
@@ -102,11 +150,32 @@ class Pokemon{
 		
 	}
 	
-	public void increaseLevel() {
+	public void increaseEXP(int xp) {
+		
+	}
+	
+	public Pokemon increaseLevel() {
+		
 		this.level +=1;
 		this.Move[0].setDamage(Move[0].getDamage() + 2);
 		this.Move[1].setDamage(Move[1].getDamage() + 2);
 		
+		return this;
+	}
+	
+	public Pokemon increaseLevel(int LeveledUp) {
+		this.level += LeveledUp;
+		
+		this.Move[0].setDamage(Move[0].getDamage() + (2*LeveledUp));
+		this.Move[1].setDamage(Move[1].getDamage() + (2*LeveledUp));
+		
+		return this;
+	}
+	
+	public Pokemon increaseHP(int HP) {
+		this.FullHealth += HP;
+		
+		return this;
 	}
 	
 	public boolean isDown() {	

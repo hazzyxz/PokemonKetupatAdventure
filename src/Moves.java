@@ -8,11 +8,14 @@ public class Moves {
 	private int Damage;
 	
 	
-	//constructor
+	//----------------constructor--------------------------//
+	
 	public Moves(String movesname, int damage) {
 		this.setMovesName(movesname);
 		this.Damage = damage;
 	}
+	
+	//----------------constructor--------------------------//
 	
 	
 	//setter and getter, to update for leveling up
