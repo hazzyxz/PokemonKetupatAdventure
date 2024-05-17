@@ -144,6 +144,7 @@ public class PokemonFactory {
         pokemonMap.put("Blastoise", blastoise);
         pokemonMap.put("Caterpie", caterpie);
         pokemonMap.put("Metapod", metapod);
+        pokemonMap.put("Butterfree", butterfree);
         pokemonMap.put("Weedle", weedle);
         pokemonMap.put("Kakuna", kakuna);
         pokemonMap.put("Beedrill", beedrill);
