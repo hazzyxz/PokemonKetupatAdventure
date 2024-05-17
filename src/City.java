@@ -91,7 +91,7 @@ public class City {
 		
 	}
 	
-	public void PokemonCenter(Player player) {
+	public static void PokemonCenter(Player player) {
 		Scanner scanner = new Scanner(System.in);
 		int choice = 0;
 		
@@ -110,15 +110,19 @@ public class City {
 				
 			case 2: player.revivePokemon(); break;
 			
+			case 3: 
+				System.out.println("Exiting the pokecenter");
+				scanner.close();
+				return;
+			
 			default:
-				throw new IllegalArgumentException("Unexpected value: " + choice);
+				System.out.println("Unexpected value!");
 			}
 			
-			
-			scanner.close();
+		
 			
 		}
-		
+
 		
 	}
 	

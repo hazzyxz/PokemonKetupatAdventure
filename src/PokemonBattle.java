@@ -1,6 +1,30 @@
 import java.util.Random;
 import java.util.Scanner;
 
+/*
+ 
+Pokemon Battle:
+
+fight gym leader or fight wild pokemon
+
+1. display name pokemon[level 8] and HP,
+2. display pokemon strength and weakness
+3. RNG on who start first
+4. display moves
+5. Select moves
+6. RNG on the crit attack, suggesting 6.25%
+7. display effectiveness of attack
+8. display HP remaining
+
+NOTES:
+- can throw pokeball any time, but percentage nak dapat scale with HP of the pokemon //must be wild Pokemon
+- If own pokemon to die, move to next pokemon available
+- if own pokemon to die, revive at hospital
+- if menang, xp dropped can refer to level scheme, (5*enemy level) 
+
+ */
+
+
 public class PokemonBattle {
 
     public static void EnterBattle(GymLeader gymLeader, Player player) {
@@ -21,7 +45,7 @@ public class PokemonBattle {
         for (int i = 0; i < pokemontoBattle.length; i++) {
             var pokemon = pokemontoBattle[i];
             System.out.println("Next pokemon in line to battle: " + pokemon.getName());
-            EnterBattle(pokemon, player);
+            EnterBattle(pokemon, player, false);
 
             // Check if all player's Pokemon are defeated
             if (player.getPokemonList().stream().allMatch(Pokemon::isDown)) {
@@ -31,13 +55,15 @@ public class PokemonBattle {
         }
 
         System.out.println("You have defeated all of Gym Leader " + gymLeader.getName() + "'s Pokemon!");
-        player.addBadges();
+        player.addBadges(gymLeader.getName());
     }
 
-    public static void EnterBattle(Pokemon pokemonEnemy, Player player) {
+    public static void EnterBattle(Pokemon pokemonEnemy, Player player, boolean isWildPokemon) {
 
         Scanner inputScanner = new Scanner(System.in);
         Random random = new Random();
+        boolean win = false;
+        Pokemon pokemonChoice = null;
 
         boolean enemyPokemonAlive = true;
         boolean firstRound = true;
@@ -74,7 +100,7 @@ public class PokemonBattle {
                 continue;
             }
 
-            Pokemon pokemonChoice = player.getPokemonList().get(choice);
+            pokemonChoice = player.getPokemonList().get(choice);
             boolean pokemonChoiceAlive = true;
             int round = 1;
             
@@ -83,18 +109,38 @@ public class PokemonBattle {
             while (pokemonEnemy.getCurrentHealth() > 0 && pokemonChoiceAlive) {
 
                 System.out.println("Round " + round);
-                System.out.printf("\nChoose Moves:\n1- %s\n2- %s\n", pokemonChoice.getMove()[0].getMovesName(), pokemonChoice.getMove()[1].getMovesName());
-
+                
+                if(!isWildPokemon)
+                	System.out.printf("\nChoose Moves:\n1- %s\n2- %s\n", 
+                						pokemonChoice.getMove()[0].getMovesName(), 
+                						pokemonChoice.getMove()[1].getMovesName());
+                
+                else {
+                	System.out.printf("\nChoose Moves:\n1- %s\n2- %s\n3- Throw Pokeball\n", 
+                						pokemonChoice.getMove()[0].getMovesName(), 
+                						pokemonChoice.getMove()[1].getMovesName());
+				}
+                
                 int movesChoice = inputScanner.nextInt();
                 
                 //if input incorrect choice will continue the loop
-                if (movesChoice < 0 || movesChoice > 2) {
+                if ((movesChoice < 0 || movesChoice > 2) && !isWildPokemon) {
+                	System.out.println("Invalid moves");
+                	continue;
+                } else if ((movesChoice < 0 || movesChoice > 3) && isWildPokemon) {
                 	System.out.println("Invalid moves");
                 	continue;
                 }
 
                 System.out.println("\n");
-                usesMoves(pokemonChoice.getMove()[movesChoice - 1], pokemonEnemy, pokemonChoice);
+                switch(movesChoice) {
+                case 1:
+                
+                case 2: usesMoves(pokemonChoice.getMove()[movesChoice - 1], pokemonEnemy, pokemonChoice); break;
+                
+                case 3: ThrowPokeball(pokemonEnemy, player); break;
+                }
+                
 
                 System.out.printf("[%s HP : %.1f/%.1f ]\n", pokemonEnemy.getName(), pokemonEnemy.getCurrentHealth(), pokemonEnemy.getFullHealth());
                 
@@ -102,6 +148,7 @@ public class PokemonBattle {
                 if (pokemonEnemy.isDown()) {
                     System.out.println(pokemonEnemy.getName() + " has been defeated!");
                     enemyPokemonAlive = false;
+                    win = true;
                     break;
                 }
                 
@@ -122,7 +169,15 @@ public class PokemonBattle {
 
                 round++;
             }
+            
+            
+            
         }
+        
+        if (win) {
+        	pokemonChoice.increaseEXP(5 * pokemonEnemy.getLevel()); //based on leveling scheme
+        }
+        
     }
 
     private static int usesMoves(Moves move, Pokemon enemy, Pokemon damagedealer) {
@@ -170,4 +225,19 @@ public class PokemonBattle {
 
         return damageDeal;
     }
+
+    public static boolean ThrowPokeball(Pokemon enemy, Player player) {
+    	
+    	
+    	return true;
+    	
+    }
+
+
+
+
+
 }
+
+
+

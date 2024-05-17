@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Stack;
 
 
 public class Player {
@@ -23,7 +24,7 @@ public class Player {
 	private String Name;
 	private ArrayList<Pokemon> pokemonList;
 	private String Location;
-	private int Badges = 0;
+	private Stack<String> Badges;
 	private int Items; // pls change appropriately
 	private double Money;
 	private LinkedList<Pokemon> DownedPokemonList;
@@ -48,7 +49,7 @@ public class Player {
 		this.pokemonList.add(StartingPokemon);
 		this.Money = 0;
 		DownedPokemonList = new LinkedList<Pokemon>();
-		this.Badges = 0;
+		this.Badges = new Stack<String>();
 	}
 	
 	//----------------constructor--------------------------//
@@ -58,7 +59,7 @@ public class Player {
 	public String getName() {
 		return Name;
 	}
-	public int getBadges() {
+	public Stack<String> getBadges() {
 		return Badges;
 	}
 	public int getItems() {
@@ -70,11 +71,12 @@ public class Player {
 	public double getMoney() {
 		return Money;
 	}
-	public void addBadges() {
-		this.Badges += 1;
+	public void addBadges(String GymLeaderName) {
 		
-		if(this.Badges == 6) {
-			System.out.println("You win!! all the gym leader has been defeated!!");
+		Badges.push(GymLeaderName);
+		
+		if(Badges.size() > 6) {
+			System.out.println("You Win the game");
 		}
 		
 	}
@@ -86,45 +88,67 @@ public class Player {
 	public void healPokemonFull() {
 		for (Pokemon x: pokemonList) {
 			x.healFull();
+			System.out.printf("%s [HP %.0f/%.0f]\n", x.getName(),x.getCurrentHealth(),x.getFullHealth());
 		}
+		System.out.println();
 		
 	}
 	
-	public void revivePokemon() {
-		
-		Scanner scanner = new Scanner(System.in);
-		
-		if (pokemonIsFull()) { //dont allowed to revive pokemon if pokemon already 6
-			System.out.println("You already carrying max amount of pokemon");
-			scanner.close();
-			return;
-		}
-		
-		
-		System.out.println("Choose which pokemon to revive: ");
-		int i = 1;
-		for (Pokemon pokemon: DownedPokemonList) {
-			System.out.println(i + "- " + pokemon);
-			i++;
-		}
-		
-		int Choose = scanner.nextInt();
-		
-		if(addPokemon(DownedPokemonList.get(i - 1))) {
-			DownedPokemonList.get(i - 1).revive();
-		} else {
-			System.out.println("Failed to revive");
-		}
-		
-				
-		scanner.close();
-	}
+    public void revivePokemon() {
+        Scanner scanner = new Scanner(System.in);
+
+        if (pokemonIsFull()) { // Don't allow reviving a Pokémon if the player already has 6
+            System.out.println("You already have the maximum number of Pokémon.");
+            scanner.close();
+            return;
+        }
+
+        while (true) {
+            try {
+                System.out.println("Choose which Pokémon to revive: ");
+                int i = 1;
+                for (Pokemon pokemon : DownedPokemonList) {
+                    System.out.println(i + "- " + pokemon.getName());
+                    i++;
+                }
+
+                // Check if the next input is an integer
+                if (!scanner.hasNextInt()) {
+                    System.out.println("Invalid input. Please enter a valid number.");
+                    scanner.next(); // Consume the invalid input
+                    continue;
+                }
+
+                int choice = scanner.nextInt();
+                // Ensure the chosen index is within the bounds of the list
+                if (choice < 1 || choice > DownedPokemonList.size()) {
+                    System.out.println("Invalid choice. Please enter a number between 1 and " + DownedPokemonList.size());
+                    continue;
+                }
+
+                var pokemon = DownedPokemonList.get(choice - 1);
+                if (addPokemon(pokemon)) {
+                    pokemon.revive();
+                    System.out.println("Revive successful");
+                } else {
+                    System.out.println("Failed to revive.");
+                }
+                break;
+
+            } catch (Exception e) {
+                System.out.println("An error occurred: " + e.getMessage());
+                break;
+            }
+        }
+
+        scanner.close();
+    }
 	
 	public boolean addPokemon(Pokemon pokemon) { //return true if successful, false if vice versa
 		if (pokemonList.size() > 6) {
 			System.out.println("Exceed Pokemon Limit");
-			return true;
-		} else { pokemonList.add(pokemon); return false; }
+			return false;
+		} else { pokemonList.add(pokemon); return true; }
 	}
 	
 	public ArrayList<Pokemon> getPokemonList() {

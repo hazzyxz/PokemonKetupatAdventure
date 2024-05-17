@@ -24,7 +24,7 @@ class Pokemon{
 	private ArrayList<String> Strength = new ArrayList<String>();
 	private ArrayList<String> Weakness = new ArrayList<String>();
 	private double FullHealth;
-	private double Exp;
+	private int Exp;
 	private Moves[] Move = new Moves[2];
 	private double CurrentHealth;
 	private boolean downed = false;
@@ -63,10 +63,10 @@ class Pokemon{
 	public double getCurrentHealth() {
 		return CurrentHealth;
 	}
-	public double getExp() {
+	public int getExp() {
 		return Exp;
 	}
-	public void setExp(double exp) {
+	public void setExp(int exp) {
 		Exp = exp;
 	}
 	public Moves[] getMove() {
@@ -152,6 +152,55 @@ class Pokemon{
 	
 	public void increaseEXP(int xp) {
 		
+		this.Exp += xp;
+		
+		System.out.printf("\n%s earned %d exp\n", this.getName(), xp);
+		
+		if(this.level < 10) {
+			
+			System.out.printf("%s [XP: %d/%d]\n\n", this.getName(), this.Exp, 100);
+			
+			if (this.Exp >= 100) {
+				this.Exp -= 100;
+				this.increaseLevel();
+				System.out.println(this.getName() + " level increased: lvl " + (this.level - 1) + " --> " + this.level);
+			}
+			
+			
+		} else if(this.level <= 20) {
+			
+			System.out.printf("%s [XP: %d/%d]\n\n", this.getName(), this.Exp, 200);
+			
+			if(this.Exp >= 200) {
+				this.Exp -= 200;
+				this.increaseLevel();
+				
+				
+			}
+			
+			
+		} else if (this.level <= 30) {
+			
+			System.out.printf("%s [XP: %d/%d]\n\n", this.getName(), this.Exp, 300);
+			
+			if(this.Exp >= 300) {
+				this.Exp -= 300;
+				this.increaseLevel();
+				
+			}
+			
+		
+		} else {
+			System.out.printf("%s [XP: %d/%d]\n\n", this.getName(), this.Exp, 400);
+			
+			if(this.Exp >= 400) {
+				this.Exp -= 300;
+				this.increaseLevel();
+				
+			}
+		}
+		
+		
 	}
 	
 	public Pokemon increaseLevel() {
@@ -160,6 +209,7 @@ class Pokemon{
 		this.Move[0].setDamage(Move[0].getDamage() + 2);
 		this.Move[1].setDamage(Move[1].getDamage() + 2);
 		
+		System.out.println(this.getName() + " level increased: lvl " + (this.level - 1) + " --> lvl " + this.level);
 		return this;
 	}
 	

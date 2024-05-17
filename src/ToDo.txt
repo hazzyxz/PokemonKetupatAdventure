@@ -52,7 +52,7 @@ fight gym leader or fight wild pokemon
 8. display HP remaining
 
 NOTES:
-- can throw pokeball any time, but percentage nak dapat scale with HP of the pokemon
+- can throw pokeball any time, but percentage nak dapat scale with HP of the pokemon //must be wild Pokemon
 - If own pokemon to die, move to next pokemon available
 - if own pokemon to die, revive at hospital
 - if menang, xp dropped can refer to level scheme, (5*enemy level) 
@@ -105,7 +105,7 @@ town attribute:
 - gym leader
 - adjacent town, sbb nak gerak
 - list wild pokemon dkt area tu
-- hospital ( heal pokemon ) //not all city
+- Pokecenter //attribute below// ( heal pokemon ) //not all city
 
 NOTES: some town has special attribute
 
@@ -202,9 +202,43 @@ abdul wuz here
 hello
 hi
 
++----------------------------------------------------------------------------------+
+
+Healing factor, revive
+
+- revive at pokecenter
+	- check if current pokemon already reached max (6)
+	- get the downed pokemon list
+	- choose
+	- get the chosen pokemon
+	- set downed to false
+	- add back to the rooster
+
+- heal the pokemon
+	- get full health
+	- set current to full health
+
+- exit
 
 
++----------------------------------------------------------------------------------+
 
++----------------------------------------------------------------------------------+
+
+City Walking
+
+- give option to walk trough different part of city
+- create an option, use switch to determine the path
+- 1. Move to:
+	a. city A	b. city B
+- 2. challenge gym leader [name]
+- 3. Fight wild pokemon [Pokemon name]
+- 4. Player optin
+-	a. show pokemon	b. show Pokemon list	c. Show Badges	d. save and exit
+
++----------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------+
 
 
 
