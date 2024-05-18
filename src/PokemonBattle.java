@@ -170,4 +170,29 @@ public class PokemonBattle {
 
         return damageDeal;
     }
+    
+    
+    
+    public static boolean capturePokemon(Pokemon wildPokemon, Player player) {
+        double captureRate = 0.5;
+        
+        double healthFactor = wildPokemon.getCurrentHealth() / wildPokemon.getFullHealth(); // health percentage
+        captureRate += (1 - healthFactor) * 0.2; // increase as health decerease;
+        
+        captureRate = Math.min(captureRate, 1.0); // incase captureRate exceed 1;
+        
+        Random random = new Random();
+        
+        boolean captureSuccessful = random.nextDouble() < captureRate;
+        
+        if (captureSuccessful) {
+            System.out.println("You captured " + wildPokemon.getName() + "!!");
+            player.addPokemon(wildPokemon);
+            
+            return true;
+        } else {
+            System.out.println(wildPokemon.getName() + " broke free and flee !!!");
+            return false;
+        }
+    }
 }
