@@ -196,6 +196,6 @@ public class PokemonFactory {
     }
     
     public static Pokemon createPokemon(String pokemonName) {
-        return pokemonMap.get(pokemonName);
+        return pokemonMap.get(pokemonName).clone();
     }
 }

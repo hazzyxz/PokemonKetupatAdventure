@@ -28,6 +28,7 @@ class Pokemon{
 	private Moves[] Move = new Moves[2];
 	private double CurrentHealth;
 	private boolean downed = false;
+	private int maxExp;
 	
 	//----------------Attribute----------------------------//
 	
@@ -50,6 +51,7 @@ class Pokemon{
 		this.CurrentHealth = FullHealth;
 		
 		this.level = level;
+				
 		
 		return this;
 		
@@ -89,6 +91,33 @@ class Pokemon{
 	public void setFullHealth(double fullHealth) {
 		FullHealth = fullHealth;
 	}
+	public void setMaxExp(int maxExp) {
+		this.maxExp = maxExp;
+	}
+	public int getMaxExp() {
+		
+		if(this.level < 10) {
+			
+			this.maxExp = 100;
+			
+		} else if (this.level < 20) {
+			
+			this.maxExp = 200;
+		
+		} else if (this.level < 30) {
+			
+			this.maxExp = 300;
+			
+		} else {
+			
+			this.maxExp = 400;
+			
+		}
+		
+		
+		
+		return maxExp;
+	}
 	
 	//-------------------setter and getter-----------------------//
 	
@@ -114,7 +143,7 @@ class Pokemon{
 		this.Move[1] = move2;
 		
 		this.level = level;
-		
+		this.maxExp = 100;
 	}
 	
 	//----------------constructor--------------------------//
@@ -126,14 +155,17 @@ class Pokemon{
 	}
 	
 	public void heal(int hp) throws Exception { //heal partially, dont know what could be use for, but its here
-		if ((CurrentHealth + hp) > FullHealth)
-			throw new Exception("Exceed full health");
+		if ((CurrentHealth + hp) > FullHealth) {
+			System.out.println("Heal failed, heal exceed full health");
+			return;
+		}
+			
 		CurrentHealth += hp;
 	}
 	
 	public void revive() { //change the parameter, use easier naming, pretty much the same as setter for downed
 		this.downed = false;
-		
+		this.CurrentHealth = 10;
 	}
 	
 
@@ -156,49 +188,18 @@ class Pokemon{
 		
 		System.out.printf("\n%s earned %d exp\n", this.getName(), xp);
 		
-		if(this.level < 10) {
-			
-			System.out.printf("%s [XP: %d/%d]\n\n", this.getName(), this.Exp, 100);
-			
-			if (this.Exp >= 100) {
-				this.Exp -= 100;
-				this.increaseLevel();
-				System.out.println(this.getName() + " level increased: lvl " + (this.level - 1) + " --> " + this.level);
-			}
-			
-			
-		} else if(this.level <= 20) {
-			
-			System.out.printf("%s [XP: %d/%d]\n\n", this.getName(), this.Exp, 200);
-			
-			if(this.Exp >= 200) {
-				this.Exp -= 200;
-				this.increaseLevel();
-				
-				
-			}
-			
-			
-		} else if (this.level <= 30) {
-			
-			System.out.printf("%s [XP: %d/%d]\n\n", this.getName(), this.Exp, 300);
-			
-			if(this.Exp >= 300) {
-				this.Exp -= 300;
-				this.increaseLevel();
-				
-			}
-			
 		
-		} else {
-			System.out.printf("%s [XP: %d/%d]\n\n", this.getName(), this.Exp, 400);
+		
+		System.out.printf("%s [XP: %d/%d]\n\n", this.getName(), this.Exp, this.getMaxExp());
+		
+		if (this.Exp >= this.getMaxExp()) {
+			this.Exp -= this.maxExp;
+			this.increaseLevel();
 			
-			if(this.Exp >= 400) {
-				this.Exp -= 300;
-				this.increaseLevel();
-				
-			}
 		}
+		
+		
+		
 		
 		
 	}
@@ -218,6 +219,7 @@ class Pokemon{
 		
 		this.Move[0].setDamage(Move[0].getDamage() + (2*LeveledUp));
 		this.Move[1].setDamage(Move[1].getDamage() + (2*LeveledUp));
+		System.out.println(this.getName() + " level increased: lvl " + (this.level - 1) + " --> lvl " + this.level);
 		
 		return this;
 	}
@@ -229,7 +231,7 @@ class Pokemon{
 	}
 	
 	public boolean isDown() {	
-		return (this.CurrentHealth <= 0);
+		return (this.CurrentHealth <= 0) || (this.downed);
 	}
 	
 	

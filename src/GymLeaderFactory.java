@@ -109,7 +109,7 @@ public class GymLeaderFactory {
         return new GymLeader("Koga", kogaPokemon);
     }
     
-    //fuchsia city
+    //saffron city
     public static GymLeader leaderSabrina() {
         Pokemon zubat = PokemonFactory.createPokemon("Zubat");//
         Pokemon pidgeotto = PokemonFactory.createPokemon("Pidgeotto");//

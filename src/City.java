@@ -108,7 +108,7 @@ public class City {
 			switch (choice){
 			case 1: player.healPokemonFull(); break; 
 				
-			case 2: player.revivePokemon(); break;
+			case 2: player.RevivePokemon(); break;
 			
 			case 3: 
 				System.out.println("Exiting the pokecenter");

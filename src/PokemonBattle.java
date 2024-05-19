@@ -64,6 +64,7 @@ public class PokemonBattle {
         Random random = new Random();
         boolean win = false;
         Pokemon pokemonChoice = null;
+        boolean Captured = false;
 
         boolean enemyPokemonAlive = true;
         boolean firstRound = true;
@@ -138,11 +139,12 @@ public class PokemonBattle {
                 
                 case 2: usesMoves(pokemonChoice.getMove()[movesChoice - 1], pokemonEnemy, pokemonChoice); break;
                 
-                case 3: ThrowPokeball(pokemonEnemy, player); break;
+                case 3: Captured = capturePokemon(pokemonEnemy, player);
+                	
                 }
                 
-
-                System.out.printf("[%s HP : %.1f/%.1f ]\n", pokemonEnemy.getName(), pokemonEnemy.getCurrentHealth(), pokemonEnemy.getFullHealth());
+                System.out.println();
+                
                 
                 //check if the enemy dies
                 if (pokemonEnemy.isDown()) {
@@ -150,6 +152,13 @@ public class PokemonBattle {
                     enemyPokemonAlive = false;
                     win = true;
                     break;
+                } else if (Captured) {
+                	System.out.println(pokemonEnemy.getName() + " has been captured!");
+                    enemyPokemonAlive = false;
+                    win = true;
+                    break;
+                } else {
+                	System.out.printf("[%s HP : %.1f/%.1f ]\n", pokemonEnemy.getName(), pokemonEnemy.getCurrentHealth(), pokemonEnemy.getFullHealth());
                 }
                 
                 System.out.println("\n");
@@ -226,16 +235,30 @@ public class PokemonBattle {
         return damageDeal;
     }
 
-    public static boolean ThrowPokeball(Pokemon enemy, Player player) {
-    	
-    	
-    	return true;
-    	
+    
+    
+    public static boolean capturePokemon(Pokemon wildPokemon, Player player) {
+        double captureRate = 0.5;
+        
+        double healthFactor = wildPokemon.getCurrentHealth() / wildPokemon.getFullHealth(); // health percentage
+        captureRate += (1 - healthFactor) * 0.2; // increase as health decerease;
+        
+        captureRate = Math.min(captureRate, 1.0); // incase captureRate exceed 1;
+        
+        Random random = new Random();
+        
+        boolean captureSuccessful = random.nextDouble() < captureRate;
+        
+        if (captureSuccessful) {
+            System.out.println("You captured " + wildPokemon.getName() + "!!\n");
+            player.addPokemon(wildPokemon);
+            
+            return true;
+        } else {
+            System.out.println(wildPokemon.getName() + " broke free and flee !!!\n");
+            return false;
+        }
     }
-
-
-
-
 
 }
 

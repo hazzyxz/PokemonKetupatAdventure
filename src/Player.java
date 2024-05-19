@@ -94,55 +94,6 @@ public class Player {
 		
 	}
 	
-    public void revivePokemon() {
-        Scanner scanner = new Scanner(System.in);
-
-        if (pokemonIsFull()) { // Don't allow reviving a Pokémon if the player already has 6
-            System.out.println("You already have the maximum number of Pokémon.");
-            scanner.close();
-            return;
-        }
-
-        while (true) {
-            try {
-                System.out.println("Choose which Pokémon to revive: ");
-                int i = 1;
-                for (Pokemon pokemon : DownedPokemonList) {
-                    System.out.println(i + "- " + pokemon.getName());
-                    i++;
-                }
-
-                // Check if the next input is an integer
-                if (!scanner.hasNextInt()) {
-                    System.out.println("Invalid input. Please enter a valid number.");
-                    scanner.next(); // Consume the invalid input
-                    continue;
-                }
-
-                int choice = scanner.nextInt();
-                // Ensure the chosen index is within the bounds of the list
-                if (choice < 1 || choice > DownedPokemonList.size()) {
-                    System.out.println("Invalid choice. Please enter a number between 1 and " + DownedPokemonList.size());
-                    continue;
-                }
-
-                var pokemon = DownedPokemonList.get(choice - 1);
-                if (addPokemon(pokemon)) {
-                    pokemon.revive();
-                    System.out.println("Revive successful");
-                } else {
-                    System.out.println("Failed to revive.");
-                }
-                break;
-
-            } catch (Exception e) {
-                System.out.println("An error occurred: " + e.getMessage());
-                break;
-            }
-        }
-
-        scanner.close();
-    }
 	
 	public boolean addPokemon(Pokemon pokemon) { //return true if successful, false if vice versa
 		if (pokemonList.size() > 6) {
@@ -184,33 +135,73 @@ public class Player {
 			//what the hell, maybe change later,
 			switch(pokemon.getType().size()) {
 			case 1:
-				System.out.print(pokemon.getType().get(0));
+				System.out.println(pokemon.getType().get(0));
 				break;
 			case 2:
-				System.out.print(pokemon.getType().get(0) + "/" + pokemon.getType().get(1));
+				System.out.println(pokemon.getType().get(0) + "/" + pokemon.getType().get(1));
 			}
 			System.out.println("HP: " + pokemon.getCurrentHealth() + " / " + pokemon.getFullHealth());
-			System.out.println("EXP: " + pokemon.getExp());
+			System.out.println("EXP: " + pokemon.getExp() + "/" + pokemon.getMaxExp());
 			
 			System.out.println("Moves: " );
 			System.out.println("- " + pokemon.getMove()[0].getMovesName() + " [" + pokemon.getMove()[0].getDamage() + "]");
 			System.out.println("- " + pokemon.getMove()[1].getMovesName() + " [" + pokemon.getMove()[1].getDamage() + "]");
 			
 			System.out.println("Strong against: ");
-			String[] strong = (String[]) pokemon.getStrength().toArray();
+			String[] strong = pokemon.getStrength().toArray(new String[pokemon.getStrength().size()]);
 			for (String StrongAgainst: strong) {
 				System.out.println("- " + StrongAgainst);
 			}
 			
 			System.out.println("Weak Against: ");
-			String[] weak = (String[]) pokemon.getWeakness().toArray();
+			String[] weak = pokemon.getWeakness().toArray(new String[pokemon.getWeakness().size()]);
 			for (String weakAgainst: weak) {
 				System.out.println("- " + weakAgainst);
 			}
 			
+			System.out.println("\n");
+			
+		}
+		
+		
+		
+	}
+	
+	public void RevivePokemon() {
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		if (pokemonIsFull()) {
+			System.out.println("Pokemon already reached its limit!!\n");
+			return;
+		}
+		
+		while (true) {
+			System.out.println("Choose which pokemon to revive:");
+			int i = 1;
+			for(Pokemon X : DownedPokemonList) {
+				System.out.println( i++ + "- " + X.getName() );
+			}
+			
+			int choice = scanner.nextInt();
+			
+			if (choice <= 0 || choice > DownedPokemonList.size()) {
+				System.out.println("Invalid Choice\n");
+				continue;
+			}
+			
+			Pokemon chosenPokemon = DownedPokemonList.remove(choice - 1);
+			
+			chosenPokemon.revive();
+			pokemonList.add(chosenPokemon);
+			System.out.println("Pokemon successfuly revived!\n");
+			break;
 			
 			
 		}
+		
+		
+		
 		
 		
 		
