@@ -211,7 +211,7 @@ class Pokemon{
 
 	// Clone method
     public Pokemon clone() {
-        return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0], this.Move[1]);
+        return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0], this.Move[1], this.pokemonEvolve, this.lvlEvolve);
     }
 	
 	
