@@ -32,26 +32,28 @@ public class Main {
                 
                 //----------test je ni boi-------------------------//
                 
-                Pokemon pokemon = PokemonFactory.createPokemon("Bulbasaur");
-                System.out.println(pokemon.getName());
-                System.out.println(pokemon.getFullHealth());
-                System.out.println(pokemon.getType());
-                System.out.println(pokemon.getLevel());
-                System.out.println(pokemon.getStrength());
-                System.out.println(pokemon.getWeakness());
-                System.out.println(pokemon.getMoveNames());
-                
-                pokemon.setLevel(20);
-                pokemon.evolve();
+//                Pokemon pokemon = PokemonFactory.createPokemon("Bulbasaur");
+//                System.out.println(pokemon.getName());
+//                System.out.println(pokemon.getFullHealth());
+//                System.out.println(pokemon.getType());
+//                System.out.println(pokemon.getLevel());
+//                System.out.println(pokemon.getStrength());
+//                System.out.println(pokemon.getWeakness());
+//                System.out.println(pokemon.getMoveNames());
+//
+//                pokemon.setLevel(20);
+//                pokemon.evolve();
+//
+//                System.out.println(pokemon.getName());
+//                System.out.println(pokemon.getFullHealth());
+//                System.out.println(pokemon.getType());
+//                System.out.println(pokemon.getLevel());
+//                System.out.println(pokemon.getStrength());
+//                System.out.println(pokemon.getWeakness());
+//                System.out.println(pokemon.getMoveNames());
+//
 
-                System.out.println(pokemon.getName());
-                System.out.println(pokemon.getFullHealth());
-                System.out.println(pokemon.getType());
-                System.out.println(pokemon.getLevel());
-                System.out.println(pokemon.getStrength());
-                System.out.println(pokemon.getWeakness());
-                System.out.println(pokemon.getMoveNames());
-                
+        SafariZone.play();
                 
                 //----------test je ni boi-------------------------//
 
