@@ -29,7 +29,7 @@ levels 10-30, take 200xp to level up,
 levels 30+ 300xp each,
 defeating a pokemon give ( 5 * enemy level ) of experience
 
-Pokemon evolution, 
+backend.Pokemon evolution,
 
 -after certain level, increase in powa, change stat and possibly colour??
 
@@ -38,7 +38,7 @@ Pokemon evolution,
 
 +----------------------------------------------------------------------------------+
 
-Pokemon Battle:
+backend.Pokemon Battle:
 
 fight gym leader or fight wild pokemon
 
@@ -71,14 +71,14 @@ Gyms
 
 difficulty:
 
-1. Pewter City Gym
-2. Cerulean City Gym
+1. Pewter backend.City Gym
+2. Cerulean backend.City Gym
 3. Vermilion Gym
 4. Celadon Gym
-5. Fuchsia City Gym
-6. Saffron City Gym
-7. Cinnabar City Gym
-8. Viridian City Gym
+5. Fuchsia backend.City Gym
+6. Saffron backend.City Gym
+7. Cinnabar backend.City Gym
+8. Viridian backend.City Gym
 
 +----------------------------------------------------------------------------------+
 
@@ -117,7 +117,7 @@ Lavender town - have pokemaze
 
 Saffron city - main aci ligan (Rival's Race)
 
-Fuchsia City - Safari Zone
+Fuchsia backend.City - Safari Zone
 
 // kalau nak tambah boleh tambah
 
@@ -136,7 +136,7 @@ attribute:
 Ghastly --> movement boleh curi darkbound punya movement??
 Start
 End 
-Player
+backend.Player
 Path
 Fog of war???
 
@@ -165,7 +165,7 @@ Rival's Race
 
 Finding the shortest path Algorithm
 
-From Saffron City,
+From Saffron backend.City,
 
 select a random destination, display the shortest path to the location, no need to race meh
 
@@ -173,7 +173,7 @@ select a random destination, display the shortest path to the location, no need 
 
 +----------------------------------------------------------------------------------+
 
-Main Menu
+backend.Main Menu
 
 - GUI --> asciiPanel, bob tolong ajar
 - new game
