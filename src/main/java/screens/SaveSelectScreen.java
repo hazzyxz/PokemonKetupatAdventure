@@ -16,8 +16,7 @@ public class SaveSelectScreen extends Screen {
     public void update() {
         super.update();
         if (userInput.equals("/newgame")) {
-            gp.stopMusic();
-            gp.currentScreen = new PalletTown(gp, keyH);
+            gp.currentScreen = new NewGameScreen(gp, keyH);
         }
     }
 

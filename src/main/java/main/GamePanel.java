@@ -16,7 +16,7 @@ import static main.ApplicationMain.userInput;
 public class GamePanel extends JPanel implements Runnable{
 
     // SCREEN SETTINGS
-    final int tileSize = 16;
+    public final int tileSize = 16;
     final int tileCount = 44;
 
     public final int screenHeight = tileSize * tileCount;

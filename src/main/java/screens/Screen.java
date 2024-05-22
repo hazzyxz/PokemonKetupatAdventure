@@ -18,10 +18,14 @@ public abstract class Screen {
     BufferedImage background;
     Font pokemon_classic20;
     Font pokemon_solid40;
+    String[] dialogues = new String[20];
+    String currentDialogue;
+    long startTime;
 
     public Screen(GamePanel gp, KeyHandler keyH, String backgroundPath) {
         this.gp = gp;
         this.keyH = keyH;
+        startTime = System.currentTimeMillis();
 
         try {
             background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(backgroundPath)));
@@ -60,5 +64,37 @@ public abstract class Screen {
         catch (IOException e) {
             System.out.println("Image input error");
         }
+    }
+
+    public void drawDialogueScreen(Graphics2D g2) {
+        // WINDOW
+        int x = gp.tileSize*3;
+        int y = gp.tileSize;
+
+        int width = gp.screenWidth - (gp.tileSize*6);
+        int height = gp.tileSize*12;
+
+        drawSubWindow(x, y, width, height, g2);
+
+        x +=gp.tileSize*2;
+        y +=gp.tileSize*3;
+        pokemon_classic20 = pokemon_classic20.deriveFont(Font.PLAIN, 20);
+        g2.setFont(pokemon_classic20);
+        g2.drawString("/next", width-66, height-20);
+        for (String dialogue: currentDialogue.split("\n")) {
+            g2.drawString(dialogue, x, y);
+            y += 30;
+        }
+    }
+
+    public void drawSubWindow(int x, int y, int width, int height , Graphics2D g2) {
+        Color c = new Color(0,0,0, 200);
+        g2.setColor(c);
+        g2.fillRoundRect(x, y, width, height,35,35);
+
+        c = new Color(255,255,255,255);
+        g2.setStroke(new BasicStroke(7));
+        g2.setColor(c);
+        g2.drawRoundRect(x+7, y+7, width-14, height-14,25,25);
     }
 }

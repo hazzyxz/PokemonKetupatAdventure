@@ -9,11 +9,8 @@ import static main.ApplicationMain.userInput;
 
 public class StartScreen extends Screen {
 
-    long startTime;
-
     public StartScreen(GamePanel gp, KeyHandler keyH) {
         super(gp, keyH, "/Backgrounds/WhiteScreen.png");
-        startTime = System.currentTimeMillis();
         gp.playMusic(0);
     }
 
