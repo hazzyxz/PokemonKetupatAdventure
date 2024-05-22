@@ -11,7 +11,6 @@ public class PalletTown extends Screen {
 
     public PalletTown(GamePanel gp, KeyHandler keyH) {
         super(gp, keyH, "/Backgrounds/PalletTown.png");
-        pokemon_classic = new Font("Pokemon Solid", Font.PLAIN, 40);
         gp.playMusic(1);
     }
 
@@ -28,7 +27,8 @@ public class PalletTown extends Screen {
     public void draw(Graphics2D g2) {
         super.draw(g2);
 
-        g2.setFont(pokemon_classic);
+        g2.setFont(pokemon_solid40);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(Color.BLACK);
         g2.drawString("Pallet Town", 35, 85);
         g2.setColor(Color.WHITE);

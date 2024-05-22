@@ -20,7 +20,7 @@ public class City {
 
 	Saffron city - main aci ligan (Rival's Race)
 
-	Fuchsia backend.City - Safari Zone
+	Fuchsia City - Safari Zone
 	
 `	*/
 
@@ -93,7 +93,7 @@ public class City {
 		
 	}
 	
-	public void PokemonCenter(Player player) {
+	public static void PokemonCenter(Player player) {
 		Scanner scanner = new Scanner(System.in);
 		int choice = 0;
 		
@@ -110,17 +110,21 @@ public class City {
 			switch (choice){
 			case 1: player.healPokemonFull(); break; 
 				
-			case 2: player.revivePokemon(); break;
+			case 2: player.RevivePokemon(); break;
+			
+			case 3: 
+				System.out.println("Exiting the pokecenter");
+				scanner.close();
+				return;
 			
 			default:
-				throw new IllegalArgumentException("Unexpected value: " + choice);
+				System.out.println("Unexpected value!");
 			}
 			
-			
-			scanner.close();
+		
 			
 		}
-		
+
 		
 	}
 	

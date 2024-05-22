@@ -8,14 +8,14 @@ public class RivalsRace {
 
     public static void play() {
 
-        Node SaffronCity = new Node("Saffron backend.City");
-        Node CeladonCity = new Node("Celadon backend.City");
+        Node SaffronCity = new Node("Saffron City");
+        Node CeladonCity = new Node("Celadon City");
         Node CeruleanCity = new Node("CeruleanCity");
-        Node VermillionCity = new Node("Vermillion backend.City");
+        Node VermillionCity = new Node("Vermillion City");
         Node LavenderTown = new Node("LavenderTown");
-        Node FuschiaCity = new Node("Fuschia backend.City");
-        Node PewterCity = new Node("Pewter backend.City");
-        Node ViridianCity = new Node("Viridian backend.City");
+        Node FuschiaCity = new Node("Fuschia City");
+        Node PewterCity = new Node("Pewter City");
+        Node ViridianCity = new Node("Viridian City");
         Node PalletTown = new Node("Pallet Town");
         Node CinnabarIsland = new Node("Cinnabar Island");
 
@@ -44,7 +44,7 @@ public class RivalsRace {
 
         List<Node> allNodes = Arrays.asList(SaffronCity, CeladonCity, CeruleanCity, VermillionCity, LavenderTown, FuschiaCity, PewterCity, ViridianCity, PalletTown, CinnabarIsland);
 
-        // Calculate shortest path from Saffron backend.City
+        // Calculate shortest path from Saffron City
         calculateShortestPath(SaffronCity);
 
         Node randomDestination = getRandomNonAdjacentNode(SaffronCity, allNodes);

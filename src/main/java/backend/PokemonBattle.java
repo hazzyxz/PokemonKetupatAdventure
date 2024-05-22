@@ -3,6 +3,30 @@ package backend;
 import java.util.Random;
 import java.util.Scanner;
 
+/*
+ 
+Pokemon Battle:
+
+fight gym leader or fight wild pokemon
+
+1. display name pokemon[level 8] and HP,
+2. display pokemon strength and weakness
+3. RNG on who start first
+4. display moves
+5. Select moves
+6. RNG on the crit attack, suggesting 6.25%
+7. display effectiveness of attack
+8. display HP remaining
+
+NOTES:
+- can throw pokeball any time, but percentage nak dapat scale with HP of the pokemon //must be wild Pokemon
+- If own pokemon to die, move to next pokemon available
+- if own pokemon to die, revive at hospital
+- if menang, xp dropped can refer to level scheme, (5*enemy level) 
+
+ */
+
+
 public class PokemonBattle {
 
     public static void EnterBattle(GymLeader gymLeader, Player player) {
@@ -12,7 +36,7 @@ public class PokemonBattle {
         System.out.println("You Are about to challenge Gym Leader " + gymLeader.getName() + "!\n "
                 + "Prepare yourself for an intense battle!");
 
-        System.out.println("Your backend.Pokemon: ");
+        System.out.println("Your Pokemon: ");
         Pokemon[] yourPokemon = player.getPokemonList().toArray(new Pokemon[player.getPokemonList().size()]);
 
         for (Pokemon x : yourPokemon)
@@ -23,23 +47,26 @@ public class PokemonBattle {
         for (int i = 0; i < pokemontoBattle.length; i++) {
             var pokemon = pokemontoBattle[i];
             System.out.println("Next pokemon in line to battle: " + pokemon.getName());
-            EnterBattle(pokemon, player);
+            EnterBattle(pokemon, player, false);
 
-            // Check if all player's backend.Pokemon are defeated
+            // Check if all player's Pokemon are defeated
             if (player.getPokemonList().stream().allMatch(Pokemon::isDown)) {
                 System.out.println("All of your pokemon have been defeated. You lost the battle!");
                 return;
             }
         }
 
-        System.out.println("You have defeated all of Gym Leader " + gymLeader.getName() + "'s backend.Pokemon!");
-        player.addBadges();
+        System.out.println("You have defeated all of Gym Leader " + gymLeader.getName() + "'s Pokemon!");
+        player.addBadges(gymLeader.getName());
     }
 
-    public static void EnterBattle(Pokemon pokemonEnemy, Player player) {
+    public static void EnterBattle(Pokemon pokemonEnemy, Player player, boolean isWildPokemon) {
 
         Scanner inputScanner = new Scanner(System.in);
         Random random = new Random();
+        boolean win = false;
+        Pokemon pokemonChoice = null;
+        boolean Captured = false;
 
         boolean enemyPokemonAlive = true;
         boolean firstRound = true;
@@ -55,10 +82,10 @@ public class PokemonBattle {
         	 //choose the pokemon
         	 // if not first round, or the first pokemon died, will display secodn phrase
             if (firstRound) {
-                System.out.println("Choose your backend.Pokemon: ");
+                System.out.println("Choose your Pokemon: ");
                 firstRound = false;
             } else {
-                System.out.println("Choose your next backend.Pokemon: ");
+                System.out.println("Choose your next Pokemon: ");
             }
             
       
@@ -72,11 +99,11 @@ public class PokemonBattle {
             //if input wrong choice, the loop will loop back
             int choice = inputScanner.nextInt() - 1;
             if (choice < 0 || choice >= player.getPokemonList().size() || player.getPokemonList().get(choice).isDown()) {
-                System.out.println("Invalid choice or chosen backend.Pokemon is down. Please select a valid backend.Pokemon.");
+                System.out.println("Invalid choice or chosen Pokemon is down. Please select a valid Pokemon.");
                 continue;
             }
 
-            Pokemon pokemonChoice = player.getPokemonList().get(choice);
+            pokemonChoice = player.getPokemonList().get(choice);
             boolean pokemonChoiceAlive = true;
             int round = 1;
             
@@ -85,26 +112,55 @@ public class PokemonBattle {
             while (pokemonEnemy.getCurrentHealth() > 0 && pokemonChoiceAlive) {
 
                 System.out.println("Round " + round);
-                System.out.printf("\nChoose backend.Moves:\n1- %s\n2- %s\n", pokemonChoice.getMove()[0].getMovesName(), pokemonChoice.getMove()[1].getMovesName());
-
+                
+                if(!isWildPokemon)
+                	System.out.printf("\nChoose Moves:\n1- %s\n2- %s\n", 
+                						pokemonChoice.getMove()[0].getMovesName(), 
+                						pokemonChoice.getMove()[1].getMovesName());
+                
+                else {
+                	System.out.printf("\nChoose Moves:\n1- %s\n2- %s\n3- Throw Pokeball\n", 
+                						pokemonChoice.getMove()[0].getMovesName(), 
+                						pokemonChoice.getMove()[1].getMovesName());
+				}
+                
                 int movesChoice = inputScanner.nextInt();
                 
                 //if input incorrect choice will continue the loop
-                if (movesChoice < 0 || movesChoice > 2) {
+                if ((movesChoice < 0 || movesChoice > 2) && !isWildPokemon) {
+                	System.out.println("Invalid moves");
+                	continue;
+                } else if ((movesChoice < 0 || movesChoice > 3) && isWildPokemon) {
                 	System.out.println("Invalid moves");
                 	continue;
                 }
 
                 System.out.println("\n");
-                usesMoves(pokemonChoice.getMove()[movesChoice - 1], pokemonEnemy, pokemonChoice);
-
-                System.out.printf("[%s HP : %.1f/%.1f ]\n", pokemonEnemy.getName(), pokemonEnemy.getCurrentHealth(), pokemonEnemy.getFullHealth());
+                switch(movesChoice) {
+                case 1:
+                
+                case 2: usesMoves(pokemonChoice.getMove()[movesChoice - 1], pokemonEnemy, pokemonChoice); break;
+                
+                case 3: Captured = capturePokemon(pokemonEnemy, player);
+                	
+                }
+                
+                System.out.println();
+                
                 
                 //check if the enemy dies
                 if (pokemonEnemy.isDown()) {
                     System.out.println(pokemonEnemy.getName() + " has been defeated!");
                     enemyPokemonAlive = false;
+                    win = true;
                     break;
+                } else if (Captured) {
+                	System.out.println(pokemonEnemy.getName() + " has been captured!");
+                    enemyPokemonAlive = false;
+                    win = true;
+                    break;
+                } else {
+                	System.out.printf("[%s HP : %.1f/%.1f ]\n", pokemonEnemy.getName(), pokemonEnemy.getCurrentHealth(), pokemonEnemy.getFullHealth());
                 }
                 
                 System.out.println("\n");
@@ -113,7 +169,7 @@ public class PokemonBattle {
 
                 //check if own pokemon died, 
                 if (pokemonChoice.isDown()) {
-                    System.out.println("Your backend.Pokemon " + pokemonChoice.getName() + " has been defeated!");
+                    System.out.println("Your Pokemon " + pokemonChoice.getName() + " has been defeated!");
                     pokemonChoiceAlive = false;
                     
                     
@@ -124,7 +180,15 @@ public class PokemonBattle {
 
                 round++;
             }
+            
+            
+            
         }
+        
+        if (win) {
+        	pokemonChoice.increaseEXP(5 * pokemonEnemy.getLevel()); //based on leveling scheme
+        }
+        
     }
 
     private static int usesMoves(Moves move, Pokemon enemy, Pokemon damagedealer) {
@@ -172,4 +236,33 @@ public class PokemonBattle {
 
         return damageDeal;
     }
+
+    
+    
+    public static boolean capturePokemon(Pokemon wildPokemon, Player player) {
+        double captureRate = 0.5;
+        
+        double healthFactor = wildPokemon.getCurrentHealth() / wildPokemon.getFullHealth(); // health percentage
+        captureRate += (1 - healthFactor) * 0.2; // increase as health decerease;
+        
+        captureRate = Math.min(captureRate, 1.0); // incase captureRate exceed 1;
+        
+        Random random = new Random();
+        
+        boolean captureSuccessful = random.nextDouble() < captureRate;
+        
+        if (captureSuccessful) {
+            System.out.println("You captured " + wildPokemon.getName() + "!!\n");
+            player.addPokemon(wildPokemon);
+            
+            return true;
+        } else {
+            System.out.println(wildPokemon.getName() + " broke free and flee !!!\n");
+            return false;
+        }
+    }
+
 }
+
+
+

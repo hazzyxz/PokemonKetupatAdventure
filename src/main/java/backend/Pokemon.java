@@ -26,10 +26,13 @@ public class Pokemon{
 	private ArrayList<String> Strength = new ArrayList<String>();
 	private ArrayList<String> Weakness = new ArrayList<String>();
 	private double FullHealth;
-	private double Exp;
+	private int Exp;
 	private Moves[] Move = new Moves[2];
 	private double CurrentHealth;
 	private boolean downed = false;
+	private int maxExp;
+        private String pokemonEvolve;
+        private int lvlEvolve;
 	
 	//----------------Attribute----------------------------//
 	
@@ -52,6 +55,7 @@ public class Pokemon{
 		this.CurrentHealth = FullHealth;
 		
 		this.level = level;
+				
 		
 		return this;
 		
@@ -65,15 +69,25 @@ public class Pokemon{
 	public double getCurrentHealth() {
 		return CurrentHealth;
 	}
-	public double getExp() {
+	public int getExp() {
 		return Exp;
 	}
-	public void setExp(double exp) {
+	public void setExp(int exp) {
 		Exp = exp;
 	}
 	public Moves[] getMove() {
 		return Move;
 	}
+        
+        public ArrayList<String> getMoveNames() {
+        ArrayList<String> moveNames = new ArrayList<String>();
+        for (Moves move : Move) {
+            if (move != null) {
+                moveNames.add(move.getMovesName());
+            }
+        }
+        return moveNames;
+    }
 	
 	public ArrayList<String> getType() {
 		return type;
@@ -90,6 +104,33 @@ public class Pokemon{
 	
 	public void setFullHealth(double fullHealth) {
 		FullHealth = fullHealth;
+	}
+	public void setMaxExp(int maxExp) {
+		this.maxExp = maxExp;
+	}
+	public int getMaxExp() {
+		
+		if(this.level < 10) {
+			
+			this.maxExp = 100;
+			
+		} else if (this.level < 20) {
+			
+			this.maxExp = 200;
+		
+		} else if (this.level < 30) {
+			
+			this.maxExp = 300;
+			
+		} else {
+			
+			this.maxExp = 400;
+			
+		}
+		
+		
+		
+		return maxExp;
 	}
 	
 	//-------------------setter and getter-----------------------//
@@ -116,6 +157,34 @@ public class Pokemon{
 		this.Move[1] = move2;
 		
 		this.level = level;
+		this.maxExp = 100;
+	}
+        
+        
+        
+        public Pokemon(String name, double health, String[] type, int level, String[] strength, String[] weakness, Moves move1, Moves move2, String pokemonEvolve, int lvlEvolve) {
+		
+		this.Name = name;
+		this.FullHealth = health;
+		this.CurrentHealth = health;
+	
+		for(int i = 0; i< type.length; i++)
+			this.type.add(type[i]);
+		
+		for(int i = 0; i< weakness.length; i++)
+			this.Weakness.add(weakness[i]);
+		
+
+		for(int i = 0; i< strength.length; i++)
+			this.Strength.add(strength[i]);
+		
+		this.Move[0] = move1;
+		this.Move[1] = move2;
+		
+		this.level = level;
+                
+                this.pokemonEvolve = pokemonEvolve;
+                this.lvlEvolve = lvlEvolve;
 		
 	}
 	
@@ -128,31 +197,67 @@ public class Pokemon{
 	}
 	
 	public void heal(int hp) throws Exception { //heal partially, dont know what could be use for, but its here
-		if ((CurrentHealth + hp) > FullHealth)
-			throw new Exception("Exceed full health");
+		if ((CurrentHealth + hp) > FullHealth) {
+			System.out.println("Heal failed, heal exceed full health");
+			return;
+		}
+			
 		CurrentHealth += hp;
 	}
 	
 	public void revive() { //change the parameter, use easier naming, pretty much the same as setter for downed
 		this.downed = false;
-		
+		this.CurrentHealth = 10;
 	}
 	
 
 	// Clone method
     public Pokemon clone() {
-        return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0], this.Move[1]);
+        return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0], this.Move[1], this.pokemonEvolve, this.lvlEvolve);
     }
 	
 	
-	public void evolve () {
+    public void evolve () {
+            
+                if (this.level < this.lvlEvolve) {
+                    System.out.println("Cant evolve level requirement doesnt met");
+                    return;
+            }
+                
+                Pokemon pokemon = PokemonFactory.createPokemon(this.pokemonEvolve);
+                pokemon.setLevel(this.lvlEvolve);
+                
+                
+		this.Name = pokemon.Name;
+                this.FullHealth = pokemon.FullHealth;
+                this.type = pokemon.type;
+                this.level = pokemon.level;
+                this.Strength = pokemon.Strength ;
+                this.Weakness = pokemon.Weakness;
+                this.Move[0] = pokemon.Move[0];
+                this.Move[1] = pokemon.Move[1];
 		
-		//TO-DO is to put evolve properties, 
-		//increase stat
-		
-	}
+    }
 	
 	public void increaseEXP(int xp) {
+		
+		this.Exp += xp;
+		
+		System.out.printf("\n%s earned %d exp\n", this.getName(), xp);
+		
+		
+		
+		System.out.printf("%s [XP: %d/%d]\n\n", this.getName(), this.Exp, this.getMaxExp());
+		
+		if (this.Exp >= this.getMaxExp()) {
+			this.Exp -= this.maxExp;
+			this.increaseLevel();
+			
+		}
+		
+		
+		
+		
 		
 	}
 	
@@ -162,6 +267,7 @@ public class Pokemon{
 		this.Move[0].setDamage(Move[0].getDamage() + 2);
 		this.Move[1].setDamage(Move[1].getDamage() + 2);
 		
+		System.out.println(this.getName() + " level increased: lvl " + (this.level - 1) + " --> lvl " + this.level);
 		return this;
 	}
 	
@@ -170,6 +276,7 @@ public class Pokemon{
 		
 		this.Move[0].setDamage(Move[0].getDamage() + (2*LeveledUp));
 		this.Move[1].setDamage(Move[1].getDamage() + (2*LeveledUp));
+		System.out.println(this.getName() + " level increased: lvl " + (this.level - 1) + " --> lvl " + this.level);
 		
 		return this;
 	}
@@ -181,7 +288,7 @@ public class Pokemon{
 	}
 	
 	public boolean isDown() {	
-		return (this.CurrentHealth <= 0);
+		return (this.CurrentHealth <= 0) || (this.downed);
 	}
 	
 	

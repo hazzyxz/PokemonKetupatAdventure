@@ -3,6 +3,8 @@ package main;
 import screens.SaveSelectScreen;
 
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 
 public class UI {
@@ -13,7 +15,6 @@ public class UI {
     public UI(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
-        pokemon_classic = new Font("Pokemon Classic", Font.PLAIN, 20);
     }
 
     public void draw(Graphics g2) {

@@ -23,7 +23,7 @@ public class StartScreen extends Screen {
 
         long elapsedTime = System.currentTimeMillis() - startTime;
 
-        if (elapsedTime >= 5000) {
+        if (elapsedTime >= 7500) {
             setBackground("/Backgrounds/StartScreen.png");
         }
 
@@ -42,6 +42,12 @@ public class StartScreen extends Screen {
 
         long elapsedTime = System.currentTimeMillis() - startTime;
 
-        if (elapsedTime >= 7500) g2.drawImage(gp.getImage("/Backgrounds/StartText.png"), 0, 0, null);
+        if (elapsedTime >= 1000 && elapsedTime <= 7500) {
+            pokemon_classic20.deriveFont(Font.BOLD, 50);
+            g2.setFont(pokemon_classic20);
+            g2.drawString("Ketupat Team presents",160,150);
+        }
+
+        if (elapsedTime >= 9000) g2.drawImage(gp.getImage("/Backgrounds/StartText.png"), 0, 0, null);
     }
 }

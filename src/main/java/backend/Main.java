@@ -9,26 +9,54 @@ public class Main {
 		//----------test je ni-------------------------//
 		
 		
-//		backend.GymLeader bardock = new backend.GymLeader("Bardock", new backend.Pokemon[] {
-//			backend.PokemonFactory.createPokemon("Charizard").clone().setLevel(5),
-//			backend.PokemonFactory.createPokemon("Jigglypuff").clone().setLevel(60)
+//		GymLeader bardock = new GymLeader("Bardock", new Pokemon[] {
+//			PokemonFactory.createPokemon("Charizard").setLevel(5),
+//			PokemonFactory.createPokemon("Jigglypuff").setLevel(60)
 //
 //		});
 //
 //
-//		backend.Player player = new backend.Player("Syahir", backend.PokemonFactory.createPokemon("Charizard").clone());
+//		Player player = new Player("Syahir", PokemonFactory.createPokemon("Charizard").setLevel(15));
 //
-//		player.addPokemon(backend.PokemonFactory.createPokemon("Bulbasaur").setLevel(100));
+//		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(100));
 //
-//		backend.PokemonBattle.EnterBattle(bardock, player);
+//		PokemonBattle.EnterBattle(PokemonFactory.createPokemon("Jigglypuff").setLevel(50), player, true);
 		
 		//----------test je ni-------------------------//
 
 		//----------test gak-------------------------//
 
-		RivalsRace.play();
+//		player.RevivePokemon();
+//		player.ShowMyPokemon();
 
 		//----------test gak-------------------------//
+                
+                //----------test je ni boi-------------------------//
+                
+//                Pokemon pokemon = PokemonFactory.createPokemon("Bulbasaur");
+//                System.out.println(pokemon.getName());
+//                System.out.println(pokemon.getFullHealth());
+//                System.out.println(pokemon.getType());
+//                System.out.println(pokemon.getLevel());
+//                System.out.println(pokemon.getStrength());
+//                System.out.println(pokemon.getWeakness());
+//                System.out.println(pokemon.getMoveNames());
+//
+//                pokemon.setLevel(20);
+//                pokemon.evolve();
+//
+//                System.out.println(pokemon.getName());
+//                System.out.println(pokemon.getFullHealth());
+//                System.out.println(pokemon.getType());
+//                System.out.println(pokemon.getLevel());
+//                System.out.println(pokemon.getStrength());
+//                System.out.println(pokemon.getWeakness());
+//                System.out.println(pokemon.getMoveNames());
+//
+
+        SafariZone.play();
+                
+                //----------test je ni boi-------------------------//
 
 	}
 

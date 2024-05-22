@@ -3,6 +3,7 @@ package backend;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Stack;
 
 
 public class Player {
@@ -25,7 +26,7 @@ public class Player {
 	private String Name;
 	private ArrayList<Pokemon> pokemonList;
 	private String Location;
-	private int Badges = 0;
+	private Stack<String> Badges;
 	private int Items; // pls change appropriately
 	private double Money;
 	private LinkedList<Pokemon> DownedPokemonList;
@@ -50,7 +51,7 @@ public class Player {
 		this.pokemonList.add(StartingPokemon);
 		this.Money = 0;
 		DownedPokemonList = new LinkedList<Pokemon>();
-		this.Badges = 0;
+		this.Badges = new Stack<String>();
 	}
 	
 	//----------------constructor--------------------------//
@@ -60,7 +61,7 @@ public class Player {
 	public String getName() {
 		return Name;
 	}
-	public int getBadges() {
+	public Stack<String> getBadges() {
 		return Badges;
 	}
 	public int getItems() {
@@ -72,11 +73,12 @@ public class Player {
 	public double getMoney() {
 		return Money;
 	}
-	public void addBadges() {
-		this.Badges += 1;
+	public void addBadges(String GymLeaderName) {
 		
-		if(this.Badges == 6) {
-			System.out.println("You win!! all the gym leader has been defeated!!");
+		Badges.push(GymLeaderName);
+		
+		if(Badges.size() > 6) {
+			System.out.println("You Win the game");
 		}
 		
 	}
@@ -88,45 +90,18 @@ public class Player {
 	public void healPokemonFull() {
 		for (Pokemon x: pokemonList) {
 			x.healFull();
+			System.out.printf("%s [HP %.0f/%.0f]\n", x.getName(),x.getCurrentHealth(),x.getFullHealth());
 		}
+		System.out.println();
 		
 	}
 	
-	public void revivePokemon() {
-		
-		Scanner scanner = new Scanner(System.in);
-		
-		if (pokemonIsFull()) { //dont allowed to revive pokemon if pokemon already 6
-			System.out.println("You already carrying max amount of pokemon");
-			scanner.close();
-			return;
-		}
-		
-		
-		System.out.println("Choose which pokemon to revive: ");
-		int i = 1;
-		for (Pokemon pokemon: DownedPokemonList) {
-			System.out.println(i + "- " + pokemon);
-			i++;
-		}
-		
-		int Choose = scanner.nextInt();
-		
-		if(addPokemon(DownedPokemonList.get(i - 1))) {
-			DownedPokemonList.get(i - 1).revive();
-		} else {
-			System.out.println("Failed to revive");
-		}
-		
-				
-		scanner.close();
-	}
 	
 	public boolean addPokemon(Pokemon pokemon) { //return true if successful, false if vice versa
 		if (pokemonList.size() > 6) {
-			System.out.println("Exceed backend.Pokemon Limit");
-			return true;
-		} else { pokemonList.add(pokemon); return false; }
+			System.out.println("Exceed Pokemon Limit");
+			return false;
+		} else { pokemonList.add(pokemon); return true; }
 	}
 	
 	public ArrayList<Pokemon> getPokemonList() {
@@ -162,33 +137,73 @@ public class Player {
 			//what the hell, maybe change later,
 			switch(pokemon.getType().size()) {
 			case 1:
-				System.out.print(pokemon.getType().get(0));
+				System.out.println(pokemon.getType().get(0));
 				break;
 			case 2:
-				System.out.print(pokemon.getType().get(0) + "/" + pokemon.getType().get(1));
+				System.out.println(pokemon.getType().get(0) + "/" + pokemon.getType().get(1));
 			}
 			System.out.println("HP: " + pokemon.getCurrentHealth() + " / " + pokemon.getFullHealth());
-			System.out.println("EXP: " + pokemon.getExp());
+			System.out.println("EXP: " + pokemon.getExp() + "/" + pokemon.getMaxExp());
 			
-			System.out.println("backend.Moves: " );
+			System.out.println("Moves: " );
 			System.out.println("- " + pokemon.getMove()[0].getMovesName() + " [" + pokemon.getMove()[0].getDamage() + "]");
 			System.out.println("- " + pokemon.getMove()[1].getMovesName() + " [" + pokemon.getMove()[1].getDamage() + "]");
 			
 			System.out.println("Strong against: ");
-			String[] strong = (String[]) pokemon.getStrength().toArray();
+			String[] strong = pokemon.getStrength().toArray(new String[pokemon.getStrength().size()]);
 			for (String StrongAgainst: strong) {
 				System.out.println("- " + StrongAgainst);
 			}
 			
 			System.out.println("Weak Against: ");
-			String[] weak = (String[]) pokemon.getWeakness().toArray();
+			String[] weak = pokemon.getWeakness().toArray(new String[pokemon.getWeakness().size()]);
 			for (String weakAgainst: weak) {
 				System.out.println("- " + weakAgainst);
 			}
 			
+			System.out.println("\n");
+			
+		}
+		
+		
+		
+	}
+	
+	public void RevivePokemon() {
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		if (pokemonIsFull()) {
+			System.out.println("Pokemon already reached its limit!!\n");
+			return;
+		}
+		
+		while (true) {
+			System.out.println("Choose which pokemon to revive:");
+			int i = 1;
+			for(Pokemon X : DownedPokemonList) {
+				System.out.println( i++ + "- " + X.getName() );
+			}
+			
+			int choice = scanner.nextInt();
+			
+			if (choice <= 0 || choice > DownedPokemonList.size()) {
+				System.out.println("Invalid Choice\n");
+				continue;
+			}
+			
+			Pokemon chosenPokemon = DownedPokemonList.remove(choice - 1);
+			
+			chosenPokemon.revive();
+			pokemonList.add(chosenPokemon);
+			System.out.println("Pokemon successfuly revived!\n");
+			break;
 			
 			
 		}
+		
+		
+		
 		
 		
 		
