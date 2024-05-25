@@ -26,7 +26,7 @@ public class SaveSelectScreen extends Screen {
         g2.setFont(pokemon_classic20);
         g2.setColor(Color.BLACK);
         g2.drawString("/newgame", 30, 502);
-        g2.drawString("/loadgame (1 / 2 / 3)", 30, 532);
+        g2.drawString("/loadgame <1 / 2 / 3>", 30, 532);
         g2.drawString("/exit", 30, 562);
     }
 

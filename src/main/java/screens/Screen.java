@@ -80,7 +80,27 @@ public abstract class Screen {
         y +=gp.tileSize*3;
         pokemon_classic20 = pokemon_classic20.deriveFont(Font.PLAIN, 20);
         g2.setFont(pokemon_classic20);
-        g2.drawString("/next", width-66, height-20);
+        g2.drawString("/next", width-74, height-20);
+        for (String dialogue: currentDialogue.split("\n")) {
+            g2.drawString(dialogue, x, y);
+            y += 30;
+        }
+    }
+
+    public void drawDialogueBox(Graphics2D g2) {
+        // WINDOW
+        int x = gp.tileSize*3;
+        int y = gp.tileSize;
+
+        int width = gp.screenWidth - (gp.tileSize*6);
+        int height = gp.tileSize*12;
+
+        drawSubWindow(x, y, width, height, g2);
+
+        x +=gp.tileSize*2;
+        y +=gp.tileSize*3;
+        pokemon_classic20 = pokemon_classic20.deriveFont(Font.PLAIN, 20);
+        g2.setFont(pokemon_classic20);
         for (String dialogue: currentDialogue.split("\n")) {
             g2.drawString(dialogue, x, y);
             y += 30;

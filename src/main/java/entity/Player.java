@@ -42,11 +42,18 @@ public class Player implements Entity {
 
     }
 
+    public String getName() {
+        return Name;
+    }
     public void setName(String name) {
         Name = name;
     }
 
     public void setStarterPokemon(Pokemon starterPokemon) {
         this.pokemonList.add(starterPokemon);
+    }
+
+    public ArrayList<Pokemon> getPokemonList() {
+        return pokemonList;
     }
 }
