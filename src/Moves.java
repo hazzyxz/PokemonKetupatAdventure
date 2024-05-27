@@ -33,6 +33,9 @@ public class Moves {
 		MovesName = movesName;
 	}
 	
+	public Moves clone() {
+		return new Moves(this.MovesName, this.Damage);
+	}
 	
 	
 	

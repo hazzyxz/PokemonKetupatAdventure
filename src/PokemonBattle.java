@@ -2,7 +2,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 /*
- 
+
 Pokemon Battle:
 
 fight gym leader or fight wild pokemon
