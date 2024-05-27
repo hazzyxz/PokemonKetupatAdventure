@@ -46,88 +46,88 @@ public class PokemonFactory {
 
 
         // list of pokemon
-        Pokemon bulbasaur = new Pokemon("Bulbasaur", 45, new String[] {"grass", "poison"}, 1, new String[] {"fighting", "water", "grass", "fairy", "electric"}, new String[] {"flying", "fire", "psychic", "ice"}, tackleMove, vineWhipMove);
-        Pokemon ivysaur = new Pokemon("Ivysaur", 60, new String[] {"grass", "poison"}, 1, new String[] {"fighting", "water", "grass", "fairy", "electric"}, new String[] {"flying", "fire", "psychic", "ice"}, tackleMove, razorLeafMove);
+        Pokemon bulbasaur = new Pokemon("Bulbasaur", 45, new String[] {"grass", "poison"}, 1, new String[] {"fighting", "water", "grass", "fairy", "electric"}, new String[] {"flying", "fire", "psychic", "ice"}, tackleMove, vineWhipMove, "Ivysaur", 20);
+        Pokemon ivysaur = new Pokemon("Ivysaur", 60, new String[] {"grass", "poison"}, 1, new String[] {"fighting", "water", "grass", "fairy", "electric"}, new String[] {"flying", "fire", "psychic", "ice"}, tackleMove, razorLeafMove, "Venusaur", 40);
         Pokemon venusaur = new Pokemon("Venusaur", 80, new String[] {"grass", "poison"}, 1, new String[] {"fighting", "water", "grass", "fairy", "electric"}, new String[] {"flying", "fire", "psychic", "ice"}, tackleMove, solarBeamMove);
 
-        Pokemon charmander = new Pokemon("Charmander", 39, new String[] {"fire"}, 1, new String[] {"bug", "steel", "fire", "grass", "ice", "fairy"}, new String[] {"ground", "rock", "water"}, scratchMove, emberMove);
-        Pokemon charmeleon = new Pokemon("Charmeleon", 58, new String[] {"fire"}, 1, new String[] {"bug", "steel", "fire", "grass", "ice", "fairy"}, new String[] {"ground", "rock", "water"}, scratchMove, flamethrowerMove);
+        Pokemon charmander = new Pokemon("Charmander", 39, new String[] {"fire"}, 1, new String[] {"bug", "steel", "fire", "grass", "ice", "fairy"}, new String[] {"ground", "rock", "water"}, scratchMove, emberMove, "Charmeleon", 20);
+        Pokemon charmeleon = new Pokemon("Charmeleon", 58, new String[] {"fire"}, 1, new String[] {"bug", "steel", "fire", "grass", "ice", "fairy"}, new String[] {"ground", "rock", "water"}, scratchMove, flamethrowerMove, "Charizard", 40);
         Pokemon charizard = new Pokemon("Charizard", 78, new String[] {"fire", "flying"}, 1, new String[] {"fighting", "bug", "steel", "fire", "grass", "fairy"}, new String[] {"rock", "water", "electric"}, scratchMove, fireSpinMove);
 
-        Pokemon squirtle = new Pokemon("Squirtle", 44, new String[] {"water"}, 1, new String[] {"steel", "fire", "water", "ice"}, new String[] {"grass", "electric"}, tackleMove, bubbleMove);
-        Pokemon wartorle = new Pokemon("Wartortle", 59, new String[] {"water"}, 1, new String[] {"steel", "fire", "water", "ice"}, new String[] {"grass", "electric"}, tackleMove, waterGunMove);
+        Pokemon squirtle = new Pokemon("Squirtle", 44, new String[] {"water"}, 1, new String[] {"steel", "fire", "water", "ice"}, new String[] {"grass", "electric"}, tackleMove, bubbleMove, "Wartortle", 20);
+        Pokemon wartorle = new Pokemon("Wartortle", 59, new String[] {"water"}, 1, new String[] {"steel", "fire", "water", "ice"}, new String[] {"grass", "electric"}, tackleMove, waterGunMove, "Blastoise", 40);
         Pokemon blastoise = new Pokemon("Blastoise", 79, new String[] {"water"}, 1, new String[] {"steel", "fire", "water", "ice"}, new String[] {"grass", "electric"}, tackleMove, hydroPumpMove);
 
-        Pokemon caterpie = new Pokemon("Caterpie", 45, new String[] {"bug"}, 1, new String[] {"fighting", "ground", "grass"}, new String[] {"flying", "rock", "fire"}, tackleMove, bugBiteMove);
-        Pokemon metapod = new Pokemon("Metapod", 50, new String[] {"bug"}, 1, new String[] {"fighting", "ground", "grass"}, new String[] {"flying", "rock", "fire"}, tackleMove, slashMove);
+        Pokemon caterpie = new Pokemon("Caterpie", 45, new String[] {"bug"}, 1, new String[] {"fighting", "ground", "grass"}, new String[] {"flying", "rock", "fire"}, tackleMove, bugBiteMove, "Metapod", 20);
+        Pokemon metapod = new Pokemon("Metapod", 50, new String[] {"bug"}, 1, new String[] {"fighting", "ground", "grass"}, new String[] {"flying", "rock", "fire"}, tackleMove, slashMove, "Butterfree", 40);
         Pokemon butterfree = new Pokemon("Butterfree", 60, new String[] {"bug", "flying"}, 1, new String[] {"fighting", "bug", "grass"}, new String[] {"flying", "rock", "fire", "electric", "ice"}, tackleMove, bugBuzzMove); 
 
-        Pokemon weedle = new Pokemon("Weedle", 40, new String[] {"bug", "poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"flying", "rock", "fire", "psychic"}, tackleMove, poisonStingMove);
-        Pokemon kakuna = new Pokemon("Kakuna", 45, new String[] {"bug", "poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"flying", "rock", "fire", "psychic"}, tackleMove, slashMove);
+        Pokemon weedle = new Pokemon("Weedle", 40, new String[] {"bug", "poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"flying", "rock", "fire", "psychic"}, tackleMove, poisonStingMove, "Kakuna", 20);
+        Pokemon kakuna = new Pokemon("Kakuna", 45, new String[] {"bug", "poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"flying", "rock", "fire", "psychic"}, tackleMove, slashMove, "Beedrill", 40);
         Pokemon beedrill = new Pokemon("Beedrill", 65, new String[] {"bug", "poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"flying", "rock", "fire", "psychic"}, tackleMove, bugBuzzMove);
 
-        Pokemon pidgey = new Pokemon("Pidgey", 40, new String[] {"normal", "flying"}, 1, new String[] {"bug", "grass"}, new String[] {"rock", "electric", "ice"}, tackleMove, slashMove);
-        Pokemon pidgeotto = new Pokemon("Pidgeotto", 63, new String[] {"normal", "flying"}, 1, new String[] {"bug", "grass"}, new String[] {"rock", "electric", "ice"}, tackleMove, wingAttackMove);
+        Pokemon pidgey = new Pokemon("Pidgey", 40, new String[] {"normal", "flying"}, 1, new String[] {"bug", "grass"}, new String[] {"rock", "electric", "ice"}, tackleMove, slashMove, "Pidgeotto", 20);
+        Pokemon pidgeotto = new Pokemon("Pidgeotto", 63, new String[] {"normal", "flying"}, 1, new String[] {"bug", "grass"}, new String[] {"rock", "electric", "ice"}, tackleMove, wingAttackMove, "Pidgeot", 40);
         Pokemon pidgeot = new Pokemon("Pidgeot", 83, new String[] {"normal", "flying"}, 1, new String[] {"bug", "grass"}, new String[] {"rock", "electric", "ice"}, tackleMove, hurricaneMove);
 
-        Pokemon rattata = new Pokemon("Rattata", 30, new String[] {"normal"}, 1, new String[] {}, new String[] {"fighting"}, biteMove, slashMove);
+        Pokemon rattata = new Pokemon("Rattata", 30, new String[] {"normal"}, 1, new String[] {}, new String[] {"fighting"}, biteMove, slashMove, "Raticate", 30);
         Pokemon raticate = new Pokemon("Raticate", 55, new String[] {"normal"}, 1, new String[] {}, new String[] {"fighting"}, biteMove, hyperFangMove);
 
-        Pokemon spearow = new Pokemon("Spearow", 40, new String[] {"normal", "flying"}, 1, new String[] {"bug", "grass"}, new String[] {"rock", "electric", "ice"}, peckMove, wingAttackMove);
+        Pokemon spearow = new Pokemon("Spearow", 40, new String[] {"normal", "flying"}, 1, new String[] {"bug", "grass"}, new String[] {"rock", "electric", "ice"}, peckMove, wingAttackMove, "Fearow", 30);
         Pokemon fearow = new Pokemon("Fearow", 65, new String[] {"normal", "flying"}, 1, new String[] {"bug", "grass"}, new String[] {"rock", "electric", "ice"}, peckMove, drillPeckMove);
 
-        Pokemon ekans = new Pokemon("Ekans", 35, new String[] {"poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground", "psychic"}, biteMove, poisonStingMove);
+        Pokemon ekans = new Pokemon("Ekans", 35, new String[] {"poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground", "psychic"}, biteMove, poisonStingMove, "Arbok", 30);
         Pokemon arbok = new Pokemon("Arbok", 60, new String[] {"poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground", "psychic"}, biteMove, poisonStingMove);
 
-        Pokemon pikachu = new Pokemon("Pikachu", 35, new String[] {"electric"}, 1, new String[] {"flying", "steel", "electric"}, new String[] {"ground"}, quickAttackMove, thunderShockMove);
+        Pokemon pikachu = new Pokemon("Pikachu", 35, new String[] {"electric"}, 1, new String[] {"flying", "steel", "electric"}, new String[] {"ground"}, quickAttackMove, thunderShockMove, "Raichu", 30);
         Pokemon raichu = new Pokemon("Raichu", 60, new String[] {"electric"}, 1, new String[] {"flying", "steel", "electric"}, new String[] {"ground"}, quickAttackMove, thunderBoltMove);
 
-        Pokemon sandshrew = new Pokemon("Sandshrew", 50, new String[] {"ground"}, 1, new String[] {"poison", "rock"}, new String[] {"water", "grass", "ice"}, scratchMove, slashMove);
+        Pokemon sandshrew = new Pokemon("Sandshrew", 50, new String[] {"ground"}, 1, new String[] {"poison", "rock"}, new String[] {"water", "grass", "ice"}, scratchMove, slashMove, "Sandslash", 30);
         Pokemon sandslash = new Pokemon("Sandslash", 75, new String[] {"ground"}, 1, new String[] {"poison", "rock"}, new String[] {"water", "grass", "ice"}, scratchMove, earthPowerMove);
 
-        Pokemon nidoranF = new Pokemon("NidoranF", 55, new String[] {"poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground", "psychic"}, cutMove, poisonStingMove);
-        Pokemon nidorina = new Pokemon("Nidorina", 70, new String[] {"poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground", "psychic"}, cutMove, poisonJabMove);
+        Pokemon nidoranF = new Pokemon("NidoranF", 55, new String[] {"poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground", "psychic"}, cutMove, poisonStingMove, "Nidorina", 20);
+        Pokemon nidorina = new Pokemon("Nidorina", 70, new String[] {"poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground", "psychic"}, cutMove, poisonJabMove, "Nidoqueen", 40);
         Pokemon nidoqueen = new Pokemon("Nidoqueen", 90, new String[] {"poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground", "psychic"}, cutMove, acidMove);
 
-        Pokemon nidoranM = new Pokemon("NidoranM", 46, new String[] {"poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground", "psychic"}, headbuttMove, poisonStingMove);
-        Pokemon nidorino = new Pokemon("Nidorino", 61, new String[] {"poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground", "psychic"}, headbuttMove, poisonJabMove);
+        Pokemon nidoranM = new Pokemon("NidoranM", 46, new String[] {"poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground", "psychic"}, headbuttMove, poisonStingMove, "Nidorino", 20);
+        Pokemon nidorino = new Pokemon("Nidorino", 61, new String[] {"poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground", "psychic"}, headbuttMove, poisonJabMove, "Nidoking", 40);
         Pokemon nidoking = new Pokemon("Nidoking", 81, new String[] {"poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground", "psychic"}, headbuttMove, earthquakeMove);
 
-        Pokemon clefairy = new Pokemon("Clefairy", 70, new String[] {"fairy"}, 1, new String[] {"fighting", "bug", "dark"}, new String[] {"poison", "steel"}, doubleSlapMove, bodySlamMove);
+        Pokemon clefairy = new Pokemon("Clefairy", 70, new String[] {"fairy"}, 1, new String[] {"fighting", "bug", "dark"}, new String[] {"poison", "steel"}, doubleSlapMove, bodySlamMove, "Clefable", 30);
         Pokemon clefable = new Pokemon("Clefable", 95, new String[] {"fairy"}, 1, new String[] {"fighting", "bug", "dark"}, new String[] {"poison", "steel"}, doubleSlapMove, earthquakeMove);
 
-        Pokemon vulpix = new Pokemon("Vulpix", 38, new String[] {"fire"}, 1, new String[] {"bug", "steel", "fire", "grass", "ice", "fairy"}, new String[] {"ground", "rock", "water"}, biteMove, emberMove);
+        Pokemon vulpix = new Pokemon("Vulpix", 38, new String[] {"fire"}, 1, new String[] {"bug", "steel", "fire", "grass", "ice", "fairy"}, new String[] {"ground", "rock", "water"}, biteMove, emberMove, "Ninetales", 30);
         Pokemon ninetales = new Pokemon("Ninetales", 73, new String[] {"fire"}, 1, new String[] {"bug", "steel", "fire", "grass", "ice", "fairy"}, new String[] {"ground", "rock", "water"}, biteMove, fireSpinMove);
 
-        Pokemon jigglypuff = new Pokemon("Jigglypuff", 115, new String[] {"normal", "fairy"}, 1, new String[] {"bug", "dark"}, new String[] {"poison", "steel"}, scratchMove, slashMove);
+        Pokemon jigglypuff = new Pokemon("Jigglypuff", 115, new String[] {"normal", "fairy"}, 1, new String[] {"bug", "dark"}, new String[] {"poison", "steel"}, scratchMove, slashMove, "Wigglytuff", 30);
         Pokemon wigglytuff = new Pokemon("Wigglytuff", 140, new String[] {"normal", "fairy"}, 1, new String[] {"bug", "dark"}, new String[] {"poison", "steel"}, poundMove, earthPowerMove);
 
-        Pokemon zubat = new Pokemon("Zubat", 40, new String[] {"poison", "flying"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground"}, biteMove, acidMove);
+        Pokemon zubat = new Pokemon("Zubat", 40, new String[] {"poison", "flying"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground"}, biteMove, acidMove, "Golbat", 30);
         Pokemon golbat = new Pokemon("Golbat", 75, new String[] {"poison", "flying"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"ground"}, biteMove, poisonJabMove);
 
-        Pokemon oddish = new Pokemon("Oddish", 45, new String[] {"grass", "poison"}, 1, new String[] {"fighting", "water", "grass", "electric", "fairy"}, new String[] {"flying", "fire", "psychic", "ice"}, scratchMove, vineWhipMove);
-        Pokemon gloom = new Pokemon("Gloom", 60, new String[] {"grass", "poison"}, 1, new String[] {"fighting", "water", "grass", "electric", "fairy"}, new String[] {"flying", "fire", "psychic", "ice"}, scratchMove, petalDanceMove);
+        Pokemon oddish = new Pokemon("Oddish", 45, new String[] {"grass", "poison"}, 1, new String[] {"fighting", "water", "grass", "electric", "fairy"}, new String[] {"flying", "fire", "psychic", "ice"}, scratchMove, vineWhipMove, "Gloom", 20);
+        Pokemon gloom = new Pokemon("Gloom", 60, new String[] {"grass", "poison"}, 1, new String[] {"fighting", "water", "grass", "electric", "fairy"}, new String[] {"flying", "fire", "psychic", "ice"}, scratchMove, petalDanceMove, "Vileplume", 40);
         Pokemon vileplume = new Pokemon("Vileplume", 75, new String[] {"grass", "poison"}, 1, new String[] {"fighting", "water", "grass", "electric", "fairy"}, new String[] {"flying", "fire", "psychic", "ice"}, scratchMove, solarBeamMove);
 
-        Pokemon paras = new Pokemon("Paras", 35, new String[] {"bug", "grass"}, 1, new String[] {"fighting", "ground", "water", "grass", "electric"}, new String[] {"flying", "poison", "rock", "bug", "fire", "ice"}, scratchMove, slashMove);
+        Pokemon paras = new Pokemon("Paras", 35, new String[] {"bug", "grass"}, 1, new String[] {"fighting", "ground", "water", "grass", "electric"}, new String[] {"flying", "poison", "rock", "bug", "fire", "ice"}, scratchMove, slashMove, "Parasect", 30);
         Pokemon parasect = new Pokemon("Parasect", 60, new String[] {"bug", "grass"}, 1, new String[] {"fighting", "ground", "water", "grass", "electric"}, new String[] {"flying", "poison", "rock", "bug", "fire", "ice"}, scratchMove, slashMove);
 
-        Pokemon venonat = new Pokemon("Venonat", 60, new String[] {"bug", "poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"flying", "rock", "fire", "psychic"}, cutMove, poisonStingMove);
+        Pokemon venonat = new Pokemon("Venonat", 60, new String[] {"bug", "poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"flying", "rock", "fire", "psychic"}, cutMove, poisonStingMove, "Venomoth", 30);
         Pokemon venomoth = new Pokemon("Venomoth", 70, new String[] {"bug", "poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"flying", "rock", "fire", "psychic"}, cutMove, poisonJabMove);
 
-        Pokemon diglett = new Pokemon("Diglett", 10, new String[] {"ground"}, 1, new String[] {"poison", "rock"}, new String[] {"water", "grass", "ice"}, digMove, slashMove);
+        Pokemon diglett = new Pokemon("Diglett", 10, new String[] {"ground"}, 1, new String[] {"poison", "rock"}, new String[] {"water", "grass", "ice"}, digMove, slashMove, "Dugtrio", 30);
         Pokemon dugtrio = new Pokemon("Dugtrio", 10, new String[] {"ground"}, 1, new String[] {"poison", "rock"}, new String[] {"water", "grass", "ice"}, digMove, earthquakeMove);
 
-        Pokemon meowth = new Pokemon("Meowth", 40, new String[] {"normal"}, 1, new String[] {}, new String[] {"fighting"}, scratchMove, slashMove);
+        Pokemon meowth = new Pokemon("Meowth", 40, new String[] {"normal"}, 1, new String[] {}, new String[] {"fighting"}, scratchMove, slashMove, "Persian", 30);
         Pokemon persian = new Pokemon("Persian", 65, new String[] {"normal"}, 1, new String[] {}, new String[] {"fighting"}, headbuttMove, doubleKickMove);
 
-        Pokemon psyduck = new Pokemon("Psyduck", 50, new String[] {"water"}, 1, new String[] {"steel", "fire", "water", "ice"}, new String[] {"grass", "electric"}, headbuttMove, bubbleMove);
+        Pokemon psyduck = new Pokemon("Psyduck", 50, new String[] {"water"}, 1, new String[] {"steel", "fire", "water", "ice"}, new String[] {"grass", "electric"}, headbuttMove, bubbleMove, "Golduck", 30);
         Pokemon golduck = new Pokemon("golduck", 80, new String[] {"water"}, 1, new String[] {"steel", "fire", "water", "ice"}, new String[] {"grass", "electric"}, headbuttMove, hydroPumpMove);
 
-        Pokemon mankey = new Pokemon("Mankey", 40, new String[] {"fighting"}, 1, new String[] {"rock", "bug", "dark"}, new String[] {"flying", "psychic", "fairy"}, lowKickMove, doubleKickMove);
+        Pokemon mankey = new Pokemon("Mankey", 40, new String[] {"fighting"}, 1, new String[] {"rock", "bug", "dark"}, new String[] {"flying", "psychic", "fairy"}, lowKickMove, doubleKickMove, "Primeape", 30);
         Pokemon primeape = new Pokemon("Primeape", 65, new String[] {"fighting"}, 1, new String[] {"rock", "bug", "dark"}, new String[] {"flying", "psychic", "fairy"}, lowKickMove, karateChopMove);
 
-        Pokemon growlithe = new Pokemon("Growlithe", 55, new String[] {"fire"}, 1, new String[] {"bug", "steel", "fire", "grass", "ice", "fairy"}, new String[] {"ground", "rock", "water"}, biteMove, emberMove);
+        Pokemon growlithe = new Pokemon("Growlithe", 55, new String[] {"fire"}, 1, new String[] {"bug", "steel", "fire", "grass", "ice", "fairy"}, new String[] {"ground", "rock", "water"}, biteMove, emberMove, "Arcanine", 30);
         Pokemon arcanine = new Pokemon("Arcanine", 90, new String[] {"fire"}, 1, new String[] {"bug", "steel", "fire", "grass", "ice", "fairy"}, new String[] {"ground", "rock", "water"}, biteMove, flamethrowerMove);
 
 

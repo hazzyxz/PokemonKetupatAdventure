@@ -29,6 +29,8 @@ class Pokemon{
 	private double CurrentHealth;
 	private boolean downed = false;
 	private int maxExp;
+        private int lvlEvolve;
+        private String pokemonEvolve;
 	
 	//----------------Attribute----------------------------//
 	
@@ -145,6 +147,32 @@ class Pokemon{
 		this.level = level;
 		this.maxExp = 100;
 	}
+        
+        public Pokemon(String name, double health, String[] type, int level, String[] strength, String[] weakness, Moves move1, Moves move2, String pokemonEvolve, int lvlEvolve) {
+		
+		this.Name = name;
+		this.FullHealth = health;
+		this.CurrentHealth = health;
+	
+		for(int i = 0; i< type.length; i++)
+			this.type.add(type[i]);
+		
+		for(int i = 0; i< weakness.length; i++)
+			this.Weakness.add(weakness[i]);
+		
+
+		for(int i = 0; i< strength.length; i++)
+			this.Strength.add(strength[i]);
+		
+		this.Move[0] = move1;
+		this.Move[1] = move2;
+		
+		this.level = level;
+                
+                this.pokemonEvolve = pokemonEvolve;
+                this.lvlEvolve = lvlEvolve;
+		
+	}
 	
 	//----------------constructor--------------------------//
 	
@@ -171,16 +199,32 @@ class Pokemon{
 
 	// Clone method
     public Pokemon clone() {
-        return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0], this.Move[1]);
+        return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0].clone(), this.Move[1].clone(), this.pokemonEvolve, this.lvlEvolve);
     }
 	
 	
 	public void evolve () {
+	        
+                if (this.level < this.lvlEvolve) {
+                    System.out.println("Cant evolve level requirement doesnt met");
+                    return;
+            }
+                
+                Pokemon pokemon = PokemonFactory.createPokemon(this.pokemonEvolve);
+                pokemon.setLevel(this.level);
+                
+                
+		this.Name = pokemon.Name;
+                this.FullHealth = pokemon.FullHealth;
+                this.type = pokemon.type;
+                this.level = pokemon.level;
+                this.Strength = pokemon.Strength ;
+                this.Weakness = pokemon.Weakness;
+                this.Move[0] = pokemon.Move[0];
+                this.Move[1] = pokemon.Move[1];
 		
-		//TO-DO is to put evolve properties, 
-		//increase stat
-		
-	}
+    }
+	
 	
 	public void increaseEXP(int xp) {
 		

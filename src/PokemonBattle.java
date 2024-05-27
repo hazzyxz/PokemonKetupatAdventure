@@ -2,7 +2,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 /*
-
+ 
 Pokemon Battle:
 
 fight gym leader or fight wild pokemon
@@ -26,8 +26,9 @@ NOTES:
 
 
 public class PokemonBattle {
-
-    public static void EnterBattle(GymLeader gymLeader, Player player) {
+    
+    // add weather in parameter
+    public static void EnterBattle(GymLeader gymLeader, Player player, Weather weather) {
 
         Pokemon[] pokemontoBattle = gymLeader.getPokemonList().toArray(new Pokemon[gymLeader.getPokemonList().size()]);
 
@@ -45,7 +46,7 @@ public class PokemonBattle {
         for (int i = 0; i < pokemontoBattle.length; i++) {
             var pokemon = pokemontoBattle[i];
             System.out.println("Next pokemon in line to battle: " + pokemon.getName());
-            EnterBattle(pokemon, player, false);
+            EnterBattle(pokemon, player, false, weather);
 
             // Check if all player's Pokemon are defeated
             if (player.getPokemonList().stream().allMatch(Pokemon::isDown)) {
@@ -57,8 +58,9 @@ public class PokemonBattle {
         System.out.println("You have defeated all of Gym Leader " + gymLeader.getName() + "'s Pokemon!");
         player.addBadges(gymLeader.getName());
     }
-
-    public static void EnterBattle(Pokemon pokemonEnemy, Player player, boolean isWildPokemon) {
+    
+    // add weather in parameter
+    public static void EnterBattle(Pokemon pokemonEnemy, Player player, boolean isWildPokemon, Weather weather) {
 
         Scanner inputScanner = new Scanner(System.in);
         Random random = new Random();
@@ -137,9 +139,9 @@ public class PokemonBattle {
                 switch(movesChoice) {
                 case 1:
                 
-                case 2: usesMoves(pokemonChoice.getMove()[movesChoice - 1], pokemonEnemy, pokemonChoice); break;
+                case 2: usesMoves(pokemonChoice.getMove()[movesChoice - 1], pokemonEnemy, pokemonChoice, weather); break;
                 
-                case 3: Captured = capturePokemon(pokemonEnemy, player);
+                case 3: Captured = capturePokemon(pokemonEnemy, player, weather);
                 	
                 }
                 
@@ -163,7 +165,7 @@ public class PokemonBattle {
                 
                 System.out.println("\n");
                 int randomMoves = random.nextInt(2);
-                usesMoves(pokemonEnemy.getMove()[randomMoves], pokemonChoice, pokemonEnemy);
+                usesMoves(pokemonEnemy.getMove()[randomMoves], pokemonChoice, pokemonEnemy, weather);
 
                 //check if own pokemon died, 
                 if (pokemonChoice.isDown()) {
@@ -188,8 +190,9 @@ public class PokemonBattle {
         }
         
     }
-
-    private static int usesMoves(Moves move, Pokemon enemy, Pokemon damagedealer) {
+    
+    // add weather in parameter
+    private static int usesMoves(Moves move, Pokemon enemy, Pokemon damagedealer, Weather weather) {
 
         Random random = new Random();
 
@@ -224,6 +227,55 @@ public class PokemonBattle {
         } else {
             damageDeal = move.getDamage();
         }
+        
+        
+        //weather effect ??
+        switch(weather.getCurrentWeather()) {
+            case SUNNY:
+                if (damagedealer.getType().contains("fire")) {
+                  damageDeal = (int) (damageDeal*1.5);
+                } else if (damagedealer.getType().contains("water")) {
+                    damageDeal = (int) (damageDeal*0.5);
+                }
+                break;
+                
+            case RAINY:
+                if (damagedealer.getType().contains("water")) {
+                  damageDeal = (int) (damageDeal*1.5);
+                } else if (damagedealer.getType().contains("fire")) {
+                    damageDeal = (int) (damageDeal*0.5);
+                }
+                break;
+                
+            case SANDSTORM:
+                if ( !(damagedealer.getType().contains("ground") || damagedealer.getType().contains("rock") || damagedealer.getType().contains("steel")) ) {
+                  // health -= 1/16 each turn ??
+                  damagedealer.setCurrentHealth(damagedealer.getCurrentHealth() - (damagedealer.getFullHealth() / 16));
+                } 
+                break;
+                
+            case HAIL:
+                if ( !(damagedealer.getType().contains("ice")) ) {
+                  // health -= 1/16 each turn ??
+                  damagedealer.setCurrentHealth(damagedealer.getCurrentHealth() - (damagedealer.getFullHealth() / 16));
+                } 
+                break;
+                
+            case SNOW:
+                if (damagedealer.getType().contains("ice")) {
+                  damageDeal = (int) (damageDeal*1.5);
+                }
+                break;
+                
+            case WINDY:
+                if (enemy.getType().contains("flying") && (damagedealer.getType().contains("electric") || damagedealer.getType().contains("ice") || damagedealer.getType().contains("rock"))) {
+                  damageDeal = (int) (damageDeal*1.5);
+                }
+                break;
+            
+            case NONE:
+                break;
+        }
 
         if (random.nextDouble() < 0.0625) {
             damageDeal *= 2;
@@ -236,17 +288,60 @@ public class PokemonBattle {
     }
 
     
-    
-    public static boolean capturePokemon(Pokemon wildPokemon, Player player) {
+    // add weather in parameter
+    public static boolean capturePokemon(Pokemon wildPokemon, Player player, Weather weather) {
         double captureRate = 0.5;
         
         double healthFactor = wildPokemon.getCurrentHealth() / wildPokemon.getFullHealth(); // health percentage
         captureRate += (1 - healthFactor) * 0.2; // increase as health decerease;
         
+        // weather effect
+        switch (weather.getCurrentWeather()) {
+            case SUNNY:
+                if (wildPokemon.getType().equals("fire")) {
+                    captureRate += 0.1; // high rate fire type
+                } else if (wildPokemon.getType().equals("water")) {
+                    captureRate -= 0.1; // low rate water type
+                }
+                break;
+            case RAINY:
+                if (wildPokemon.getType().equals("water")) {
+                    captureRate += 0.1; // high rate water type
+                } else if (wildPokemon.getType().equals("fire")) {
+                    captureRate -= 0.1; // low rate fire type
+                }
+                break;
+            case SANDSTORM:
+                if (wildPokemon.getType().equals("ground") || wildPokemon.getType().equals("rock") || wildPokemon.getType().equals("steel")) {
+                    captureRate += 0.1; // high rate ground rock steel type
+                } else {
+                    captureRate -= 0.1; // low rate other type
+                }
+                break;
+            case HAIL:
+                if (wildPokemon.getType().equals("ice")) {
+                    captureRate += 0.1; // high rate ice type
+                } else {
+                    captureRate -= 0.1; // low rate other type
+                }
+                break;
+            case SNOW:
+                if (wildPokemon.getType().equals("ice")) {
+                    captureRate += 0.1; // high rate ice type
+                }
+                break;
+            case WINDY:
+                if (wildPokemon.getType().equals("flying")) {
+                    captureRate += 0.1; // high rate flying type
+                }
+                break;
+            default:
+                break;
+        }
+        
         captureRate = Math.min(captureRate, 1.0); // incase captureRate exceed 1;
         
         Random random = new Random();
-        
         boolean captureSuccessful = random.nextDouble() < captureRate;
         
         if (captureSuccessful) {
@@ -261,6 +356,3 @@ public class PokemonBattle {
     }
 
 }
-
-
-
