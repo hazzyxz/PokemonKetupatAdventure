@@ -105,23 +105,23 @@ class Photo extends ImageIcon {
     private Image player;
 
     public Photo() {
-        goldCoin = new ImageIcon("C:/Users/LENOVO/OneDrive - Universiti Malaya/Documents/NetBeansProjects/PokemonKetupatAdventure-main/PokemonKetupatAdventure/Images/goldIcon.jpg");
+        goldCoin = new ImageIcon("Images/goldIcon.jpg");
         Image gc = goldCoin.getImage();
         Image resizedCoin = gc.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         goldCoin = new ImageIcon(resizedCoin); // Assign to the instance variable
-        ImageIcon ghastlytemp = new ImageIcon("C:/Users/LENOVO/OneDrive - Universiti Malaya/Documents/NetBeansProjects/PokemonKetupatAdventure-main/PokemonKetupatAdventure/Images/ghastly.png");
+        ImageIcon ghastlytemp = new ImageIcon("Images/ghastly.png");
         Image g = ghastlytemp.getImage();
         ghastly = g.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        ImageIcon walltemp = new ImageIcon("C:/Users/LENOVO/OneDrive - Universiti Malaya/Documents/NetBeansProjects/PokemonKetupatAdventure-main/PokemonKetupatAdventure/Images/wall.jpg");
+        ImageIcon walltemp = new ImageIcon("Images/wall.jpg");
         Image w = walltemp.getImage();
         wall = w.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        ImageIcon flagtemp = new ImageIcon("C:/Users/LENOVO/OneDrive - Universiti Malaya/Documents/NetBeansProjects/PokemonKetupatAdventure-main/PokemonKetupatAdventure/Images/flag.png");
+        ImageIcon flagtemp = new ImageIcon("Images/flag.png");
         Image f = flagtemp.getImage();
         flag = f.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-        ImageIcon floortemp = new ImageIcon("C:/Users/LENOVO/OneDrive - Universiti Malaya/Documents/NetBeansProjects/PokemonKetupatAdventure-main/PokemonKetupatAdventure/Images/floor.jpg");
+        ImageIcon floortemp = new ImageIcon("Images/floor.jpg");
         Image flr = floortemp.getImage();
         floor = flr.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        ImageIcon playertemp = new ImageIcon("C:/Users/LENOVO/OneDrive - Universiti Malaya/Documents/NetBeansProjects/PokemonKetupatAdventure-main/PokemonKetupatAdventure/Images/player.png");
+        ImageIcon playertemp = new ImageIcon("Images/player.png");
         Image p = playertemp.getImage();
         player = p.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
