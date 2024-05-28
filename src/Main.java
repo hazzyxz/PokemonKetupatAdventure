@@ -1,13 +1,14 @@
-
 public class Main {
 
-	public static void main(String[] args) {
-		
-		
-		
-		//----------test je ni-------------------------//
-		
-		
+    static Weather currentWeather = new Weather();
+
+    public static void main(String[] args) {
+
+
+
+        //----------test je ni-------------------------//
+
+
 //		GymLeader bardock = new GymLeader("Bardock", new Pokemon[] {
 //			PokemonFactory.createPokemon("Charizard").setLevel(5),
 //			PokemonFactory.createPokemon("Jigglypuff").setLevel(60)
@@ -15,36 +16,42 @@ public class Main {
 //		});
 //
 //
-		Player player = new Player("Syahir", PokemonFactory.createPokemon("Charizard").setLevel(15));
+        currentWeather.randomizeWeather();
+        System.out.println(currentWeather.getCurrentWeather());
 
-		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(10));
-		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(11));
-		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(12));
-		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(1));
-		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(13));
-		player.addPokemon(PokemonFactory.createPokemon("Meowth").setLevel(1));
-		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(12));
-		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(11));
+        Player player = new Player("Syahir", PokemonFactory.createPokemon("Charmander").setLevel(20));
 
-		player.ShowMyPokemon();
-
-
-		player.movePokemonToBag(2);
-		player.showBagPokemon();
+        player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(20));
+        player.addPokemon(PokemonFactory.createPokemon("Squirtle").setLevel(20));
+        player.addPokemon(PokemonFactory.createPokemon("Caterpie").setLevel(20));
+//        player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(1));
+//        player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(13));
+//        player.addPokemon(PokemonFactory.createPokemon("Meowth").setLevel(1));
+//        player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(12));
+//        player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(11));
 //
-//		PokemonBattle.EnterBattle(PokemonFactory.createPokemon("Jigglypuff").setLevel(50), player, true);
-		
-		//----------test je ni-------------------------//
+        player.ShowMyPokemon();
+//
+//
+//        player.movePokemonToBag(2);
+//        player.showBagPokemon();
+//
 
-		//----------test gak-------------------------//
+
+//		PokemonBattle.EnterBattle(PokemonFactory.createPokemon("Jigglypuff").setLevel(50), player, true, weather);
+
+
+        //----------test je ni-------------------------//
+
+        //----------test gak-------------------------//
 
 //		player.RevivePokemon();
 //		player.ShowMyPokemon();
 
-		//----------test gak-------------------------//
-                
-                //----------test je ni boi-------------------------//
-                
+        //----------test gak-------------------------//
+
+        //----------test je ni boi-------------------------//
+
 //                Pokemon pokemon = PokemonFactory.createPokemon("Bulbasaur");
 //                System.out.println(pokemon.getName());
 //                System.out.println(pokemon.getFullHealth());
@@ -67,9 +74,10 @@ public class Main {
 //
 
 //        SafariZone.play();
-                
-                //----------test je ni boi-------------------------//
+//        RivalsRace.play();
 
-	}
+        //----------test je ni boi-------------------------//
+
+    }
 
 }

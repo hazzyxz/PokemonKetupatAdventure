@@ -31,6 +31,7 @@ class Pokemon{
 	private int maxExp;
 	private String pokemonEvolve;
 	private int lvlEvolve;
+	private Weather weather;
 	
 	//----------------Attribute----------------------------//
 	
@@ -134,6 +135,10 @@ class Pokemon{
 	public int getLvlEvolve() {
 		return lvlEvolve;
 	}
+
+	public Weather getWeather() {
+		return this.weather;
+	}
 	
 	//-------------------setter and getter-----------------------//
 	
@@ -164,8 +169,8 @@ class Pokemon{
         
         
         
-        public Pokemon(String name, double health, String[] type, int level, String[] strength, String[] weakness, Moves move1, Moves move2, String pokemonEvolve, int lvlEvolve) {
-		
+	public Pokemon(String name, double health, String[] type, int level, String[] strength, String[] weakness, Moves move1, Moves move2, String pokemonEvolve, int lvlEvolve) {
+
 		this.Name = name;
 		this.FullHealth = health;
 		this.CurrentHealth = health;
@@ -188,6 +193,34 @@ class Pokemon{
 		this.pokemonEvolve = pokemonEvolve;
 		this.lvlEvolve = lvlEvolve;
 		
+	}
+
+	public Pokemon(String name, double health, String[] type, int level, String[] strength, String[] weakness, Moves move1, Moves move2, String pokemonEvolve, int lvlEvolve, Weather weather) {
+
+		this.Name = name;
+		this.FullHealth = health;
+		this.CurrentHealth = health;
+
+		for(int i = 0; i< type.length; i++)
+			this.type.add(type[i]);
+
+		for(int i = 0; i< weakness.length; i++)
+			this.Weakness.add(weakness[i]);
+
+
+		for(int i = 0; i< strength.length; i++)
+			this.Strength.add(strength[i]);
+
+		this.Move[0] = move1;
+		this.Move[1] = move2;
+
+		this.level = level;
+
+		this.pokemonEvolve = pokemonEvolve;
+		this.lvlEvolve = lvlEvolve;
+
+		this.weather = weather;
+
 	}
 	
 	//----------------constructor--------------------------//
@@ -215,7 +248,9 @@ class Pokemon{
 
 	// Clone method
     public Pokemon clone() {
-        if (this.lvlEvolve != 0 && this.pokemonEvolve != null) {
+        if (this.lvlEvolve != 0 && this.pokemonEvolve != null && this.weather != null) {
+			return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0].clone(), this.Move[1].clone(), this.pokemonEvolve, this.lvlEvolve, this.weather);
+		} else if (this.lvlEvolve != 0 && this.pokemonEvolve != null) {
 			return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0].clone(), this.Move[1].clone(), this.pokemonEvolve, this.lvlEvolve);
 		} else {
 			return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0].clone(), this.Move[1].clone());
@@ -225,10 +260,12 @@ class Pokemon{
 	
     public void evolve () {
 
-		if (this.level < this.lvlEvolve) {
-			System.out.println("Cant evolve level requirement doesnt met");
-			return;
-		}
+		// current weather not done yet
+//		if (this.level < this.lvlEvolve && !(this.weather.getCurrentWeather().equals(Main.currentWeather.getCurrentWeather())) ) {
+//			System.out.println("Cant evolve level requirement doesnt met");
+//			return;
+//		}
+
                 
 		Pokemon pokemon = PokemonFactory.createPokemon(this.pokemonEvolve);
 		pokemon.setLevel(this.level);
