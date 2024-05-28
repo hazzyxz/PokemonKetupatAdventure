@@ -13,11 +13,13 @@ import static main.ApplicationMain.userInput;
 
 public class StarterSelectScreen extends Screen {
     int dialogueIndex = 0;
-    boolean hint = false;
+    boolean hint;
 
     public StarterSelectScreen(GamePanel gp, KeyHandler keyH) {
         super(gp, keyH, "/Backgrounds/PokemonSelectScreen.png");
         dialogues[0] = "Hint:\nEvery pokemon has its own\nunique type and abilities\n\nChoose wisely~";
+        hint = false;
+        cityMap = false;
     }
 
     public void update() {
@@ -50,6 +52,7 @@ public class StarterSelectScreen extends Screen {
 
         if (userInput.equals("/begin") && !gp.player.getPokemonList().isEmpty()) {
             gp.stopMusic();
+            gp.playMusic(1);
             gp.currentScreen = new PalletTown(gp, keyH);
         }
     }

@@ -1,5 +1,7 @@
 package backend;
 
+import entity.Player;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -73,7 +75,7 @@ public class PokemonBattle {
 
         while (enemyPokemonAlive) {
         	
-        	 if (player.getPokemonList().size() == 0) {
+        	 if (player.getPokemonList().isEmpty()) {
              	//lose
              	break;
              }

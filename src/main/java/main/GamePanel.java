@@ -1,5 +1,6 @@
 package main;
 
+import data.SaveLoad;
 import entity.Player;
 import screens.Screen;
 import screens.StartScreen;
@@ -34,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
     // Entity and Objects
     public Screen currentScreen = new StartScreen(this, keyH);
     public Player player = new Player(this, keyH);
+    public SaveLoad saveLoad = new SaveLoad(this, keyH);
 
     public GamePanel() {
         // SETS THE GAME PANEL SETTINGS

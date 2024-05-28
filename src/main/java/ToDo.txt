@@ -136,7 +136,7 @@ attribute:
 Ghastly --> movement boleh curi darkbound punya movement??
 Start
 End 
-backend.Player
+entity.Player
 Path
 Fog of war???
 

@@ -11,12 +11,23 @@ public class SaveSelectScreen extends Screen {
 
     public SaveSelectScreen(GamePanel gp, KeyHandler keyH) {
         super(gp, keyH, "/Backgrounds/WhiteScreen.png");
+        cityMap = false;
     }
 
     public void update() {
         super.update();
         if (userInput.equals("/newgame")) {
             gp.currentScreen = new NewGameScreen(gp, keyH);
+        }
+
+        if (userInput.equals("/loadgame 1")) {
+            gp.saveLoad.load("save1.ser");
+        }
+        if (userInput.equals("/loadgame 2")) {
+            gp.saveLoad.load("save2.ser");
+        }
+        if (userInput.equals("/loadgame 3")) {
+            gp.saveLoad.load("save3.ser");
         }
     }
 

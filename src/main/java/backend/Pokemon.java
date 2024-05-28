@@ -1,9 +1,10 @@
 package backend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Pokemon{
+public class Pokemon implements Serializable {
 	
 	
 	/*
@@ -31,8 +32,8 @@ public class Pokemon{
 	private double CurrentHealth;
 	private boolean downed = false;
 	private int maxExp;
-        private String pokemonEvolve;
-        private int lvlEvolve;
+	private String pokemonEvolve;
+	private int lvlEvolve;
 	
 	//----------------Attribute----------------------------//
 	

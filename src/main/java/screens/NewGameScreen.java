@@ -11,12 +11,17 @@ import static main.ApplicationMain.userInput;
 public class NewGameScreen extends Screen {
 
     int dialogueIndex = 0;
-    boolean oakTalking = false;
+    boolean oakTalking;
+    boolean chosenName;
 
     public NewGameScreen(GamePanel gp, KeyHandler keyH) {
         super(gp, keyH, "/Backgrounds/WhiteScreen.png");
+
+        oakTalking = false;
+        chosenName = false;
+
         dialogues[0] = "Hey lancau, nama u apa?\n\n\n/myname <name>";
-        dialogues[2] = "Saya Professor Oak";
+        dialogues[2] = "Saya Professor Shah";
         dialogues[3] = "Banyak haiwan nama pokemon\nkat sini";
         dialogues[4] = "Sila tangkap semua dan\nkalahkan semua gym Leaders";
         dialogues[5] = "Pilih starter cepat and\nkeluar, cibai";
@@ -39,13 +44,21 @@ public class NewGameScreen extends Screen {
                 String[] name = userInput.split("");
                 StringBuilder nameBuilder = new StringBuilder();
 
-                for (int i = 8; i < name.length; i++) {
-                    nameBuilder.append(name[i]);
-                }
+                try {
+                    if (!name[8].isEmpty()) {
+                        for (int i = 8; i < name.length; i++) {
+                            nameBuilder.append(name[i]);
+                        }
 
-                gp.player.setName(nameBuilder.toString());
-                dialogues[1] = "Selamat datang ke Malaysia, \n"+gp.player.getName();
-                dialogueIndex++;
+                        gp.player.setName(nameBuilder.toString());
+                        dialogues[1] = "Selamat datang ke Malaysia, \n"+gp.player.getName();
+                        chosenName = true;
+                        dialogueIndex++;
+                    }
+                }
+                catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Empty name");
+                }
             }
         }
 
@@ -57,7 +70,7 @@ public class NewGameScreen extends Screen {
             gp.currentScreen = new StarterSelectScreen(gp, keyH);
         }
 
-        if (userInput.equals("/next")) {
+        if (userInput.equals("/next") && chosenName) {
             dialogueIndex++;
         }
 

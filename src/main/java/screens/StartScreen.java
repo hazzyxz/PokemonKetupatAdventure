@@ -12,6 +12,7 @@ public class StartScreen extends Screen {
     public StartScreen(GamePanel gp, KeyHandler keyH) {
         super(gp, keyH, "/Backgrounds/WhiteScreen.png");
         gp.playMusic(0);
+        cityMap = false;
     }
 
     @Override

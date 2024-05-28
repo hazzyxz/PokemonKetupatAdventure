@@ -1,6 +1,8 @@
 package backend;
 
-public class Moves {
+import java.io.Serializable;
+
+public class Moves implements Serializable {
 
 	
 	//pokemon moves name and damage

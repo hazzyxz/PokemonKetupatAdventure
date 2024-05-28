@@ -1,5 +1,7 @@
 package backend;
 
+import entity.Player;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
