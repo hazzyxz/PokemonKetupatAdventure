@@ -49,7 +49,23 @@ public class RivalsRace {
         System.out.println("Random destination: " + randomDestination.getName());
 
         //Print the shortest path
-        printPathToDestination(randomDestination);
+        //printPathToDestination(randomDestination);
+
+        // Prompt the user for their answer
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the shortest path to the destination (format: City1 -> City2 -> ... -> Destination): ");
+        String userInput = scanner.nextLine();
+
+        // Compare user's answer with the correct path
+        String correctPath = randomDestination.getShortestPath().stream()
+                .map(Node::getName)
+                .collect(Collectors.joining(" -> ")) + " -> " + randomDestination.getName();
+
+        if (userInput.trim().equalsIgnoreCase(correctPath.trim())) {
+            System.out.println("Correct! You've found the shortest path.");
+        } else {
+            System.out.println("Incorrect. The correct path is: " + correctPath);
+        }
 
     }
 
