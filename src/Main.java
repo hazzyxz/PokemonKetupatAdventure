@@ -15,9 +15,22 @@ public class Main {
 //		});
 //
 //
-//		Player player = new Player("Syahir", PokemonFactory.createPokemon("Charizard").setLevel(15));
-//
-//		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(100));
+		Player player = new Player("Syahir", PokemonFactory.createPokemon("Charizard").setLevel(15));
+
+		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(10));
+		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(11));
+		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(12));
+		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(1));
+		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(13));
+		player.addPokemon(PokemonFactory.createPokemon("Meowth").setLevel(1));
+		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(12));
+		player.addPokemon(PokemonFactory.createPokemon("Bulbasaur").setLevel(11));
+
+		player.ShowMyPokemon();
+
+
+		player.movePokemonToBag(2);
+		player.showBagPokemon();
 //
 //		PokemonBattle.EnterBattle(PokemonFactory.createPokemon("Jigglypuff").setLevel(50), player, true);
 		
@@ -53,7 +66,7 @@ public class Main {
 //                System.out.println(pokemon.getMoveNames());
 //
 
-        SafariZone.play();
+//        SafariZone.play();
                 
                 //----------test je ni boi-------------------------//
 

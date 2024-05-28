@@ -29,8 +29,8 @@ class Pokemon{
 	private double CurrentHealth;
 	private boolean downed = false;
 	private int maxExp;
-        private String pokemonEvolve;
-        private int lvlEvolve;
+	private String pokemonEvolve;
+	private int lvlEvolve;
 	
 	//----------------Attribute----------------------------//
 	
@@ -130,6 +130,10 @@ class Pokemon{
 		
 		return maxExp;
 	}
+
+	public int getLvlEvolve() {
+		return lvlEvolve;
+	}
 	
 	//-------------------setter and getter-----------------------//
 	
@@ -181,8 +185,8 @@ class Pokemon{
 		
 		this.level = level;
                 
-                this.pokemonEvolve = pokemonEvolve;
-                this.lvlEvolve = lvlEvolve;
+		this.pokemonEvolve = pokemonEvolve;
+		this.lvlEvolve = lvlEvolve;
 		
 	}
 	
@@ -211,29 +215,33 @@ class Pokemon{
 
 	// Clone method
     public Pokemon clone() {
-        return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0], this.Move[1], this.pokemonEvolve, this.lvlEvolve);
+        if (this.lvlEvolve != 0 && this.pokemonEvolve != null) {
+			return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0].clone(), this.Move[1].clone(), this.pokemonEvolve, this.lvlEvolve);
+		} else {
+			return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0].clone(), this.Move[1].clone());
+		}
     }
 	
 	
     public void evolve () {
-            
-                if (this.level < this.lvlEvolve) {
-                    System.out.println("Cant evolve level requirement doesnt met");
-                    return;
-            }
+
+		if (this.level < this.lvlEvolve) {
+			System.out.println("Cant evolve level requirement doesnt met");
+			return;
+		}
                 
-                Pokemon pokemon = PokemonFactory.createPokemon(this.pokemonEvolve);
-                pokemon.setLevel(this.lvlEvolve);
+		Pokemon pokemon = PokemonFactory.createPokemon(this.pokemonEvolve);
+		pokemon.setLevel(this.level);
                 
                 
 		this.Name = pokemon.Name;
-                this.FullHealth = pokemon.FullHealth;
-                this.type = pokemon.type;
-                this.level = pokemon.level;
-                this.Strength = pokemon.Strength ;
-                this.Weakness = pokemon.Weakness;
-                this.Move[0] = pokemon.Move[0];
-                this.Move[1] = pokemon.Move[1];
+		this.FullHealth = pokemon.FullHealth;
+		this.type = pokemon.type;
+		this.level = this.level;
+		this.Strength = pokemon.Strength ;
+		this.Weakness = pokemon.Weakness;
+		this.Move[0] = pokemon.Move[0];
+		this.Move[1] = pokemon.Move[1];
 		
     }
 	

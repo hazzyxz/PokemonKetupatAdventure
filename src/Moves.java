@@ -32,8 +32,11 @@ public class Moves {
 	public void setMovesName(String movesName) {
 		MovesName = movesName;
 	}
-	
-	
+
+	// clone method
+	public Moves clone() {
+		return new Moves(this.MovesName, this.Damage);
+	}
 	
 	
 	

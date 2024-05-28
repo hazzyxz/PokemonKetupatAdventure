@@ -29,6 +29,7 @@ public class Player {
 	private double Money;
 	private LinkedList<Pokemon> DownedPokemonList;
 	private final int FULLPOKEMONLISTSIZE = 6;
+	private ArrayList<Pokemon> bagPokemonList = new ArrayList<>(); // for excess pokemon
 	
 	//----------------Attribute----------------------------//
 	
@@ -96,10 +97,75 @@ public class Player {
 	
 	
 	public boolean addPokemon(Pokemon pokemon) { //return true if successful, false if vice versa
-		if (pokemonList.size() > 6) {
+		if (pokemonList.size() >= 6) {
 			System.out.println("Exceed Pokemon Limit");
-			return false;
-		} else { pokemonList.add(pokemon); return true; }
+			bagPokemonList.add(pokemon);
+			return true;
+		} else {
+			pokemonList.add(pokemon);
+			return true; }
+	}
+
+	public void showBagPokemon() {
+		System.out.println("Your Pokemon in  bag: ");
+
+		for (int i = 0; i < bagPokemonList.size(); i++) {
+
+			Pokemon pokemon = bagPokemonList.get(i);
+			System.out.println(pokemon.getName() + " - level [" + bagPokemonList.get(i).getLevel() + "]");
+
+
+			System.out.println("Type: ");
+
+			//what the hell, maybe change later,
+			switch (pokemon.getType().size()) {
+				case 1:
+					System.out.println(pokemon.getType().get(0));
+					break;
+				case 2:
+					System.out.println(pokemon.getType().get(0) + "/" + pokemon.getType().get(1));
+			}
+			System.out.println("HP: " + pokemon.getCurrentHealth() + " / " + pokemon.getFullHealth());
+			System.out.println("EXP: " + pokemon.getExp() + "/" + pokemon.getMaxExp());
+
+			System.out.println("Moves: ");
+			System.out.println("- " + pokemon.getMove()[0].getMovesName() + " [" + pokemon.getMove()[0].getDamage() + "]");
+			System.out.println("- " + pokemon.getMove()[1].getMovesName() + " [" + pokemon.getMove()[1].getDamage() + "]");
+
+			System.out.println("Strong against: ");
+			String[] strong = pokemon.getStrength().toArray(new String[pokemon.getStrength().size()]);
+			for (String StrongAgainst : strong) {
+				System.out.println("- " + StrongAgainst);
+			}
+
+			System.out.println("Weak Against: ");
+			String[] weak = pokemon.getWeakness().toArray(new String[pokemon.getWeakness().size()]);
+			for (String weakAgainst : weak) {
+				System.out.println("- " + weakAgainst);
+			}
+
+			System.out.println();
+		}
+	}
+
+	// replace pokemon from bag to active
+	public boolean movePokemonToActive(int index) {
+		if (index >= 0 && index < bagPokemonList.size() && pokemonList.size() < 6) {
+			Pokemon pokemon = bagPokemonList.remove(index);
+			pokemonList.add(pokemon);
+			return true;
+		}
+		return false;
+	}
+
+	// replace pokemon from active to bag
+	public boolean movePokemonToBag(int index) {
+		if (index >= 0 && index < pokemonList.size()) {
+			Pokemon pokemon = pokemonList.remove(index);
+			bagPokemonList.add(pokemon);
+			return true;
+		}
+		return false;
 	}
 	
 	public ArrayList<Pokemon> getPokemonList() {
@@ -120,7 +186,9 @@ public class Player {
 	}
 	
 	public void ShowMyPokemon() {
-		
+
+		Scanner scanner = new Scanner(System.in);
+
 		System.out.println("Your Pokemon: ");
 		
 		for (int i = 0; i < pokemonList.size(); i++) {
@@ -157,6 +225,16 @@ public class Player {
 			String[] weak = pokemon.getWeakness().toArray(new String[pokemon.getWeakness().size()]);
 			for (String weakAgainst: weak) {
 				System.out.println("- " + weakAgainst);
+			}
+
+			if (pokemon.getLvlEvolve() != 0 && pokemon.getLevel() >= pokemon.getLvlEvolve()) {
+				System.out.println("This Pokémon is eligible for evolution!");
+				System.out.println("Do you want to evolve " + pokemon.getName() + "? (yes/no)");
+				String choice = scanner.nextLine();
+				if (choice.equalsIgnoreCase("yes")) {
+					pokemon.evolve();
+					System.out.println(pokemon.getName() + " has evolved!");
+				}
 			}
 			
 			System.out.println("\n");

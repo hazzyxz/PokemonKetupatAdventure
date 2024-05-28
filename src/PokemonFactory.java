@@ -2,22 +2,22 @@ import java.util.HashMap;
 
 public class PokemonFactory {
     private static final HashMap<String, Pokemon> pokemonMap = new HashMap<String, Pokemon>();
-    
+
     static {
     	Moves tackleMove = MovesFactory.createMove("Tackle");
-        Moves scratchMove = MovesFactory.createMove("Scratch"); 
+        Moves scratchMove = MovesFactory.createMove("Scratch");
         Moves vineWhipMove = MovesFactory.createMove("Vine Whip");
         Moves razorLeafMove = MovesFactory.createMove("Razor Leaf");
-        Moves solarBeamMove = MovesFactory.createMove("Solar Beam");   
+        Moves solarBeamMove = MovesFactory.createMove("Solar Beam");
         Moves emberMove = MovesFactory.createMove("Ember");
         Moves flamethrowerMove = MovesFactory.createMove("Flamethrower");
-        Moves fireSpinMove = MovesFactory.createMove("Fire Spin");  
+        Moves fireSpinMove = MovesFactory.createMove("Fire Spin");
         Moves bubbleMove = MovesFactory.createMove("Bubble");
         Moves waterGunMove = MovesFactory.createMove("Water Gun");
-        Moves hydroPumpMove = MovesFactory.createMove("Hydro Pump");       
+        Moves hydroPumpMove = MovesFactory.createMove("Hydro Pump");
         Moves bugBiteMove = MovesFactory.createMove("Bug Bite");
         Moves slashMove = MovesFactory.createMove("Slash");
-        Moves bugBuzzMove = MovesFactory.createMove("Bug Buzz");        
+        Moves bugBuzzMove = MovesFactory.createMove("Bug Buzz");
         Moves poisonStingMove = MovesFactory.createMove("Poison Sting");
         Moves quickAttackMove = MovesFactory.createMove("Quick Attack");
         Moves wingAttackMove = MovesFactory.createMove("Wing Attack");
@@ -47,7 +47,7 @@ public class PokemonFactory {
 
         // list of pokemon
         Pokemon bulbasaur = new Pokemon("Bulbasaur", 45, new String[] {"grass", "poison"}, 1, new String[] {"fighting", "water", "grass", "fairy", "electric"}, new String[] {"flying", "fire", "psychic", "ice"}, tackleMove, vineWhipMove, "Ivysaur", 20);
-        Pokemon ivysaur = new Pokemon("Ivysaur", 60, new String[] {"grass", "poison"}, 1, new String[] {"fighting", "water", "grass", "fairy", "electric"}, new String[] {"flying", "fire", "psychic", "ice"}, tackleMove, razorLeafMove, "Venusaur", 40);
+        Pokemon ivysaur = new Pokemon("Ivysaur", 60, new String[] {"grass", "poison"}, 1, new String[] {"fighting", "water", "grass", "fairy", "electric"}, new String[] {"flying", "fire", "psychic", "ice"}, tackleMove, razorLeafMove, "Venusaur",40 );
         Pokemon venusaur = new Pokemon("Venusaur", 80, new String[] {"grass", "poison"}, 1, new String[] {"fighting", "water", "grass", "fairy", "electric"}, new String[] {"flying", "fire", "psychic", "ice"}, tackleMove, solarBeamMove);
 
         Pokemon charmander = new Pokemon("Charmander", 39, new String[] {"fire"}, 1, new String[] {"bug", "steel", "fire", "grass", "ice", "fairy"}, new String[] {"ground", "rock", "water"}, scratchMove, emberMove, "Charmeleon", 20);
@@ -60,7 +60,7 @@ public class PokemonFactory {
 
         Pokemon caterpie = new Pokemon("Caterpie", 45, new String[] {"bug"}, 1, new String[] {"fighting", "ground", "grass"}, new String[] {"flying", "rock", "fire"}, tackleMove, bugBiteMove, "Metapod", 20);
         Pokemon metapod = new Pokemon("Metapod", 50, new String[] {"bug"}, 1, new String[] {"fighting", "ground", "grass"}, new String[] {"flying", "rock", "fire"}, tackleMove, slashMove, "Butterfree", 40);
-        Pokemon butterfree = new Pokemon("Butterfree", 60, new String[] {"bug", "flying"}, 1, new String[] {"fighting", "bug", "grass"}, new String[] {"flying", "rock", "fire", "electric", "ice"}, tackleMove, bugBuzzMove); 
+        Pokemon butterfree = new Pokemon("Butterfree", 60, new String[] {"bug", "flying"}, 1, new String[] {"fighting", "bug", "grass"}, new String[] {"flying", "rock", "fire", "electric", "ice"}, tackleMove, bugBuzzMove);
 
         Pokemon weedle = new Pokemon("Weedle", 40, new String[] {"bug", "poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"flying", "rock", "fire", "psychic"}, tackleMove, poisonStingMove, "Kakuna", 20);
         Pokemon kakuna = new Pokemon("Kakuna", 45, new String[] {"bug", "poison"}, 1, new String[] {"fighting", "poison", "bug", "grass", "fairy"}, new String[] {"flying", "rock", "fire", "psychic"}, tackleMove, slashMove, "Beedrill", 40);
@@ -194,8 +194,8 @@ public class PokemonFactory {
         pokemonMap.put("Arcanine", arcanine);
 
     }
-    
+
     public static Pokemon createPokemon(String pokemonName) {
-        return pokemonMap.get(pokemonName);
+        return pokemonMap.get(pokemonName).clone();
     }
 }
