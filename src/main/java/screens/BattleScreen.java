@@ -145,14 +145,6 @@ public class BattleScreen extends Screen {
 
             //choose the pokemon
             // if not first round, or the first pokemon died, will display secodn phrase
-            if (firstRound) {
-                System.out.println("Choose your Pokemon: ");
-                choosePokemon = true;
-                firstRound = false;
-            } else {
-                System.out.println("Choose your next Pokemon: ");
-                choosePokemon = true;
-            }
         }
 
 
