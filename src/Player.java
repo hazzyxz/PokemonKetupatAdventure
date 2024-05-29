@@ -299,7 +299,7 @@ public class Player {
 				System.out.println("- " + weakAgainst);
 			}
 
-			if (pokemon.getLvlEvolve() != 0 && pokemon.getLevel() >= pokemon.getLvlEvolve()) {
+			if (pokemon.getLvlEvolve() != 0 && pokemon.getLevel() >= pokemon.getLvlEvolve()&& pokemon.getWeather().getCurrentWeather().equals(Main.currentWeather.getCurrentWeather())) {
 				System.out.println("This Pokémon is eligible for evolution!");
 				System.out.println("Do you want to evolve " + pokemon.getName() + "? (yes/no)");
 				String choice = scanner.nextLine();
