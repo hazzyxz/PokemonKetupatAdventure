@@ -231,9 +231,9 @@ class Pokemon{
 		CurrentHealth = FullHealth;
 	}
 	
-	public void heal(int hp) throws Exception { //heal partially, dont know what could be use for, but its here
+	public void heal(int hp){ //heal partially, dont know what could be use for, but its here
 		if ((CurrentHealth + hp) > FullHealth) {
-			System.out.println("Heal failed, heal exceed full health");
+			CurrentHealth=FullHealth;
 			return;
 		}
 			
