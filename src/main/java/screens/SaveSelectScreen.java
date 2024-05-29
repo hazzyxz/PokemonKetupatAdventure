@@ -1,5 +1,6 @@
 package screens;
 
+import entity.Player;
 import main.GamePanel;
 import main.KeyHandler;
 
@@ -11,6 +12,7 @@ public class SaveSelectScreen extends Screen {
 
     public SaveSelectScreen(GamePanel gp, KeyHandler keyH) {
         super(gp, keyH, "/Backgrounds/WhiteScreen.png");
+        gp.player = new Player(gp, keyH);
         cityMap = false;
     }
 
@@ -21,12 +23,15 @@ public class SaveSelectScreen extends Screen {
         }
 
         if (userInput.equals("/loadgame 1")) {
+            gp.stopMusic();
             gp.saveLoad.load("save1.ser");
         }
         if (userInput.equals("/loadgame 2")) {
+            gp.stopMusic();
             gp.saveLoad.load("save2.ser");
         }
         if (userInput.equals("/loadgame 3")) {
+            gp.stopMusic();
             gp.saveLoad.load("save3.ser");
         }
     }

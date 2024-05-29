@@ -1,5 +1,6 @@
 package screens;
 
+import entity.Player;
 import main.GamePanel;
 import main.KeyHandler;
 

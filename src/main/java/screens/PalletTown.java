@@ -26,7 +26,7 @@ public class PalletTown extends Screen {
         super.update();
 
         if (userInput.equals("/fight")) {
-            gp.currentScreen = new BattleScreen(gp, keyH, gp.player, PokemonFactory.createPokemon("charmander"));
+            gp.currentScreen = new BattleScreen(gp, keyH, PokemonFactory.createPokemon("Charmander"));
         }
     }
 

@@ -48,6 +48,8 @@ public class SaveLoad {
             switch (ds.currentScreen) {
                 case "Pallet Town": gp.currentScreen = new PalletTown(gp, keyH); break;
             }
+
+
             gp.playMusic(1);
 
             in.close();
