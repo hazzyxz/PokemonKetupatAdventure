@@ -50,12 +50,16 @@ public class PokemonBattle {
             // Check if all player's Pokemon are defeated
             if (player.getPokemonList().stream().allMatch(Pokemon::isDown)) {
                 System.out.println("All of your pokemon have been defeated. You lost the battle!");
+                System.out.println("You gained 100 gold");
+                player.Money += 100;
                 return;
             }
         }
 
         System.out.println("You have defeated all of Gym Leader " + gymLeader.getName() + "'s Pokemon!");
         player.addBadges(gymLeader.getName());
+
+        Main.currentWeather.randomizeWeather();
     }
 
     public static void EnterBattle(Pokemon pokemonEnemy, Player player, boolean isWildPokemon, Weather weather) {
@@ -149,11 +153,15 @@ public class PokemonBattle {
                 //check if the enemy dies
                 if (pokemonEnemy.isDown()) {
                     System.out.println(pokemonEnemy.getName() + " has been defeated!");
+                    player.Money += 50;
+                    System.out.println("You gained 50 gold");
                     enemyPokemonAlive = false;
                     win = true;
                     break;
                 } else if (Captured) {
                 	System.out.println(pokemonEnemy.getName() + " has been captured!");
+                    player.Money += 50;
+                    System.out.println("You gained 50 gold");
                     enemyPokemonAlive = false;
                     win = true;
                     break;
@@ -186,7 +194,8 @@ public class PokemonBattle {
         if (win) {
         	pokemonChoice.increaseEXP(5 * pokemonEnemy.getLevel()); //based on leveling scheme
         }
-        
+
+        Main.currentWeather.randomizeWeather();
     }
 
     private static int usesMoves(Moves move, Pokemon enemy, Pokemon damagedealer, Weather weather) {
@@ -263,7 +272,7 @@ public class PokemonBattle {
         return damageDeal;
     }
 
-    
+
     
     public static boolean capturePokemon(Pokemon wildPokemon, Player player, Weather weather) {
         double captureRate = 0.5;

@@ -26,10 +26,10 @@ public class Player {
 	private String Location;
 	private Stack<String> Badges;
 	private ArrayList<Potion> potion; // pls change appropriately
-	private int Money;
+	public int Money;
 	private LinkedList<Pokemon> DownedPokemonList;
 	private final int FULLPOKEMONLISTSIZE = 6;
-	private ArrayList<Pokemon> bagPokemonList = new ArrayList<>(); // for excess pokemon
+	private ArrayList<Pokemon> bagPokemonList; // for excess pokemon
 	
 	//----------------Attribute----------------------------//
 	
@@ -51,8 +51,9 @@ public class Player {
 		this.Money = 100;
 		DownedPokemonList = new LinkedList<Pokemon>();
 		this.Badges = new Stack<String>();
-                this.potion = new ArrayList<>();
-                potion.add(new Potion(0));
+		this.potion = new ArrayList<>();
+		potion.add(new Potion(0));
+		this.bagPokemonList = new ArrayList<Pokemon>();
 	}
 	
 	//----------------constructor--------------------------//
@@ -141,6 +142,7 @@ public class Player {
             for(Potion x:potion){
                 if(x.getSmall()==true){
                     poke.heal(x.heal());
+					potion.remove(x);
                     return;
                 }
             }
@@ -151,20 +153,22 @@ public class Player {
             for(Potion x:potion){
                 if(x.getMedium()==true){
                     poke.heal(x.heal());
+					potion.remove(x);
                     return;
                 }
             }
-            System.out.println("No small potion available...");
+            System.out.println("No medium potion available...");
         }
         
         public void potionHealLarge(Pokemon poke){
             for(Potion x:potion){
                 if(x.getLarge()==true){
                     poke.heal(x.heal());
+					potion.remove(x);
                     return;
                 }
             }
-            System.out.println("No small potion available...");
+            System.out.println("No large potion available...");
         }
 	
 	
