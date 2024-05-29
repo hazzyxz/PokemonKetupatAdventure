@@ -25,8 +25,8 @@ public class Player {
 	private ArrayList<Pokemon> pokemonList;
 	private String Location;
 	private Stack<String> Badges;
-	private int Items; // pls change appropriately
-	private double Money;
+	private ArrayList<Potion> potion; // pls change appropriately
+	private int Money;
 	private LinkedList<Pokemon> DownedPokemonList;
 	private final int FULLPOKEMONLISTSIZE = 6;
 	private ArrayList<Pokemon> bagPokemonList = new ArrayList<>(); // for excess pokemon
@@ -48,9 +48,11 @@ public class Player {
 		pokemonList = new ArrayList<Pokemon>();
 		this.Name = name;
 		this.pokemonList.add(StartingPokemon);
-		this.Money = 0;
+		this.Money = 100;
 		DownedPokemonList = new LinkedList<Pokemon>();
 		this.Badges = new Stack<String>();
+                this.potion = new ArrayList<>();
+                potion.add(new Potion(0));
 	}
 	
 	//----------------constructor--------------------------//
@@ -63,8 +65,8 @@ public class Player {
 	public Stack<String> getBadges() {
 		return Badges;
 	}
-	public int getItems() {
-		return Items;
+	public ArrayList getPotion() {
+		return potion;
 	}
 	public String getLocation() {
 		return Location;
@@ -81,7 +83,47 @@ public class Player {
 		}
 		
 	}
+        
+        public void addPotion(int x){
+            switch(x){
+                case 0:
+                    potion.add(new Potion(0));
+                    break;
+                case 1:
+                    potion.add(new Potion(1));
+                    break;
+                case 2:
+                    potion.add(new Potion(2));
+                    break;
+                default:
+                    return;
+            }
+        }
 	
+        public int numOfSPotion(){
+            int count=0;
+            for(Potion x:potion){
+                if(x.getSmall()==true)
+                    count++;
+            }
+            return count;
+        }
+        public int numOfMPotion(){
+            int count=0;
+            for(Potion x:potion){
+                if(x.getMedium()==true)
+                    count++;
+            }
+            return count;
+        }
+        public int numOfLPotion(){
+            int count=0;
+            for(Potion x:potion){
+                if(x.getLarge()==true)
+                    count++;
+            }
+            return count;
+        }
 	//-------------------setter and getter-----------------------//
 	
 	//--------------------public method----------------------------//
@@ -94,6 +136,36 @@ public class Player {
 		System.out.println();
 		
 	}
+        
+        public void potionHealSmall(Pokemon poke){
+            for(Potion x:potion){
+                if(x.getSmall()==true){
+                    poke.heal(x.heal());
+                    return;
+                }
+            }
+            System.out.println("No small potion available...");
+        }
+        
+        public void potionHealMedium(Pokemon poke){
+            for(Potion x:potion){
+                if(x.getMedium()==true){
+                    poke.heal(x.heal());
+                    return;
+                }
+            }
+            System.out.println("No small potion available...");
+        }
+        
+        public void potionHealLarge(Pokemon poke){
+            for(Potion x:potion){
+                if(x.getLarge()==true){
+                    poke.heal(x.heal());
+                    return;
+                }
+            }
+            System.out.println("No small potion available...");
+        }
 	
 	
 	public boolean addPokemon(Pokemon pokemon) { //return true if successful, false if vice versa
@@ -227,7 +299,7 @@ public class Player {
 				System.out.println("- " + weakAgainst);
 			}
 
-			if (pokemon.getLvlEvolve() != 0 && pokemon.getLevel() >= pokemon.getLvlEvolve() && pokemon.getWeather().getCurrentWeather().equals(Main.currentWeather.getCurrentWeather())) {
+			if (pokemon.getLvlEvolve() != 0 && pokemon.getLevel() >= pokemon.getLvlEvolve()) {
 				System.out.println("This Pokémon is eligible for evolution!");
 				System.out.println("Do you want to evolve " + pokemon.getName() + "? (yes/no)");
 				String choice = scanner.nextLine();
@@ -291,4 +363,74 @@ public class Player {
 	
 	
 	
+}
+
+class Potion{
+    
+    private String name;
+    private boolean small=false;
+    private boolean medium=false;
+    private boolean large=false;
+    
+    Potion(int i){
+        switch(i){
+            case 0: small=true;break;
+            case 1: medium=true;break;
+            case 2: large=true;break;
+            default: break;
+        }
+    }
+    
+    public void setSmall(){
+        name="Small Potion";
+        small=true;
+        medium=false;
+        large=false;
+    }
+    
+    public boolean getSmall(){
+        return small;
+    }
+    
+    public void setMedium(){
+        name="Medium Potion";
+        medium=true;
+        small=false;
+        large=false;
+    }
+    
+    public boolean getMedium(){
+        return medium;
+    }
+    
+    public void setLarge(){
+        name="Large Potion";
+        large=true;
+        small=false;
+        medium=false;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public boolean getLarge(){
+        return large;
+    }
+    
+    public int heal(){
+        if(small){
+            return 30;//adjust accordingly
+        }
+        
+        if(medium){
+            return 100;//adjust accordingly
+        }
+        
+        if(large){
+            return 200;//adjust accordingly
+        }
+        
+        return 0;
+    }
 }
