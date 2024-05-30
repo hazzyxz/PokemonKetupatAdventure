@@ -1,8 +1,9 @@
 package backend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GymLeader {
+public class GymLeader implements Serializable {
 		
 	//----------------Attribute----------------------------//
 	

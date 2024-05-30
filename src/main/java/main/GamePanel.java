@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     // Entity and Objects
     public Screen currentScreen = new StartScreen(this, keyH);
-    public Player player = new Player(this, keyH);
+    public Player player = new Player();
     public SaveLoad saveLoad = new SaveLoad(this, keyH);
 
     public GamePanel() {

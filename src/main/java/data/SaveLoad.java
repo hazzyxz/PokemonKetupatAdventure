@@ -29,8 +29,6 @@ public class SaveLoad {
             out.close();
 
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,7 +56,7 @@ public class SaveLoad {
         } catch (FileNotFoundException e) {
             System.out.println("Load File Not Found!");
         } catch (IOException e) {
-            System.out.println("Load File IO Exception!");
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
             System.out.println("Load Class Not Found!");
         }

@@ -1,10 +1,6 @@
 package screens;
 
-import backend.GymLeader;
-import backend.Pokemon;
-import backend.PokemonBattle;
-import backend.PokemonSprite;
-import entity.Player;
+import backend.*;
 import main.GamePanel;
 import main.KeyHandler;
 
@@ -16,8 +12,10 @@ import static main.ApplicationMain.userInput;
 
 public class BattleScreen extends Screen {
 
+    Pokemon ally;
     Pokemon enemy;
     GymLeader gymLeader;
+    Weather weather;
 
     boolean pokemonBattle = false;
     boolean selectAction = false;
@@ -28,9 +26,12 @@ public class BattleScreen extends Screen {
 
     public BattleScreen(GamePanel gp, KeyHandler keyH, Pokemon wildPokemon) {
         super(gp, keyH, "/Backgrounds/BattleBG.png");
+        this.ally = gp.player.getPokemonList().getFirst();
         this.enemy = wildPokemon;
+        this.weather = new Weather();
+        weather.randomizeWeather();
 
-        playerPokemon = PokemonSprite.sprites.get(gp.player.getPokemonList().getFirst().getName());
+        playerPokemon = PokemonSprite.sprites.get(ally.getName());
         enemyPokemon = PokemonSprite.sprites.get(enemy.getName());
         selectAction = true;
         pokemonBattle = true;
@@ -46,10 +47,23 @@ public class BattleScreen extends Screen {
     public void update() {
         super.update();
 
-        if (userInput.equals("/fight")) {
+        // FIGHT MENU COMMANDS
+        if (userInput.equals("/fight") && selectAction) {
             selectAction = false;
             selectFight = true;
         }
+        if (userInput.equals("/move1") && selectFight) {
+            PokemonBattle.usesMoves(ally.getMove()[0], enemy, ally, weather);
+            selectFight = false;
+            selectAction = true;
+        }
+        if (userInput.equals("/move2") && selectFight) {
+            PokemonBattle.usesMoves(ally.getMove()[1], enemy, ally, weather);
+            selectFight = false;
+            selectAction = true;
+        }
+
+
     }
 
     public void draw(Graphics2D g2) {
@@ -80,15 +94,18 @@ public class BattleScreen extends Screen {
         if (selectAction) {
             if (pokemonBattle) {
                 // If fighting wild pokemon
-                g2.drawString("A wild "+enemy.getName()+" appeared!", x, y);
+                g2.drawString("A wild "+enemy.getName()+" appeared !", x, y);
+                if (weather.getCurrentWeather() != Weather.WeatherType.NONE) {
+                    g2.drawString("It is "+ weather.getCurrentWeather(), x, y+35);
+                }
             }
             else {
                 //If fighting gym leader\
-                g2.drawString("A "+enemy.getName()+" appeared!", x, y);
+                g2.drawString("A "+enemy.getName()+" appeared !", x, y);
             }
         }
         if (selectFight) {
-
+            g2.drawString("Select a move !",x,y);
         }
     }
 
@@ -102,17 +119,25 @@ public class BattleScreen extends Screen {
 
         drawActionWindow(x, y, width, height, g2);
 
-        x +=gp.tileSize*2;
-        y +=gp.tileSize*3;
+        x +=gp.tileSize*2-10;
+        y +=gp.tileSize*3-6;
         pokemon_classic20 = pokemon_classic20.deriveFont(Font.BOLD, 20);
         g2.setFont(pokemon_classic20);
 
         if (selectAction) {
             g2.setColor(Color.BLACK);
             g2.drawString("/fight", x, y);
-            g2.drawString("/pokemon", x, y+30);
-            g2.drawString("/items", x, y+60);
-            g2.drawString("/run", x, y+90);
+            g2.drawString("/pokemon", x, y+32);
+            g2.drawString("/items", x, y+64);
+            g2.drawString("/run", x, y+96);
+        }
+        if (selectFight) {
+            pokemon_classic20 = pokemon_classic20.deriveFont(Font.BOLD, 15);
+            g2.setFont(pokemon_classic20);
+            g2.drawString("/move1",x,y);
+            g2.drawString(ally.getMoveNames().get(0)+" <"+ally.getMove()[0].getDamage()+"dmg>",x,y+28);
+            g2.drawString("/move2",x,y+68);
+            g2.drawString(ally.getMoveNames().get(1)+" <"+ally.getMove()[1].getDamage()+"dmg>",x,y+96);
         }
     }
 

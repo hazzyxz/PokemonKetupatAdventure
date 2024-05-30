@@ -1,7 +1,6 @@
 package data;
 
 import entity.Player;
-import screens.Screen;
 
 import java.io.Serializable;
 

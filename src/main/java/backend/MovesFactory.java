@@ -49,6 +49,6 @@ public class MovesFactory {
     }
     
     public static Moves createMove(String moveName) {
-        return movesMap.get(moveName);
+        return movesMap.get(moveName).clone();
     }
 }

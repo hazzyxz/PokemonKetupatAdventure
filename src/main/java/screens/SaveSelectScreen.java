@@ -12,7 +12,7 @@ public class SaveSelectScreen extends Screen {
 
     public SaveSelectScreen(GamePanel gp, KeyHandler keyH) {
         super(gp, keyH, "/Backgrounds/WhiteScreen.png");
-        gp.player = new Player(gp, keyH);
+        gp.player = new Player();
         cityMap = false;
     }
 

@@ -4,12 +4,7 @@ import backend.PokemonFactory;
 import main.GamePanel;
 import main.KeyHandler;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Objects;
 
 import static main.ApplicationMain.userInput;
 
@@ -26,7 +21,7 @@ public class PalletTown extends Screen {
         super.update();
 
         if (userInput.equals("/fight")) {
-            gp.currentScreen = new BattleScreen(gp, keyH, PokemonFactory.createPokemon("Charmander"));
+            gp.currentScreen = new BattleScreen(gp, keyH, PokemonFactory.createPokemon("Bulbasaur"));
         }
     }
 

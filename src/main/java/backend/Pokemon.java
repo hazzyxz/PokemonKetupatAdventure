@@ -34,6 +34,7 @@ public class Pokemon implements Serializable {
 	private int maxExp;
 	private String pokemonEvolve;
 	private int lvlEvolve;
+	private Weather weather;
 	
 	//----------------Attribute----------------------------//
 	
@@ -80,7 +81,7 @@ public class Pokemon implements Serializable {
 		return Move;
 	}
         
-        public ArrayList<String> getMoveNames() {
+	public ArrayList<String> getMoveNames() {
         ArrayList<String> moveNames = new ArrayList<String>();
         for (Moves move : Move) {
             if (move != null) {
@@ -133,6 +134,14 @@ public class Pokemon implements Serializable {
 		
 		return maxExp;
 	}
+
+	public int getLvlEvolve() {
+		return lvlEvolve;
+	}
+
+	public Weather getWeather() {
+		return this.weather;
+	}
 	
 	//-------------------setter and getter-----------------------//
 	
@@ -163,8 +172,8 @@ public class Pokemon implements Serializable {
         
         
         
-        public Pokemon(String name, double health, String[] type, int level, String[] strength, String[] weakness, Moves move1, Moves move2, String pokemonEvolve, int lvlEvolve) {
-		
+	public Pokemon(String name, double health, String[] type, int level, String[] strength, String[] weakness, Moves move1, Moves move2, String pokemonEvolve, int lvlEvolve) {
+
 		this.Name = name;
 		this.FullHealth = health;
 		this.CurrentHealth = health;
@@ -184,9 +193,37 @@ public class Pokemon implements Serializable {
 		
 		this.level = level;
                 
-                this.pokemonEvolve = pokemonEvolve;
-                this.lvlEvolve = lvlEvolve;
+		this.pokemonEvolve = pokemonEvolve;
+		this.lvlEvolve = lvlEvolve;
 		
+	}
+
+	public Pokemon(String name, double health, String[] type, int level, String[] strength, String[] weakness, Moves move1, Moves move2, String pokemonEvolve, int lvlEvolve, Weather weather) {
+
+		this.Name = name;
+		this.FullHealth = health;
+		this.CurrentHealth = health;
+
+		for(int i = 0; i< type.length; i++)
+			this.type.add(type[i]);
+
+		for(int i = 0; i< weakness.length; i++)
+			this.Weakness.add(weakness[i]);
+
+
+		for(int i = 0; i< strength.length; i++)
+			this.Strength.add(strength[i]);
+
+		this.Move[0] = move1;
+		this.Move[1] = move2;
+
+		this.level = level;
+
+		this.pokemonEvolve = pokemonEvolve;
+		this.lvlEvolve = lvlEvolve;
+
+		this.weather = weather;
+
 	}
 	
 	//----------------constructor--------------------------//
@@ -197,9 +234,9 @@ public class Pokemon implements Serializable {
 		CurrentHealth = FullHealth;
 	}
 	
-	public void heal(int hp) throws Exception { //heal partially, dont know what could be use for, but its here
+	public void heal(int hp){ //heal partially, dont know what could be use for, but its here
 		if ((CurrentHealth + hp) > FullHealth) {
-			System.out.println("Heal failed, heal exceed full health");
+			CurrentHealth=FullHealth;
 			return;
 		}
 			
@@ -214,29 +251,37 @@ public class Pokemon implements Serializable {
 
 	// Clone method
     public Pokemon clone() {
-        return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0], this.Move[1], this.pokemonEvolve, this.lvlEvolve);
+        if (this.lvlEvolve != 0 && this.pokemonEvolve != null && this.weather != null) {
+			return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0].clone(), this.Move[1].clone(), this.pokemonEvolve, this.lvlEvolve, this.weather);
+		} else if (this.lvlEvolve != 0 && this.pokemonEvolve != null) {
+			return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0].clone(), this.Move[1].clone(), this.pokemonEvolve, this.lvlEvolve);
+		} else {
+			return new Pokemon(this.Name, this.FullHealth, this.type.toArray(new String[this.type.size()]), this.level, this.Strength.toArray(new String[this.Strength.size()]), this.Weakness.toArray(new String[this.Weakness.size()]), this.Move[0].clone(), this.Move[1].clone());
+		}
     }
 	
 	
     public void evolve () {
-            
-                if (this.level < this.lvlEvolve) {
-                    System.out.println("Cant evolve level requirement doesnt met");
-                    return;
-            }
+
+		// current weather not done yet
+//		if (this.level < this.lvlEvolve && !(this.weather.getCurrentWeather().equals(Main.currentWeather.getCurrentWeather())) ) {
+//			System.out.println("Cant evolve level requirement doesnt met");
+//			return;
+//		}
+
                 
-                Pokemon pokemon = PokemonFactory.createPokemon(this.pokemonEvolve);
-                pokemon.setLevel(this.lvlEvolve);
+		Pokemon pokemon = PokemonFactory.createPokemon(this.pokemonEvolve);
+		pokemon.setLevel(this.level);
                 
                 
 		this.Name = pokemon.Name;
-                this.FullHealth = pokemon.FullHealth;
-                this.type = pokemon.type;
-                this.level = pokemon.level;
-                this.Strength = pokemon.Strength ;
-                this.Weakness = pokemon.Weakness;
-                this.Move[0] = pokemon.Move[0];
-                this.Move[1] = pokemon.Move[1];
+		this.FullHealth = pokemon.FullHealth;
+		this.type = pokemon.type;
+		this.level = this.level;
+		this.Strength = pokemon.Strength ;
+		this.Weakness = pokemon.Weakness;
+		this.Move[0] = pokemon.Move[0];
+		this.Move[1] = pokemon.Move[1];
 		
     }
 	

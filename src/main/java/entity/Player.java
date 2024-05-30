@@ -1,9 +1,12 @@
 package entity;
 
+import backend.Main;
 import backend.Pokemon;
+import backend.Potion;
 import main.GamePanel;
 import main.KeyHandler;
 
+//import java.awt.*;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,18 +31,15 @@ public class Player implements Entity, Serializable {
 	 */
 	
 	//----------------Attribute----------------------------//
-
-	GamePanel gamePanel;
-	KeyHandler keyH;
-	
 	private String Name;
 	private ArrayList<Pokemon> pokemonList;
 	private String Location;
 	private Stack<String> Badges;
-	private int Items; // pls change appropriately
-	private double Money;
+	private ArrayList<Potion> potion; // pls change appropriately
+	public int Money;
 	private LinkedList<Pokemon> DownedPokemonList;
 	private final int FULLPOKEMONLISTSIZE = 6;
+	private ArrayList<Pokemon> bagPokemonList; // for excess pokemon
 	
 	//----------------Attribute----------------------------//
 	
@@ -51,14 +51,17 @@ public class Player implements Entity, Serializable {
 	
 	//--------------------private method-------------------------//
 	
-	
+
 	//----------------constructor--------------------------//
 	
-	public Player(GamePanel gp, KeyHandler KeyH) {
+	public Player() {
 		pokemonList = new ArrayList<Pokemon>();
-		this.Money = 0;
+		this.Money = 100;
 		DownedPokemonList = new LinkedList<Pokemon>();
 		this.Badges = new Stack<String>();
+		this.potion = new ArrayList<>();
+		potion.add(new Potion(0));
+		this.bagPokemonList = new ArrayList<Pokemon>();
 	}
 	
 	//----------------constructor--------------------------//
@@ -71,8 +74,8 @@ public class Player implements Entity, Serializable {
 	public Stack<String> getBadges() {
 		return Badges;
 	}
-	public int getItems() {
-		return Items;
+	public ArrayList getPotion() {
+		return potion;
 	}
 	public String getLocation() {
 		return Location;
@@ -89,7 +92,47 @@ public class Player implements Entity, Serializable {
 		}
 		
 	}
+        
+        public void addPotion(int x){
+            switch(x){
+                case 0:
+                    potion.add(new Potion(0));
+                    break;
+                case 1:
+                    potion.add(new Potion(1));
+                    break;
+                case 2:
+                    potion.add(new Potion(2));
+                    break;
+                default:
+                    return;
+            }
+        }
 	
+        public int numOfSPotion(){
+            int count=0;
+            for(Potion x:potion){
+                if(x.getSmall()==true)
+                    count++;
+            }
+            return count;
+        }
+        public int numOfMPotion(){
+            int count=0;
+            for(Potion x:potion){
+                if(x.getMedium()==true)
+                    count++;
+            }
+            return count;
+        }
+        public int numOfLPotion(){
+            int count=0;
+            for(Potion x:potion){
+                if(x.getLarge()==true)
+                    count++;
+            }
+            return count;
+        }
 	//-------------------setter and getter-----------------------//
 	
 	//--------------------public method----------------------------//
@@ -102,13 +145,111 @@ public class Player implements Entity, Serializable {
 		System.out.println();
 		
 	}
+        
+        public void potionHealSmall(Pokemon poke){
+            for(Potion x:potion){
+                if(x.getSmall()==true){
+                    poke.heal(x.heal());
+					potion.remove(x);
+                    return;
+                }
+            }
+            System.out.println("No small potion available...");
+        }
+        
+        public void potionHealMedium(Pokemon poke){
+            for(Potion x:potion){
+                if(x.getMedium()==true){
+                    poke.heal(x.heal());
+					potion.remove(x);
+                    return;
+                }
+            }
+            System.out.println("No medium potion available...");
+        }
+        
+        public void potionHealLarge(Pokemon poke){
+            for(Potion x:potion){
+                if(x.getLarge()==true){
+                    poke.heal(x.heal());
+					potion.remove(x);
+                    return;
+                }
+            }
+            System.out.println("No large potion available...");
+        }
 	
 	
 	public boolean addPokemon(Pokemon pokemon) { //return true if successful, false if vice versa
-		if (pokemonList.size() > 6) {
+		if (pokemonList.size() >= 6) {
 			System.out.println("Exceed Pokemon Limit");
-			return false;
-		} else { pokemonList.add(pokemon); return true; }
+			bagPokemonList.add(pokemon);
+			return true;
+		} else {
+			pokemonList.add(pokemon);
+			return true; }
+	}
+
+	public void showBagPokemon() {
+		System.out.println("Your Pokemon in  bag: ");
+
+		for (int i = 0; i < bagPokemonList.size(); i++) {
+
+			Pokemon pokemon = bagPokemonList.get(i);
+			System.out.println(pokemon.getName() + " - level [" + bagPokemonList.get(i).getLevel() + "]");
+
+
+			System.out.println("Type: ");
+
+			//what the hell, maybe change later,
+			switch (pokemon.getType().size()) {
+				case 1:
+					System.out.println(pokemon.getType().get(0));
+					break;
+				case 2:
+					System.out.println(pokemon.getType().get(0) + "/" + pokemon.getType().get(1));
+			}
+			System.out.println("HP: " + pokemon.getCurrentHealth() + " / " + pokemon.getFullHealth());
+			System.out.println("EXP: " + pokemon.getExp() + "/" + pokemon.getMaxExp());
+
+			System.out.println("Moves: ");
+			System.out.println("- " + pokemon.getMove()[0].getMovesName() + " [" + pokemon.getMove()[0].getDamage() + "]");
+			System.out.println("- " + pokemon.getMove()[1].getMovesName() + " [" + pokemon.getMove()[1].getDamage() + "]");
+
+			System.out.println("Strong against: ");
+			String[] strong = pokemon.getStrength().toArray(new String[pokemon.getStrength().size()]);
+			for (String StrongAgainst : strong) {
+				System.out.println("- " + StrongAgainst);
+			}
+
+			System.out.println("Weak Against: ");
+			String[] weak = pokemon.getWeakness().toArray(new String[pokemon.getWeakness().size()]);
+			for (String weakAgainst : weak) {
+				System.out.println("- " + weakAgainst);
+			}
+
+			System.out.println();
+		}
+	}
+
+	// replace pokemon from bag to active
+	public boolean movePokemonToActive(int index) {
+		if (index >= 0 && index < bagPokemonList.size() && pokemonList.size() < 6) {
+			Pokemon pokemon = bagPokemonList.remove(index);
+			pokemonList.add(pokemon);
+			return true;
+		}
+		return false;
+	}
+
+	// replace pokemon from active to bag
+	public boolean movePokemonToBag(int index) {
+		if (index >= 0 && index < pokemonList.size()) {
+			Pokemon pokemon = pokemonList.remove(index);
+			bagPokemonList.add(pokemon);
+			return true;
+		}
+		return false;
 	}
 	
 	public ArrayList<Pokemon> getPokemonList() {
@@ -129,7 +270,9 @@ public class Player implements Entity, Serializable {
 	}
 	
 	public void ShowMyPokemon() {
-		
+
+		Scanner scanner = new Scanner(System.in);
+
 		System.out.println("Your Pokemon: ");
 		
 		for (int i = 0; i < pokemonList.size(); i++) {
@@ -166,6 +309,16 @@ public class Player implements Entity, Serializable {
 			String[] weak = pokemon.getWeakness().toArray(new String[pokemon.getWeakness().size()]);
 			for (String weakAgainst: weak) {
 				System.out.println("- " + weakAgainst);
+			}
+
+			if (pokemon.getLvlEvolve() != 0 && pokemon.getLevel() >= pokemon.getLvlEvolve()&& pokemon.getWeather().getCurrentWeather().equals(Main.currentWeather.getCurrentWeather())) {
+				System.out.println("This Pokémon is eligible for evolution!");
+				System.out.println("Do you want to evolve " + pokemon.getName() + "? (yes/no)");
+				String choice = scanner.nextLine();
+				if (choice.equalsIgnoreCase("yes")) {
+					pokemon.evolve();
+					System.out.println(pokemon.getName() + " has evolved!");
+				}
 			}
 			
 			System.out.println("\n");
@@ -221,6 +374,10 @@ public class Player implements Entity, Serializable {
 		this.Name = string;
 	}
 
+	public void setStarterPokemon(Pokemon pokemon) {
+		addPokemon(pokemon);
+	}
+
 	@Override
 	public void update() {
 
@@ -229,9 +386,5 @@ public class Player implements Entity, Serializable {
 	@Override
 	public void draw(Graphics2D g2) {
 
-	}
-
-	public void setStarterPokemon(Pokemon pokemon) {
-		addPokemon(pokemon);
 	}
 }

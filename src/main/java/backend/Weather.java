@@ -1,6 +1,9 @@
+package backend;
+
+import java.io.Serializable;
 import java.util.Random;
 
-public class Weather {
+public class Weather implements Serializable {
 
     public enum WeatherType {
         SUNNY, RAINY, WINDY, NONE

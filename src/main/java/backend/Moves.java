@@ -35,8 +35,11 @@ public class Moves implements Serializable {
 	public void setMovesName(String movesName) {
 		MovesName = movesName;
 	}
-	
-	
+
+	// clone method
+	public Moves clone() {
+		return new Moves(this.MovesName, this.Damage);
+	}
 	
 	
 	
