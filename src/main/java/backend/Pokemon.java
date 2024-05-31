@@ -49,7 +49,7 @@ public class Pokemon implements Serializable {
 	public int getLevel() {
 		return level;
 	}
-	public Pokemon setLevel(int level) {
+	public void setLevel(int level) {
 		
 		this.Move[0].setDamage(Move[0].getDamage() + (2*level));
 		this.Move[1].setDamage(Move[1].getDamage() + (2*level));
@@ -57,10 +57,6 @@ public class Pokemon implements Serializable {
 		this.CurrentHealth = FullHealth;
 		
 		this.level = level;
-				
-		
-		return this;
-		
 	}
 	public double getFullHealth() {
 		return FullHealth;

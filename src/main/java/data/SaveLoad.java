@@ -48,8 +48,6 @@ public class SaveLoad {
             }
 
 
-            gp.playMusic(1);
-
             in.close();
 
 

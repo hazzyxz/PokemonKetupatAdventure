@@ -1,5 +1,6 @@
 package screens;
 
+import backend.Pokemon;
 import backend.PokemonFactory;
 import main.GamePanel;
 import main.KeyHandler;
@@ -14,6 +15,7 @@ public class PalletTown extends Screen {
         super(gp, keyH, "/Backgrounds/PalletTown.png");
         cityName = "Pallet Town";
         cityMap = true;
+        gp.playMusic(1);
     }
 
     @Override
@@ -21,7 +23,9 @@ public class PalletTown extends Screen {
         super.update();
 
         if (userInput.equals("/fight")) {
-            gp.currentScreen = new BattleScreen(gp, keyH, PokemonFactory.createPokemon("Bulbasaur"));
+            Pokemon enemy = PokemonFactory.createPokemon("Bulbasaur");
+
+            gp.currentScreen = new BattleScreen(gp, keyH, enemy, this);
         }
     }
 
