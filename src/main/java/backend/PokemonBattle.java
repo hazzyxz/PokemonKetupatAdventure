@@ -30,6 +30,8 @@ NOTES:
 
 
 public class PokemonBattle {
+    public static String dialogue;
+    public static String additionalDialogue;
 
     public static void EnterBattle(GymLeader gymLeader, Player player, Weather weather) {
 
@@ -230,10 +232,10 @@ public class PokemonBattle {
 
         if (containAdvantage) {
             damageDeal = (int) (move.getDamage() * 1.2);
-            System.out.println(damageDealText[0]);
+            dialogue = damageDealText[0];
         } else if (containDisadvantage) {
             damageDeal = (int) (move.getDamage() * 0.8);
-            System.out.println(damageDealText[3]);
+            dialogue = damageDealText[3];
         } else {
             damageDeal = move.getDamage();
         }
@@ -266,9 +268,9 @@ public class PokemonBattle {
                 break;
         }
 
-        if (random.nextDouble() < 0.0625) {
+        if (random.nextDouble(1.0) < 0.0625) {
             damageDeal *= 2;
-            System.out.println("Critical Hit!");
+            additionalDialogue = "Critical Hit!";
         }
 
         enemy.setCurrentHealth(enemy.getCurrentHealth() - damageDeal);

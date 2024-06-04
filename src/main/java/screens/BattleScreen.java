@@ -6,6 +6,7 @@ import main.KeyHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Random;
 
 import static main.ApplicationMain.userInput;
@@ -16,6 +17,7 @@ public class BattleScreen extends Screen {
     Pokemon enemy;
     GymLeader gymLeader;
     Weather weather;
+    Random rand = new Random();
 
     boolean pokemonBattle = false;
     boolean selectAction = false;
@@ -23,9 +25,21 @@ public class BattleScreen extends Screen {
     boolean selectPokemon = false;
     boolean selectItem = false;
     boolean displayFightDialogue = false;
+    boolean displayEnemyFightDialogue = false;
+    boolean youLose = false;
+    boolean youWin = false;
+
+    int allySelectedMove;
+    int enemySelectedMove;
+    int allyDamage;
+    int enemyDamage;
+
+    long startTime = 0;
 
     String[] allyDialogue;
+
     String[] enemyDialogue;
+
     final String[] damageDealText = { "Super Effective!", "Ouch!", "Critical Hit!", "It's not very effective...", "" };
 
     BufferedImage playerPokemon;
@@ -63,7 +77,8 @@ public class BattleScreen extends Screen {
             selectFight = true;
         }
         if (userInput.equals("/pokemon") && selectAction) {
-
+            selectAction = false;
+            selectPokemon = true;
         }
         if (userInput.equals("/items") && selectAction) {
 
@@ -72,18 +87,102 @@ public class BattleScreen extends Screen {
             tryRun();
         }
 
-
         //------------- SELECT MOVES COMMANDS (AFTER /fight)---------------\\
-        if (userInput.equals("/move1") && selectFight) {
-            PokemonBattle.usesMoves(ally.getMove()[0], enemy, ally, weather);
-            selectFight = false;
+        if ((userInput.equals("/move 1") && selectFight) || userInput.equals("/fight move 1")) {
+            allyDamage = PokemonBattle.usesMoves(ally.getMove()[0], enemy, ally, weather);
+            allySelectedMove = 1;
+            // If ally pokemon unalive switch to next pokemon
+            if (enemy.isDown()) {
+                if (pokemonBattle) {
+                    youWin();
+                    youWin = true;
+                    selectAction = false;
+                    selectFight = false;
+                }
+            }
+            else {
+                selectAction = false;
+                selectFight = false;
+                displayFightDialogue = true;
+            }
         }
-        if (userInput.equals("/move2") && selectFight) {
-            PokemonBattle.usesMoves(ally.getMove()[1], enemy, ally, weather);
-            selectFight = false;
+        if ((userInput.equals("/move 2") && selectFight) || userInput.equals("/fight move 2")) {
+            allyDamage = PokemonBattle.usesMoves(ally.getMove()[1], enemy, ally, weather);
+            allySelectedMove = 2;
+            // If ally pokemon unalive switch to next pokemon
+            if (enemy.isDown()) {
+                if (pokemonBattle) {
+                    youWin();
+                    youWin = true;
+                    selectAction = false;
+                    selectFight = false;
+                }
+            }
+            else {
+                selectAction = false;
+                selectFight = false;
+                displayFightDialogue = true;
+            }
         }
 
+        //-------------SELECT POKEMON COMMANDS--------------------------\\
+        if ((userInput.contains("/choose") && selectPokemon)) {
+            int i;
 
+            try {
+                String[] s = userInput.split("");
+                i = Integer.parseInt(s[8]);
+                swapPokemon(i-1);
+            } catch (IndexOutOfBoundsException e) {
+                i = 0;
+            }
+
+
+            selectAction = true;
+            selectPokemon = false;
+        }
+
+        if ((userInput.equals("/return") && selectPokemon)) {
+            selectAction = true;
+            selectPokemon = false;
+        }
+
+        //---------------FIGHT DIALOGUE----------------------------------\\
+        if (displayFightDialogue && userInput.equals("/")) {
+            // Enemy Turn
+            enemySelectedMove = rand.nextInt(2);
+            enemyDamage = PokemonBattle.usesMoves(enemy.getMove()[enemySelectedMove], ally, enemy, weather);
+
+            if (ally.isDown()) {
+                if (gp.player.getPokemonList().isEmpty()) {
+                    youLose = true;
+                    displayFightDialogue = false;
+                    youLose();
+                }
+            }
+            else {
+                displayEnemyFightDialogue = true;
+                displayFightDialogue = false;
+            }
+        }
+
+        else if (displayEnemyFightDialogue && userInput.equals("/")) {
+            displayEnemyFightDialogue = false;
+            selectAction = true;
+        }
+
+        else if (youWin && userInput.equals("/")) {
+            gp.stopMusic();
+            gp.playMusic(1);
+            gp.currentScreen = currentScreen;
+        }
+
+        else if (youLose && userInput.equals("/")) {
+            gp.stopMusic();
+            gp.playMusic(1);
+            gp.player.healPokemonFull();
+            gp.currentScreen = currentScreen;
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -96,6 +195,12 @@ public class BattleScreen extends Screen {
             drawActionBox(g2);
         }
         drawBox(g2);
+
+
+        // OVERLAY OR SUBMENU
+        if (selectPokemon) {
+            drawSelectPokemon(g2);
+        }
     }
 
     void drawBox(Graphics2D g2) {
@@ -133,6 +238,53 @@ public class BattleScreen extends Screen {
         if (selectFight) {
             g2.drawString("Select a move !",x,y);
         }
+
+        // After selected move write attack dialogue
+        if (displayFightDialogue) {
+            allyDialogue = new String[]{
+                    ally.getName()+" used "+ally.getMove()[0].getMovesName()+" !",
+                    ally.getName()+" used "+ally.getMove()[1].getMovesName()+" !",
+                    "Super Effective!",
+                    "It's not very effective...",
+            };
+
+            g2.drawString(allyDialogue[allySelectedMove-1], x, y);
+            g2.drawString(PokemonBattle.dialogue+" "+PokemonBattle.additionalDialogue, x, y+30);
+            PokemonBattle.additionalDialogue = "";
+
+            g2.drawString("/",width-5,y+60);
+        }
+
+        if (displayEnemyFightDialogue) {
+            enemyDialogue = new String[]{
+                    enemy.getName()+" used "+enemy.getMove()[0].getMovesName()+" !",
+                    enemy.getName()+" used "+enemy.getMove()[1].getMovesName()+" !",
+                    "Super Effective!",
+                    "It's not very effective..."
+            };
+
+            g2.drawString(enemyDialogue[enemySelectedMove], x, y);
+            g2.drawString(PokemonBattle.dialogue+" "+PokemonBattle.additionalDialogue, x, y+30);
+            PokemonBattle.additionalDialogue = "";
+
+            g2.drawString("/",width-5,y+60);
+        }
+
+        if (youWin) {
+            g2.drawString(enemy.getName()+" fainted. You win!",x,y);
+            g2.drawString("You gained 50 gold",x,y+30);
+            g2.drawString("/",width-5,y+60);
+        }
+
+        if (youLose) {
+            g2.drawString("All your Pokemon fainted. You lose!",x,y);
+            g2.drawString("You lost 100 gold",x,y+30);
+            g2.drawString("/",width-5,y+60);
+        }
+
+
+
+
     }
 
     void drawActionBox(Graphics2D g2) {
@@ -160,9 +312,9 @@ public class BattleScreen extends Screen {
         if (selectFight) {
             pokemon_classic20 = pokemon_classic20.deriveFont(Font.BOLD, 15);
             g2.setFont(pokemon_classic20);
-            g2.drawString("/move1",x,y);
+            g2.drawString("/move 1",x,y);
             g2.drawString(ally.getMoveNames().get(0)+" <"+ally.getMove()[0].getDamage()+"dmg>",x,y+28);
-            g2.drawString("/move2",x,y+68);
+            g2.drawString("/move 2",x,y+68);
             g2.drawString(ally.getMoveNames().get(1)+" <"+ally.getMove()[1].getDamage()+"dmg>",x,y+96);
         }
     }
@@ -197,7 +349,17 @@ public class BattleScreen extends Screen {
         int allyHealthPercent = (int) (ally.getCurrentHealth()/ally.getFullHealth() * 280);
         g2.setColor(Color.BLACK);
         g2.fillRoundRect(x-3, y+45-3, 280+3, 15+3,15,15);
-        g2.setColor(Color.GREEN);
+
+        // DISPLAY COLOR FOR EACH PERCENTAGE
+        if (allyHealthPercent > 140) {
+            g2.setColor(Color.GREEN);
+        }
+        else if (allyHealthPercent > 70) {
+            g2.setColor(Color.YELLOW);
+        }
+        else {
+            g2.setColor(Color.RED);
+        }
         g2.fillRoundRect(x, y+45, allyHealthPercent, 15,15,15);
 
 
@@ -213,10 +375,86 @@ public class BattleScreen extends Screen {
         int enemyHealthPercent = (int) (enemy.getCurrentHealth()/enemy.getFullHealth() * 280.0);
         g2.setColor(Color.BLACK);
         g2.fillRoundRect(gp.tileSize*5-3, gp.tileSize*13+45-3, 280+3, 15+3,15,15);
-        g2.setColor(Color.GREEN);
+
+        // DISPLAY COLOR FOR EACH PERCENTAGE
+        if (enemyHealthPercent > 140) {
+            g2.setColor(Color.GREEN);
+        }
+        else if (enemyHealthPercent > 70) {
+            g2.setColor(Color.YELLOW);
+        }
+        else {
+            g2.setColor(Color.RED);
+        }
         g2.fillRoundRect(gp.tileSize*5, gp.tileSize*13+45, enemyHealthPercent, 15,15,15);
 
 
+    }
+
+    void drawSelectPokemon(Graphics2D g2) {
+        g2.setColor(Color.WHITE);
+        g2.fillRect(0,0,704,704);
+
+        int x = gp.tileSize*2;
+        int y = gp.tileSize*3;
+        int spacing = 0;
+        pokemon_classic20 = pokemon_classic20.deriveFont(Font.PLAIN, 20);
+        g2.setFont(pokemon_classic20);
+        g2.setColor(Color.BLACK);
+
+        for (int i = 0; i < gp.player.getPokemonList().size(); i++) {
+            g2.setColor(Color.BLACK);
+            if (i==0) {
+                g2.drawString((i+1)+".  "+gp.player.getPokemonList().get(i).getName()+"  lvl. "+gp.player.getPokemonList().get(i).getLevel()+" <active>", x, y + spacing);
+            }
+            else {
+                g2.drawString((i+1)+".  "+gp.player.getPokemonList().get(i).getName()+"  lvl. "+gp.player.getPokemonList().get(i).getLevel(), x, y + spacing);
+            }
+            int allyHealthPercent = (int) (gp.player.getPokemonList().get(i).getCurrentHealth()/gp.player.getPokemonList().get(i).getFullHealth() * 280);
+            g2.setColor(Color.BLACK);
+            g2.fillRoundRect(x+30, y+spacing+18, 280, 15,15,15);
+
+            // DISPLAY HEALTH BASED ON PERCENTAGE
+            if (allyHealthPercent > 140) {
+                g2.setColor(Color.GREEN);
+            }
+            else if (allyHealthPercent > 70) {
+                g2.setColor(Color.YELLOW);
+            }
+            else {
+                g2.setColor(Color.RED);
+            }
+
+            g2.fillRoundRect(x+32, y+spacing+20, allyHealthPercent, 15,15,15);
+
+            spacing+=105;
+        }
+
+        g2.setColor(Color.BLACK);
+        g2.drawString("/choose   <number>                          /return",x-5,y+spacing);
+    }
+
+    void swapPokemon(int x) {
+        // SWAP FIRST POKEMON WITH xth POKEMON
+        Pokemon temp = gp.player.getPokemonList().get(x);
+        gp.player.getPokemonList().remove(x);
+        gp.player.getPokemonList().addFirst(temp);
+
+        // SET FIRST POKEMON AS ACTIVE
+        ally = gp.player.getPokemonList().getFirst();
+        playerPokemon = PokemonSprite.sprites.get(ally.getName());
+    }
+
+    void youWin() {
+        if (pokemonBattle) {
+            gp.player.Money+=50;
+        }
+
+        ally.increaseEXP(5*enemy.getLevel());
+    }
+
+    void youLose() {
+        gp.player.Money-=100;
     }
 
     void tryRun() {
@@ -234,5 +472,11 @@ public class BattleScreen extends Screen {
         gp.stopMusic();
         gp.playMusic(1);
         gp.currentScreen = this.currentScreen;
+    }
+
+    void startTime() {
+        if (this.startTime<10000) {
+            startTime = System.currentTimeMillis();
+        }
     }
 }

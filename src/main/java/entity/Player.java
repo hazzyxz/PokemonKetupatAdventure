@@ -136,6 +136,16 @@ public class Player implements Entity, Serializable {
 	//-------------------setter and getter-----------------------//
 	
 	//--------------------public method----------------------------//
+
+	public void reviveAndHealFull() {
+		for (Pokemon x : DownedPokemonList) {
+			pokemonList.add(x);
+			DownedPokemonList.remove(x);
+		}
+		for (Pokemon x : pokemonList) {
+			x.healFull();
+		}
+	}
 	
 	public void healPokemonFull() {
 		for (Pokemon x: pokemonList) {
