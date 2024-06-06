@@ -26,7 +26,7 @@ public abstract class Screen {
     long startTime;
     boolean cityMap;
     boolean mapBoolean;
-    boolean raining;
+    boolean myPokemon;
 
     public Screen(GamePanel gp, KeyHandler keyH, String backgroundPath) {
         this.gp = gp;
@@ -73,6 +73,7 @@ public abstract class Screen {
 
             if (userInput.equals("/mypokemon")) {
                 gp.player.ShowMyPokemon();
+                myPokemon = !myPokemon;
             }
 
             if (userInput.equals("/save 1")) {
@@ -90,10 +91,17 @@ public abstract class Screen {
     public void draw(Graphics2D g2) {
         g2.drawImage(background, 0, 0, gp.screenWidth, gp.screenHeight, null);
         if (cityMap) {
+            // TOGGLE MAP
             g2.drawImage(commandList, 0, 0, null);
             if (mapBoolean) {
                 g2.drawImage(map, 0, 0, null);
             }
+
+            // TOGGLE POKEMON INFO
+            if (myPokemon) {
+                
+            }
+
         }
     }
 

@@ -6,7 +6,6 @@ import main.KeyHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.Random;
 
 import static main.ApplicationMain.userInput;
@@ -26,6 +25,10 @@ public class BattleScreen extends Screen {
     boolean selectItem = false;
     boolean displayFightDialogue = false;
     boolean displayEnemyFightDialogue = false;
+    boolean throwPokeball = false;
+    boolean captureSuccess = false;
+    boolean captureFail = false;
+    boolean isGymLeader = false;
     boolean youLose = false;
     boolean youWin = false;
 
@@ -33,8 +36,6 @@ public class BattleScreen extends Screen {
     int enemySelectedMove;
     int allyDamage;
     int enemyDamage;
-
-    long startTime = 0;
 
     String[] allyDialogue;
 
@@ -66,6 +67,7 @@ public class BattleScreen extends Screen {
 
     public BattleScreen(GamePanel gp, KeyHandler keyH, GymLeader gymLeader) {
         super(gp, keyH, "/Backgrounds/WhiteScreen.png");
+        isGymLeader = true;
     }
 
     public void update() {
@@ -81,7 +83,8 @@ public class BattleScreen extends Screen {
             selectPokemon = true;
         }
         if (userInput.equals("/items") && selectAction) {
-
+            selectAction = false;
+            selectItem = true;
         }
         if (userInput.equals("/run") && selectAction) {
             tryRun();
@@ -138,7 +141,7 @@ public class BattleScreen extends Screen {
             }
 
 
-            selectAction = true;
+            enemyTurn();
             selectPokemon = false;
         }
 
@@ -150,20 +153,7 @@ public class BattleScreen extends Screen {
         //---------------FIGHT DIALOGUE----------------------------------\\
         if (displayFightDialogue && userInput.equals("/")) {
             // Enemy Turn
-            enemySelectedMove = rand.nextInt(2);
-            enemyDamage = PokemonBattle.usesMoves(enemy.getMove()[enemySelectedMove], ally, enemy, weather);
-
-            if (ally.isDown()) {
-                if (gp.player.getPokemonList().isEmpty()) {
-                    youLose = true;
-                    displayFightDialogue = false;
-                    youLose();
-                }
-            }
-            else {
-                displayEnemyFightDialogue = true;
-                displayFightDialogue = false;
-            }
+            enemyTurn();
         }
 
         else if (displayEnemyFightDialogue && userInput.equals("/")) {
@@ -172,16 +162,42 @@ public class BattleScreen extends Screen {
         }
 
         else if (youWin && userInput.equals("/")) {
-            gp.stopMusic();
-            gp.playMusic(1);
-            gp.currentScreen = currentScreen;
+            endBattle();
         }
 
         else if (youLose && userInput.equals("/")) {
-            gp.stopMusic();
-            gp.playMusic(1);
             gp.player.healPokemonFull();
-            gp.currentScreen = currentScreen;
+            endBattle();
+        }
+
+        // ------------ITEMS COMMANDS-------------------------\\
+        if (selectItem && userInput.equals("/ketupat")) {
+            selectItem = false;
+            if (!isGymLeader) {
+                throwPokeball = true;
+            }else {
+                selectAction = true;
+            }
+        }
+
+        if (throwPokeball && userInput.equals("/")) {
+            throwPokeball = false;
+            captureSuccess = PokemonBattle.capturePokemon(enemy, gp.player, weather);
+            if (!captureSuccess) {
+                captureFail = true;
+            }
+        }
+
+        else if (captureSuccess) {
+            enemyPokemon = null;
+            if (userInput.equals("/")) {
+                endBattle();
+            }
+        }
+
+        else if (captureFail && userInput.equals("/")) {
+            enemyTurn();
+            captureFail = false;
         }
     }
 
@@ -282,6 +298,24 @@ public class BattleScreen extends Screen {
             g2.drawString("/",width-5,y+60);
         }
 
+        if (selectItem) {
+            g2.drawString("Select an item !",x,y);
+        }
+
+        if (throwPokeball) {
+            g2.drawString("You throw Ketupat at the enemy !",x,y);
+            g2.drawString("/",width-5,y+60);
+        }
+
+        if (captureSuccess) {
+            g2.drawString("You caught "+enemy.getName()+" !",x,y);
+            g2.drawString("/",width-5,y+60);
+        }
+
+        if (captureFail) {
+            g2.drawString("The enemy broke free !",x,y);
+            g2.drawString("/",width-5,y+60);
+        }
 
 
 
@@ -316,6 +350,13 @@ public class BattleScreen extends Screen {
             g2.drawString(ally.getMoveNames().get(0)+" <"+ally.getMove()[0].getDamage()+"dmg>",x,y+28);
             g2.drawString("/move 2",x,y+68);
             g2.drawString(ally.getMoveNames().get(1)+" <"+ally.getMove()[1].getDamage()+"dmg>",x,y+96);
+        }
+        if (selectItem) {
+            pokemon_classic20 = pokemon_classic20.deriveFont(Font.BOLD, 15);
+            g2.setFont(pokemon_classic20);
+            g2.drawString("/ketupat",x,y);
+            g2.drawString("/potion",x,y+40);
+            g2.drawString("<small/medium/large>",x,y+68);
         }
     }
 
@@ -434,6 +475,29 @@ public class BattleScreen extends Screen {
         g2.drawString("/choose   <number>                          /return",x-5,y+spacing);
     }
 
+    void enemyTurn() {
+        enemySelectedMove = rand.nextInt(2);
+        enemyDamage = PokemonBattle.usesMoves(enemy.getMove()[enemySelectedMove], ally, enemy, weather);
+
+        if (ally.isDown()) {
+            if (gp.player.getPokemonList().isEmpty()) {
+                youLose = true;
+                displayFightDialogue = false;
+                youLose();
+            }
+            else {
+                ally = gp.player.getPokemonList().getFirst();
+                playerPokemon = PokemonSprite.sprites.get(ally.getName());
+                displayEnemyFightDialogue = true;
+                displayFightDialogue = false;
+            }
+        }
+        else {
+            displayEnemyFightDialogue = true;
+            displayFightDialogue = false;
+        }
+    }
+
     void swapPokemon(int x) {
         // SWAP FIRST POKEMON WITH xth POKEMON
         Pokemon temp = gp.player.getPokemonList().get(x);
@@ -472,11 +536,5 @@ public class BattleScreen extends Screen {
         gp.stopMusic();
         gp.playMusic(1);
         gp.currentScreen = this.currentScreen;
-    }
-
-    void startTime() {
-        if (this.startTime<10000) {
-            startTime = System.currentTimeMillis();
-        }
     }
 }
