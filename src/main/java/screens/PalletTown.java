@@ -1,5 +1,7 @@
 package screens;
 
+import backend.GymLeader;
+import backend.GymLeaderFactory;
 import backend.Pokemon;
 import backend.PokemonFactory;
 import main.GamePanel;
@@ -26,6 +28,16 @@ public class PalletTown extends Screen {
             Pokemon enemy = PokemonFactory.createPokemon("Bulbasaur");
 
             gp.currentScreen = new BattleScreen(gp, keyH, enemy, this);
+        }
+
+        if (userInput.equals("/gym")) {
+
+            // TEST ONLY
+            GymLeader brock = GymLeaderFactory.leaderBrock();
+            Pokemon ally = PokemonFactory.createPokemon("Charizard");
+            ally.setLevel(1000);
+            gp.player.addPokemon(ally);
+            gp.currentScreen = new BattleScreen(gp, keyH, brock, this);
         }
     }
 

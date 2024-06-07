@@ -36,6 +36,7 @@ public class BattleScreen extends Screen {
     int enemySelectedMove;
     int allyDamage;
     int enemyDamage;
+    int gymLeaderPokeIndex;
 
     String[] allyDialogue;
 
@@ -65,9 +66,23 @@ public class BattleScreen extends Screen {
         gp.playMusic(2);
     }
 
-    public BattleScreen(GamePanel gp, KeyHandler keyH, GymLeader gymLeader) {
-        super(gp, keyH, "/Backgrounds/WhiteScreen.png");
+    public BattleScreen(GamePanel gp, KeyHandler keyH, GymLeader gymLeader, Screen currentScreen) {
+        super(gp, keyH, "/Backgrounds/BattleBG.png");
+        this.ally = gp.player.getPokemonList().getFirst();
+        this.gymLeader = gymLeader;
+        this.enemy = gymLeader.getPokemonList().getFirst();
+        this.currentScreen = currentScreen;
+        this.weather = new Weather();
+        this.gymLeaderPokeIndex = 1;
+        weather.randomizeWeather();
+
+        playerPokemon = PokemonSprite.sprites.get(ally.getName());
+        enemyPokemon = PokemonSprite.sprites.get(enemy.getName());
+        selectAction = true;
         isGymLeader = true;
+
+        gp.stopMusic();
+        gp.playMusic(2);
     }
 
     public void update() {
@@ -114,11 +129,24 @@ public class BattleScreen extends Screen {
             allySelectedMove = 2;
             // If ally pokemon unalive switch to next pokemon
             if (enemy.isDown()) {
-                if (pokemonBattle) {
+                if (!isGymLeader) {
                     youWin();
                     youWin = true;
                     selectAction = false;
                     selectFight = false;
+                }
+                else {
+                    if (gymLeaderPokeIndex > 5) {
+                        youWin();
+                        youWin = true;
+                        selectAction = false;
+                        selectFight = false;
+                    }
+                    else {
+                        enemy = gymLeader.getPokemonList().get(gymLeaderPokeIndex);
+                        enemyPokemon = PokemonSprite.sprites.get(enemy.getName());
+                        gymLeaderPokeIndex++;
+                    }
                 }
             }
             else {
@@ -199,6 +227,22 @@ public class BattleScreen extends Screen {
             enemyTurn();
             captureFail = false;
         }
+
+        if (userInput.equals("/potion small") && selectItem) {
+            gp.player.potionHealSmall(ally);
+            selectItem = false;
+            selectAction = true;
+        }
+        if (userInput.equals("/potion medium") && selectItem) {
+            gp.player.potionHealMedium(ally);
+            selectItem = false;
+            selectAction = true;
+        }
+        if (userInput.equals("/potion large") && selectItem) {
+            gp.player.potionHealLarge(ally);
+            selectItem = false;
+            selectAction = true;
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -240,13 +284,17 @@ public class BattleScreen extends Screen {
             if (pokemonBattle) {
                 // If fighting wild pokemon
                 g2.drawString("A wild "+enemy.getName()+" appeared !", x, y);
+                if (weather.getCurrentWeather() != Weather.WeatherType.NONE) {
+                    g2.drawString("It is "+ weather.getCurrentWeather(), x, y+35);
+                }
             }
             else {
                 //If fighting gym leader\\
-                g2.drawString("A "+enemy.getName()+" appeared !", x, y);
-            }
-            if (weather.getCurrentWeather() != Weather.WeatherType.NONE) {
-                g2.drawString("It is "+ weather.getCurrentWeather(), x, y+35);
+                g2.drawString("Gym Leader "+gymLeader.getName()+" sent out", x, y);
+                g2.drawString(enemy.getName()+" !", x, y+30);
+                if (weather.getCurrentWeather() != Weather.WeatherType.NONE) {
+                    g2.drawString("It is "+ weather.getCurrentWeather(), x, y+60);
+                }
             }
         }
 
@@ -287,9 +335,22 @@ public class BattleScreen extends Screen {
         }
 
         if (youWin) {
-            g2.drawString(enemy.getName()+" fainted. You win!",x,y);
-            g2.drawString("You gained 50 gold",x,y+30);
-            g2.drawString("/",width-5,y+60);
+            if (!isGymLeader) {
+                g2.drawString(enemy.getName() + " fainted. You win!", x, y);
+                g2.drawString("You gained 50 gold", x, y + 30);
+                g2.drawString("/", width - 5, y + 60);
+            }
+            else {
+                g2.drawString("You have defeated "+gymLeader.getName()+",", x, y);
+                switch (gymLeader.getName()) {
+                    case "Brock":
+                        g2.drawString("Pewter City Gym Badge earned !", x, y + 30);
+                        if (!gp.player.getBadges().contains("Pewter City Gym Badge")) {
+                            gp.player.addBadges("Pewter City Gym Badge");
+                        }
+                        break;
+                }
+            }
         }
 
         if (youLose) {
