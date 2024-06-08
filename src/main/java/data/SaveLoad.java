@@ -3,6 +3,7 @@ package data;
 import main.GamePanel;
 import main.KeyHandler;
 import screens.PalletTown;
+import screens.ViridianCity;
 
 import java.io.*;
 
@@ -45,6 +46,7 @@ public class SaveLoad {
             // LOAD SCREEN BASED ON cityName
             switch (ds.currentScreen) {
                 case "Pallet Town": gp.currentScreen = new PalletTown(gp, keyH); break;
+                case "Viridian City": gp.currentScreen = new ViridianCity(gp, keyH); break;
             }
 
 

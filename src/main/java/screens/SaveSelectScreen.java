@@ -22,17 +22,23 @@ public class SaveSelectScreen extends Screen {
             gp.currentScreen = new NewGameScreen(gp, keyH);
         }
 
-        if (userInput.equals("/loadgame 1")) {
-            gp.stopMusic();
-            gp.saveLoad.load("save1.ser");
-        }
-        if (userInput.equals("/loadgame 2")) {
-            gp.stopMusic();
-            gp.saveLoad.load("save2.ser");
-        }
-        if (userInput.equals("/loadgame 3")) {
-            gp.stopMusic();
-            gp.saveLoad.load("save3.ser");
+        if (userInput.contains("/loadgame")) {
+            try {
+                String[] str = userInput.split("");
+                StringBuilder stringBuilder = new StringBuilder();
+
+                for (int i = 10; i < str.length; i++) {
+                    stringBuilder.append(str[i]);
+                }
+
+                String save = stringBuilder.toString();
+
+                gp.stopMusic();
+                gp.saveLoad.load(save+".ser");
+
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -42,7 +48,7 @@ public class SaveSelectScreen extends Screen {
         g2.setFont(pokemon_classic20);
         g2.setColor(Color.BLACK);
         g2.drawString("/newgame", 30, 502);
-        g2.drawString("/loadgame <1 / 2 / 3>", 30, 532);
+        g2.drawString("/loadgame <trainer_name>", 30, 532);
         g2.drawString("/exit", 30, 562);
     }
 

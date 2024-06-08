@@ -6,6 +6,8 @@ import main.KeyHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import static main.ApplicationMain.userInput;
@@ -17,6 +19,7 @@ public class BattleScreen extends Screen {
     GymLeader gymLeader;
     Weather weather;
     Random rand = new Random();
+    LoadGymLeaderBadges loadGymLeaderBadges;
 
     boolean pokemonBattle = false;
     boolean selectAction = false;
@@ -42,12 +45,11 @@ public class BattleScreen extends Screen {
 
     String[] enemyDialogue;
 
-    final String[] damageDealText = { "Super Effective!", "Ouch!", "Critical Hit!", "It's not very effective...", "" };
-
     BufferedImage playerPokemon;
     BufferedImage enemyPokemon;
 
     Screen currentScreen;
+    Map<String, String> badges;
 
     public BattleScreen(GamePanel gp, KeyHandler keyH, Pokemon wildPokemon, Screen currentScreen) {
         super(gp, keyH, "/Backgrounds/BattleBG.png");
@@ -74,6 +76,8 @@ public class BattleScreen extends Screen {
         this.currentScreen = currentScreen;
         this.weather = new Weather();
         this.gymLeaderPokeIndex = 1;
+        this.loadGymLeaderBadges = new LoadGymLeaderBadges();
+        this.badges = loadGymLeaderBadges.gymLeaderBadges;
         weather.randomizeWeather();
 
         playerPokemon = PokemonSprite.sprites.get(ally.getName());
@@ -137,10 +141,13 @@ public class BattleScreen extends Screen {
                 }
                 else {
                     if (gymLeaderPokeIndex > 5) {
-                        youWin();
+                        if (!gp.player.getBadges().contains(badges.get(gymLeader.getName()))) {
+                            gp.player.addBadges(badges.get(gymLeader.getName()));
+                        }
                         youWin = true;
                         selectAction = false;
                         selectFight = false;
+                        youWin();
                     }
                     else {
                         enemy = gymLeader.getPokemonList().get(gymLeaderPokeIndex);
@@ -247,10 +254,11 @@ public class BattleScreen extends Screen {
 
     public void draw(Graphics2D g2) {
         super.draw(g2);
-
-        drawPokemonInfo(g2);
         g2.drawImage(enemyPokemon,300,50, 960,480,null);
         g2.drawImage(playerPokemon,-540,224, 960,480,null);
+
+        drawPokemonInfo(g2);
+
         if (selectAction || selectFight || selectPokemon || selectItem) {
             drawActionBox(g2);
         }
@@ -259,7 +267,7 @@ public class BattleScreen extends Screen {
 
         // OVERLAY OR SUBMENU
         if (selectPokemon) {
-            drawSelectPokemon(g2);
+            drawMyInfo(g2);
         }
     }
 
@@ -342,14 +350,6 @@ public class BattleScreen extends Screen {
             }
             else {
                 g2.drawString("You have defeated "+gymLeader.getName()+",", x, y);
-                switch (gymLeader.getName()) {
-                    case "Brock":
-                        g2.drawString("Pewter City Gym Badge earned !", x, y + 30);
-                        if (!gp.player.getBadges().contains("Pewter City Gym Badge")) {
-                            gp.player.addBadges("Pewter City Gym Badge");
-                        }
-                        break;
-                }
             }
         }
 
@@ -493,7 +493,7 @@ public class BattleScreen extends Screen {
 
     }
 
-    void drawSelectPokemon(Graphics2D g2) {
+    void drawMyInfo(Graphics2D g2) {
         g2.setColor(Color.WHITE);
         g2.fillRect(0,0,704,704);
 

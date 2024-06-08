@@ -32,17 +32,23 @@ public class StarterSelectScreen extends Screen {
         }
 
         if (userInput.equals("/bulbasaur")) {
-            gp.player.setStarterPokemon(PokemonFactory.createPokemon("Bulbasaur"));
+            Pokemon pokemon = PokemonFactory.createPokemon("Bulbasaur");
+            pokemon.setLevel(5);
+            gp.player.setStarterPokemon(pokemon);
             dialogues[1] = "You have chosen " + gp.player.getPokemonList().getFirst().getName()+"\n\nGood luck on your journey!\n\n                         /begin";
             dialogueIndex++;
         }
         if (userInput.equals("/charmander")) {
-            gp.player.setStarterPokemon(PokemonFactory.createPokemon("Charmander"));
+            Pokemon pokemon = PokemonFactory.createPokemon("Charmander");
+            pokemon.setLevel(5);
+            gp.player.setStarterPokemon(pokemon);
             dialogues[1] = "You have chosen " + gp.player.getPokemonList().getFirst().getName()+"\n\nGood luck on your journey!\n\n                         /begin";
             dialogueIndex++;
         }
         if (userInput.equals("/squirtle")) {
-            gp.player.setStarterPokemon(PokemonFactory.createPokemon("Squirtle"));
+            Pokemon pokemon = PokemonFactory.createPokemon("Squirtle");
+            pokemon.setLevel(5);
+            gp.player.setStarterPokemon(pokemon);
             dialogues[1] = "You have chosen " + gp.player.getPokemonList().getFirst().getName()+"\n\nGood luck on your journey!\n\n                         /begin";
             dialogueIndex++;
         }
@@ -52,7 +58,6 @@ public class StarterSelectScreen extends Screen {
 
         if (userInput.equals("/begin") && !gp.player.getPokemonList().isEmpty()) {
             gp.stopMusic();
-            gp.playMusic(1);
             gp.currentScreen = new PalletTown(gp, keyH);
         }
     }

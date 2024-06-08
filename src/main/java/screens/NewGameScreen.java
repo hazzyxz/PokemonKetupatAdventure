@@ -71,7 +71,7 @@ public class NewGameScreen extends Screen {
             gp.currentScreen = new StarterSelectScreen(gp, keyH);
         }
 
-        if (userInput.equals("/next") && chosenName) {
+        if (userInput.equals("/") && chosenName) {
             dialogueIndex++;
         }
 
