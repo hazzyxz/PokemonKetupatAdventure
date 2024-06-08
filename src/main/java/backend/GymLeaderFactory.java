@@ -15,12 +15,12 @@ public class GymLeaderFactory {
         Pokemon pidgeot = PokemonFactory.createPokemon("Pidgeot");
         Pokemon arbok = PokemonFactory.createPokemon("Arbok");
         
-        venusaur.setLevel(20);
-        beedrill.setLevel(20);
-        raticate.setLevel(20);
-        vulpix.setLevel(20);
-        pidgeot.setLevel(20);
-        arbok.setLevel(20);
+        venusaur.setLevel(15);
+        beedrill.setLevel(15);
+        raticate.setLevel(15);
+        vulpix.setLevel(15);
+        pidgeot.setLevel(15);
+        arbok.setLevel(15);
         
         Pokemon[] brockPokemon = {venusaur, beedrill, raticate, vulpix, pidgeot, arbok};
         
@@ -36,12 +36,12 @@ public class GymLeaderFactory {
         Pokemon venonat = PokemonFactory.createPokemon("Venonat");
         Pokemon charmeleon = PokemonFactory.createPokemon("Charmeleon");
         
-        ninetales.setLevel(30);
-        golbat.setLevel(30);
-        psyduck.setLevel(30);
-        blastoise.setLevel(30);
-        venonat.setLevel(30);
-        charmeleon.setLevel(30);
+        ninetales.setLevel(25);
+        golbat.setLevel(25);
+        psyduck.setLevel(25);
+        blastoise.setLevel(25);
+        venonat.setLevel(25);
+        charmeleon.setLevel(25);
         
         Pokemon[] mistyPokemon = {ninetales, golbat, psyduck, blastoise, venonat, charmeleon};
         
@@ -57,12 +57,12 @@ public class GymLeaderFactory {
         Pokemon gloom = PokemonFactory.createPokemon("Gloom");
         Pokemon sandslash = PokemonFactory.createPokemon("Sandslash");
         
-        raichu.setLevel(45);
-        mankey.setLevel(45);
-        arcanine.setLevel(45);
-        pikachu.setLevel(45);
-        gloom.setLevel(45);
-        sandslash.setLevel(45);
+        raichu.setLevel(35);
+        mankey.setLevel(35);
+        arcanine.setLevel(35);
+        pikachu.setLevel(35);
+        gloom.setLevel(35);
+        sandslash.setLevel(35);
         
         Pokemon[] surgePokemon = {raichu, mankey, arcanine, pikachu, gloom, sandslash};
         
@@ -78,12 +78,12 @@ public class GymLeaderFactory {
         Pokemon kakuna = PokemonFactory.createPokemon("Kakuna");
         Pokemon clefairy = PokemonFactory.createPokemon("Clefairy");
         
-        gloom.setLevel(50);
-        primeape.setLevel(50);
-        jigglypuff.setLevel(50);
-        vileplume.setLevel(50);
-        kakuna.setLevel(50);
-        clefairy.setLevel(50);
+        gloom.setLevel(45);
+        primeape.setLevel(45);
+        jigglypuff.setLevel(45);
+        vileplume.setLevel(45);
+        kakuna.setLevel(45);
+        clefairy.setLevel(45);
         
         Pokemon[] erikaPokemon = {gloom, primeape, jigglypuff, vileplume, kakuna, clefairy};
         
@@ -162,12 +162,12 @@ public class GymLeaderFactory {
         Pokemon fearow = PokemonFactory.createPokemon("Fearow");
         Pokemon butterfree = PokemonFactory.createPokemon("Butterfree");
         
-        persian.setLevel(85);
-        dugtrio.setLevel(85);
-        nidoqueen.setLevel(85);
-        nidoking.setLevel(85);
-        fearow.setLevel(85);
-        butterfree.setLevel(85);
+        persian.setLevel(80);
+        dugtrio.setLevel(80);
+        nidoqueen.setLevel(80);
+        nidoking.setLevel(80);
+        fearow.setLevel(80);
+        butterfree.setLevel(80);
         
         Pokemon[] giovaniPokemon = {persian, dugtrio, nidoqueen, nidoking, fearow, butterfree};
         

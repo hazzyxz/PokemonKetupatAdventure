@@ -110,7 +110,7 @@ public class BattleScreen extends Screen {
         }
 
         //------------- SELECT MOVES COMMANDS (AFTER /fight)---------------\\
-        if ((userInput.equals("/move 1") && selectFight) || userInput.equals("/fight move 1")) {
+        if ((userInput.equals("/move 1") && selectFight) || (userInput.equals("/fight move 1") && selectAction)) {
             allyDamage = PokemonBattle.usesMoves(ally.getMove()[0], enemy, ally, weather);
             allySelectedMove = 1;
             // If ally pokemon unalive switch to next pokemon
@@ -128,7 +128,7 @@ public class BattleScreen extends Screen {
                 displayFightDialogue = true;
             }
         }
-        if ((userInput.equals("/move 2") && selectFight) || userInput.equals("/fight move 2")) {
+        if ((userInput.equals("/move 2") && selectFight) || (userInput.equals("/fight move 2") && selectAction)) {
             allyDamage = PokemonBattle.usesMoves(ally.getMove()[1], enemy, ally, weather);
             allySelectedMove = 2;
             // If ally pokemon unalive switch to next pokemon
@@ -321,8 +321,7 @@ public class BattleScreen extends Screen {
             };
 
             g2.drawString(allyDialogue[allySelectedMove-1], x, y);
-            g2.drawString(PokemonBattle.dialogue+" "+PokemonBattle.additionalDialogue, x, y+30);
-            PokemonBattle.additionalDialogue = "";
+            g2.drawString(PokemonBattle.dialogue+" ", x, y+30);
 
             g2.drawString("/",width-5,y+60);
         }
@@ -336,8 +335,7 @@ public class BattleScreen extends Screen {
             };
 
             g2.drawString(enemyDialogue[enemySelectedMove], x, y);
-            g2.drawString(PokemonBattle.dialogue+" "+PokemonBattle.additionalDialogue, x, y+30);
-            PokemonBattle.additionalDialogue = "";
+            g2.drawString(PokemonBattle.dialogue+" ", x, y+30);
 
             g2.drawString("/",width-5,y+60);
         }
@@ -345,7 +343,8 @@ public class BattleScreen extends Screen {
         if (youWin) {
             if (!isGymLeader) {
                 g2.drawString(enemy.getName() + " fainted. You win!", x, y);
-                g2.drawString("You gained 50 gold", x, y + 30);
+                g2.drawString(ally.getName()+" gained "+enemy.getLevel()*5+" exp.",x,y+30);
+                g2.drawString("You gained 50 gold.", x, y + 60);
                 g2.drawString("/", width - 5, y + 60);
             }
             else {

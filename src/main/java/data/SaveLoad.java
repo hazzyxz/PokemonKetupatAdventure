@@ -2,8 +2,7 @@ package data;
 
 import main.GamePanel;
 import main.KeyHandler;
-import screens.PalletTown;
-import screens.ViridianCity;
+import screens.*;
 
 import java.io.*;
 
@@ -47,6 +46,9 @@ public class SaveLoad {
             switch (ds.currentScreen) {
                 case "Pallet Town": gp.currentScreen = new PalletTown(gp, keyH); break;
                 case "Viridian City": gp.currentScreen = new ViridianCity(gp, keyH); break;
+                case "Pewter City": gp.currentScreen = new PewterCity(gp, keyH); break;
+                case "Cerulean City": gp.currentScreen = new CeruleanCity(gp, keyH); break;
+                case "Lavender Town": gp.currentScreen = new LavenderTown(gp, keyH); break;
             }
 
 

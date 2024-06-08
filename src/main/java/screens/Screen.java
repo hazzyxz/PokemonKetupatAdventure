@@ -88,6 +88,9 @@ public abstract class Screen {
                 showShop = !showShop;
             }
 
+            // ---- SHOP MECHANICS ------- \\
+            runShop();
+
             if (userInput.equals("/save")) {
                 gp.saveLoad.save(gp.player.getName()+".ser");
             }
@@ -99,6 +102,7 @@ public abstract class Screen {
         if (cityMap) {
             // TOGGLE MAP
             // g2.drawImage(commandList, 0, 0, null);
+            drawCityName(g2);
             drawCommandList(g2);
             if (mapBoolean) {
                 g2.drawImage(map, 0, 0, null);
@@ -168,7 +172,7 @@ public abstract class Screen {
     }
 
     public void drawSubWindow(int x, int y, int width, int height , Graphics2D g2) {
-        Color c = new Color(0,0,0, 200);
+        Color c = new Color(0,0,0, 180);
         g2.setColor(c);
         g2.fillRoundRect(x, y, width, height,35,35);
 
@@ -229,8 +233,14 @@ public abstract class Screen {
     }
 
     void drawCommandList(Graphics2D g2) {
-        int x = gp.tileSize;
+        int x = gp.tileSize+3;
         int y = gp.tileSize*33;
+
+        int width = gp.screenWidth-gp.tileSize*25;
+        int height = gp.tileSize*13;
+
+        drawSubWindow(0, y-gp.tileSize*2-5, width, height, g2);
+
         pokemon_classic20 = pokemon_classic20.deriveFont(Font.PLAIN, 20);
         g2.setFont(pokemon_classic20);
 
@@ -284,12 +294,43 @@ public abstract class Screen {
         g2.setColor(Color.BLACK);
         g2.drawString("< Potions >",x,y+60);
         g2.setColor(Color.BLACK);
-        g2.drawString("1. Small Potion          <50$>",x,y+90);
-        g2.drawString("2. Medium Potion   <250$>",x,y+120);
-        g2.drawString("3. Large Potion    <500$>",x,y+150);
+        g2.drawString("1. Small Potion          <50$>"+"   (Held: "+gp.player.numOfSPotion()+")",x,y+90);
+        g2.drawString("2. Medium Potion   <250$>"+"   (Held: "+gp.player.numOfMPotion()+")",x,y+120);
+        g2.drawString("3. Large Potion    <500$>"+"   (Held: "+gp.player.numOfLPotion()+")",x,y+150);
 
         // BOTTOM TEXT
+        g2.drawString("Money: "+(int) gp.player.getMoney()+"$",x-15,665);
         g2.drawString("/buy <number>        /shop",x-15,695);
+    }
+
+    void drawCityName(Graphics2D g2) {
+        g2.setFont(pokemon_solid40);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(Color.BLUE);
+        g2.drawString(cityName, 3, 42);
+        g2.setColor(Color.YELLOW);
+        g2.drawString(cityName, 8, 42);
+    }
+
+    void runShop() {
+        if (showShop && userInput.equals("/buy 1")) {
+            if (gp.player.getMoney() >= 50) {
+                gp.player.addPotion(0);
+                gp.player.Money -= 50;
+            }
+        }
+        if (showShop && userInput.equals("/buy 2")) {
+            if (gp.player.getMoney() >= 250) {
+                gp.player.addPotion(1);
+                gp.player.Money -= 250;
+            }
+        }
+        if (showShop && userInput.equals("/buy 3")) {
+            if (gp.player.getMoney() >= 500) {
+                gp.player.addPotion(2);
+                gp.player.Money -= 500;
+            }
+        }
     }
 
     public String getCityName() {
