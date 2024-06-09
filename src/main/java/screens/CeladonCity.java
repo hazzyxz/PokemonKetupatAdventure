@@ -1,6 +1,9 @@
 package screens;
 
-import backend.*;
+import backend.GymLeader;
+import backend.GymLeaderFactory;
+import backend.Pokemon;
+import backend.PokemonFactory;
 import main.GamePanel;
 import main.KeyHandler;
 
@@ -8,11 +11,11 @@ import java.awt.*;
 
 import static main.ApplicationMain.userInput;
 
-public class VermillionCity extends Screen {
+public class CeladonCity extends Screen {
 
-    public VermillionCity(GamePanel gp, KeyHandler keyH) {
-        super(gp, keyH, "/Backgrounds/vermillion.jpg");
-        cityName = "Vermillion City";
+    public CeladonCity(GamePanel gp, KeyHandler keyH) {
+        super(gp, keyH, "/Backgrounds/celadon.jpg");
+        cityName = "Celadon City";
         cityMap = true;
 
         gp.stopMusic();
@@ -24,33 +27,29 @@ public class VermillionCity extends Screen {
         super.update();
 
         // FORWARD DIRECTION
-        if (userInput.equals("/goto Saffron City")) {
-            gp.currentScreen = new SaffronCity(gp, keyH);
-        }
         if (userInput.equals("/goto Fuchsia City")) {
             gp.currentScreen = new FuchsiaCity(gp, keyH);
         }
 
         // BACKWARD DIRECTION
-        if (userInput.equals("/goto Lavender Town")) {
-            gp.currentScreen = new LavenderTown(gp, keyH);
+        if (userInput.equals("/goto Saffron City")) {
+            gp.currentScreen = new SaffronCity(gp, keyH);
         }
-
 
         if (userInput.equals("/fight")) {
             int num = rand.nextInt(3);
             Pokemon enemy = switch (num) {
-                case 0 -> PokemonFactory.createPokemon("Pikachu");
-                case 1 -> PokemonFactory.createPokemon("Sandshrew");
-                case 2 -> PokemonFactory.createPokemon("Clefairy");
+                case 0 -> PokemonFactory.createPokemon("Vulpix");
+                case 1 -> PokemonFactory.createPokemon("Jigglypuff");
+                case 2 -> PokemonFactory.createPokemon("Zubat");
                 default -> null;
             };
-            enemy.setLevel(32);
+            enemy.setLevel(42);
             gp.currentScreen = new BattleScreen(gp, keyH, enemy, this);
         }
 
         if (userInput.equals("/gym")) {
-            GymLeader gymLeader = GymLeaderFactory.leaderSurge();
+            GymLeader gymLeader = GymLeaderFactory.leaderErika();
             gp.currentScreen = new BattleScreen(gp, keyH, gymLeader, this);
         }
     }

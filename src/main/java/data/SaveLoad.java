@@ -51,6 +51,8 @@ public class SaveLoad {
                 case "Lavender Town": gp.currentScreen = new LavenderTown(gp, keyH); break;
                 case "Vermillion City": gp.currentScreen = new VermillionCity(gp, keyH); break;
                 case "Saffron City": gp.currentScreen = new SaffronCity(gp, keyH); break;
+                case "Celadon City": gp.currentScreen = new CeladonCity(gp, keyH); break;
+                case "Fuchsia City": gp.currentScreen = new FuchsiaCity(gp, keyH); break;
             }
 
 

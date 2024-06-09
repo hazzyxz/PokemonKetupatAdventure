@@ -30,6 +30,9 @@ public class LavenderTown extends Screen {
         if (userInput.equals("/goto Saffron City")) {
             gp.currentScreen = new SaffronCity(gp, keyH);
         }
+        if (userInput.equals("/goto Fuchsia City")) {
+            gp.currentScreen = new FuchsiaCity(gp, keyH);
+        }
 
         // BACKWARD DIRECTION
         if (userInput.equals("/goto Cerulean City")) {

@@ -6,7 +6,10 @@ import java.util.Scanner;
 
 public class SafariZone {
 
-    public static void play() {
+    public static String[] steps = new String[6];
+    public static String[] sortedList = new String[6];
+
+    public static void play(String input) {
 
         System.out.println("+----------------------------------------------------------------------+");
         System.out.println("Welcome to the Safari Zone! Today's challenge: Sort the Pokémon!");
@@ -14,8 +17,6 @@ public class SafariZone {
         System.out.println();
         System.out.print("Enter the Pokémon in your party (seperated by a comma): ");
 
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
         String[] pokemonInputNames = input.split(",");
         List<String> pokemonList = new ArrayList<>();
         for (String name : pokemonInputNames) {
@@ -36,7 +37,6 @@ public class SafariZone {
     }
 
     private static void sortPokemon(List<String> pokemonList) {
-
         placeEevee(pokemonList);
 
         placeSnorlax(pokemonList);
@@ -48,7 +48,6 @@ public class SafariZone {
         placeJigglypuff(pokemonList);
 
         placeMachop(pokemonList);
-
     }
 
     private static void placeEevee(List<String> pokemonList) {
@@ -59,6 +58,9 @@ public class SafariZone {
             System.out.print("Step 1: Eevee insists on being positioned either at the beginning of the\n" +
                     "lineup to showcase its adaptability.\n" +
                     "Sorted List: " + String.join(", ", pokemonList) + "\n");
+
+            steps[0] = "Step 1: Eevee insists on being positioned either at the\nbeginning of the lineup to showcase its adaptability.";
+            sortedList[0] = String.join(", ", pokemonList);
         }
     }
 
@@ -67,10 +69,13 @@ public class SafariZone {
         String snorlax = findAndRemove(pokemonList, "Snorlax");
         if (snorlax != null) {
             pokemonList.add(snorlax);
-            System.out.println("\nStep 2: Snorlax insists on being positioned at the end of the lineup to\n" +
+            System.out.println("\nStep 2: Snorlax insists on being positioned at the end\nof the lineup to" +
                     "ensure maximum relaxation.\n" +
                     "Partial Sort: " + String.join(", ", pokemonList));
         }
+
+        steps[1] = "Step 2: Snorlax insists on being positioned at the end\n of the lineup to ensure maximum relaxation.";
+        sortedList[1] = String.join(", ", pokemonList);
 
     }
 
@@ -123,6 +128,8 @@ public class SafariZone {
             System.out.println("\nStep 3: Bulbasaur refuses to be placed next to Charmander.\n" +
                     "Partial Sort: " + String.join(", ", pokemonList));
 
+            steps[2] = "Step 3: Bulbasaur refuses to be placed next\nto Charmander.";
+            sortedList[2] = String.join(", ", pokemonList);
         }
 
     }
@@ -136,6 +143,9 @@ public class SafariZone {
             System.out.println("\nStep 4: Pikachu demands to be placed at the center of the arrangement.\n" +
                     "Partial Sort: " + String.join(", ", pokemonList));
         }
+
+        steps[3] = "Step 4: Pikachu demands to be placed at\nthe center of the arrangement.";
+        sortedList[3] = String.join(", ", pokemonList);
     }
 
     private static void placeJigglypuff(List<String> pokemonList) {
@@ -145,41 +155,51 @@ public class SafariZone {
         int newPikachuIndex = 0;
 
         boolean containsSearchStr = pokemonList.stream().anyMatch("Pikachu"::equalsIgnoreCase);
+        boolean containJigglypuff = pokemonList.stream().anyMatch("Jigglypuff"::equalsIgnoreCase);
 
-        if (containsSearchStr) {
-            for (int i = 0; i < pokemonList.size(); i++) {
-                if (pokemonList.get(i).equalsIgnoreCase("Pikachu")) {
-                    pikachuIndex = i;
-                }
-                if (pokemonList.get(i).equalsIgnoreCase("Jigglypuff")) {
-                    jigglypuffIndex = i;
-                }
-            }
-
-            if (Math.abs(pikachuIndex - jigglypuffIndex) != 1) {
-
-                String jigglypuff = findAndRemove(pokemonList, "Jigglypuff");
-
+        if (containJigglypuff) {
+            if (containsSearchStr) {
                 for (int i = 0; i < pokemonList.size(); i++) {
                     if (pokemonList.get(i).equalsIgnoreCase("Pikachu")) {
-                        newPikachuIndex = i;
+                        pikachuIndex = i;
+                    }
+                    if (pokemonList.get(i).equalsIgnoreCase("Jigglypuff")) {
+                        jigglypuffIndex = i;
                     }
                 }
 
-                if (jigglypuff != null) {
+                if (Math.abs(pikachuIndex - jigglypuffIndex) != 1) {
 
-                    pokemonList.add(newPikachuIndex, jigglypuff);
-                    System.out.println("\nStep 5: Jigglypuff prefers to be surrounded by other \"cute\" Pokémon for\n" +
+                    String jigglypuff = findAndRemove(pokemonList, "Jigglypuff");
+
+                    for (int i = 0; i < pokemonList.size(); i++) {
+                        if (pokemonList.get(i).equalsIgnoreCase("Pikachu")) {
+                            newPikachuIndex = i;
+                        }
+                    }
+
+                    if (jigglypuff != null) {
+
+                        pokemonList.add(newPikachuIndex, jigglypuff);
+                        System.out.println("\nStep 5: Jigglypuff prefers to be surrounded by other\n \"cute\" Pokémon for\n" +
+                                "morale purposes.\n" +
+                                "Partial Sort: " + String.join(", ", pokemonList));
+
+                        steps[4] = "\nStep 5: Jigglypuff prefers to be surrounded by other\n \"cute\" Pokémon for morale purposes.";
+                        sortedList[4] = String.join(", ", pokemonList);
+
+                    }
+                } else {
+                    System.out.println("Step 5: Jigglypuff prefers to be surrounded by other\n \"cute\" Pokémon for\n" +
                             "morale purposes.\n" +
                             "Partial Sort: " + String.join(", ", pokemonList));
 
+                    steps[4] = "Step 5: Jigglypuff prefers to be surrounded by other\n \"cute\" Pokémon for morale purposes.";
+                    sortedList[4] = String.join(", ", pokemonList);
                 }
-            } else {
-                System.out.println("\nStep 5: Jigglypuff prefers to be surrounded by other \"cute\" Pokémon for\n" +
-                        "morale purposes.\n" +
-                        "Partial Sort: " + String.join(", ", pokemonList));
             }
         }
+
     }
 
     private static void placeMachop(List<String> pokemonList) {
@@ -199,6 +219,9 @@ public class SafariZone {
             System.out.println("\nStep 6: Machop demands to be placed next to the heaviest Pokemon in the\n" +
                     "lineup to show off its strength.\n" +
                     "Final Sorted List: " + String.join(", ", pokemonList));
+
+            steps[5] = "Step 6: Machop demands to be placed next to\nthe heaviest Pokemon in the lineup to show off\n its strength.";
+            sortedList[5] = String.join(", ", pokemonList);
         }
 
     }

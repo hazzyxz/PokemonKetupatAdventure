@@ -99,12 +99,12 @@ public class GymLeaderFactory {
         Pokemon nidorina = PokemonFactory.createPokemon("Nidorina");
         Pokemon nidorino = PokemonFactory.createPokemon("Nidorina");
         
-        venomoth.setLevel(55);
-        parasect.setLevel(55);
-        primeape.setLevel(55);
-        venonat.setLevel(55);
-        nidorina.setLevel(55);
-        nidorino.setLevel(55);
+        venomoth.setLevel(50);
+        parasect.setLevel(50);
+        primeape.setLevel(50);
+        venonat.setLevel(50);
+        nidorina.setLevel(50);
+        nidorino.setLevel(50);
         
         Pokemon[] kogaPokemon = {venomoth, parasect, primeape, venonat, nidorina, nidorino};
         

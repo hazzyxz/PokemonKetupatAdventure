@@ -8,13 +8,13 @@ import java.awt.*;
 
 import static main.ApplicationMain.userInput;
 
-public class SaffronCity extends Screen {
+public class FuchsiaCity extends Screen {
 
     public static String answerRivalsRace = "";
 
-    public SaffronCity(GamePanel gp, KeyHandler keyH) {
-        super(gp, keyH, "/Backgrounds/SaffronCity.png");
-        cityName = "Saffron City";
+    public FuchsiaCity(GamePanel gp, KeyHandler keyH) {
+        super(gp, keyH, "/Backgrounds/fuchsia.jpg");
+        cityName = "Fuchsia City";
         cityMap = true;
 
         gp.stopMusic();
@@ -26,16 +26,14 @@ public class SaffronCity extends Screen {
         super.update();
 
         // FORWARD DIRECTION
+
+
+        // BACKWARD DIRECTION
         if (userInput.equals("/goto Celadon City")) {
             gp.currentScreen = new CeladonCity(gp, keyH);
         }
-
-        // BACKWARD DIRECTION
         if (userInput.equals("/goto Vermillion City")) {
             gp.currentScreen = new VermillionCity(gp, keyH);
-        }
-        if (userInput.equals("/goto Cerulean City")) {
-            gp.currentScreen = new CeruleanCity(gp, keyH);
         }
         if (userInput.equals("/goto Lavender Town")) {
             gp.currentScreen = new LavenderTown(gp, keyH);
@@ -49,18 +47,16 @@ public class SaffronCity extends Screen {
                 case 2 -> PokemonFactory.createPokemon("Clefairy");
                 default -> null;
             };
-            enemy.setLevel(37);
+            enemy.setLevel(47);
             gp.currentScreen = new BattleScreen(gp, keyH, enemy, this);
         }
 
         if (userInput.equals("/gym")) {
-            GymLeader gymLeader = GymLeaderFactory.leaderSabrina();
+            GymLeader gymLeader = GymLeaderFactory.leaderKoga();
             gp.currentScreen = new BattleScreen(gp, keyH, gymLeader, this);
         }
-
-        if (userInput.equals("/rivalsrace")) {
-            userInput = "";
-            RivalsRace.play();
+        if (userInput.equals("/safarizone")) {
+            gp.currentScreen = new SafariZone(gp, keyH, this);
         }
     }
 
@@ -73,12 +69,12 @@ public class SaffronCity extends Screen {
     }
 
     void drawSpecialCommands(Graphics2D g2) {
-        int x = gp.getWidth() - gp.tileSize*13;
+        int x = gp.getWidth() - gp.tileSize*15;
         int y = gp.tileSize*43;
 
         Color c = new Color(0,0,0, 180);
         g2.setColor(c);
-        g2.fillRoundRect(x-gp.tileSize/2, y-120, gp.tileSize*13, 130,35,35);
+        g2.fillRoundRect(x-gp.tileSize/2, y-120, gp.tileSize*15, 130,35,35);
 
         pokemon_classic20 = pokemon_classic20.deriveFont(Font.PLAIN, 20);
         g2.setFont(pokemon_classic20);
@@ -96,12 +92,13 @@ public class SaffronCity extends Screen {
         g2.setColor(Color.BLACK);
         g2.drawString("/gym", x-2, y-1-30);
         g2.setColor(Color.WHITE);
+        g2.setColor(Color.WHITE);
         g2.drawString("/gym", x, y-30);
 
         g2.setColor(Color.BLACK);
-        g2.drawString("/rivalsrace", x-2, y-1);
+        g2.drawString("/safarizone", x-2, y-1);
         g2.setColor(Color.WHITE);
-        g2.drawString("/rivalsrace", x, y);
+        g2.drawString("/safarizone", x, y);
 
     }
 }
