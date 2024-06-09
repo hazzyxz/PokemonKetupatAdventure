@@ -63,7 +63,7 @@ public class RivalsRace {
 
         Node SaffronCity = new Node("Saffron City");
         Node CeladonCity = new Node("Celadon City");
-        Node CeruleanCity = new Node("CeruleanCity");
+        Node CeruleanCity = new Node("Cerulean City");
         Node VermillionCity = new Node("Vermillion City");
         Node LavenderTown = new Node("LavenderTown");
         Node FuschiaCity = new Node("Fuschia City");
