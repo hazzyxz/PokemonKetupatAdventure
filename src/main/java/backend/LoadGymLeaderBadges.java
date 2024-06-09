@@ -10,6 +10,7 @@ public class LoadGymLeaderBadges {
 
     public LoadGymLeaderBadges() {
         try {
+            updateTable();
             connection = DriverManager.getConnection("jdbc:sqlite:GymLeaderBadges.db");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
