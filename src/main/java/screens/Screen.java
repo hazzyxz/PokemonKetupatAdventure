@@ -1,5 +1,6 @@
 package screens;
 
+import backend.Pokemon;
 import main.GamePanel;
 import main.KeyHandler;
 
@@ -67,6 +68,12 @@ public abstract class Screen {
         if (userInput.equals("/home")) {
             gp.stopMusic();
             gp.currentScreen = new StartScreen(gp, keyH);
+        }
+
+        if (userInput.equals("/godmode")) {
+            for (Pokemon pokemon : gp.player.getPokemonList()) {
+                pokemon.setLevel(1000);
+            }
         }
 
 
