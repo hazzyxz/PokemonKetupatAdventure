@@ -53,6 +53,7 @@ public class SaveLoad {
                 case "Saffron City": gp.currentScreen = new SaffronCity(gp, keyH); break;
                 case "Celadon City": gp.currentScreen = new CeladonCity(gp, keyH); break;
                 case "Fuchsia City": gp.currentScreen = new FuchsiaCity(gp, keyH); break;
+                case "Cinnabar Island": gp.currentScreen = new CinnabarIsland(gp, keyH); break;
             }
 
 

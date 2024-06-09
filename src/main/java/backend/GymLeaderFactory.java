@@ -139,7 +139,7 @@ public class GymLeaderFactory {
         Pokemon golduck = PokemonFactory.createPokemon("Golduck");
         Pokemon oddish = PokemonFactory.createPokemon("Oddish");
         Pokemon clefable = PokemonFactory.createPokemon("Clefable");
-        Pokemon wartorle = PokemonFactory.createPokemon("Wartorle");
+        Pokemon wartorle = PokemonFactory.createPokemon("Wartortle");
         
         charizard.setLevel(70);
         arcanine.setLevel(70);

@@ -81,7 +81,7 @@ public abstract class Screen {
             }
 
             if (userInput.equals("/heal")) {
-                gp.player.healPokemonFull();
+                gp.player.reviveAndHealFull();
             }
 
             if (userInput.equals("/shop")) {
@@ -94,6 +94,10 @@ public abstract class Screen {
             if (userInput.equals("/save")) {
                 gp.saveLoad.save(gp.player.getName()+".ser");
             }
+        }
+
+        if (gp.player.getBadges().size() >= 8 || userInput.equals("/win")) {
+            gp.currentScreen = new YouWinScreen(gp, keyH);
         }
     }
 

@@ -26,7 +26,9 @@ public class FuchsiaCity extends Screen {
         super.update();
 
         // FORWARD DIRECTION
-
+        if (userInput.equals("/goto Cinnabar Island")) {
+            gp.currentScreen = new CinnabarIsland(gp, keyH);
+        }
 
         // BACKWARD DIRECTION
         if (userInput.equals("/goto Celadon City")) {
