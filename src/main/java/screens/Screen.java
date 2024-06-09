@@ -5,6 +5,7 @@ import main.GamePanel;
 import main.KeyHandler;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -99,6 +100,7 @@ public abstract class Screen {
             runShop();
 
             if (userInput.equals("/save")) {
+                JOptionPane.showMessageDialog(null, "Save successful!");
                 gp.saveLoad.save(gp.player.getName()+".ser");
             }
         }

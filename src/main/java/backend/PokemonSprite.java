@@ -36,6 +36,8 @@ public class PokemonSprite {
 
             sprites.put("Ekans", ImageIO.read(Objects.requireNonNull(PokemonSprite.class.getResourceAsStream("/Sprites/Ekans.png"))));
 
+            sprites.put("Pikachu", ImageIO.read(Objects.requireNonNull(PokemonSprite.class.getResourceAsStream("/Sprites/Pikachu.png"))));
+
             sprites.put("Sandshrew", ImageIO.read(Objects.requireNonNull(PokemonSprite.class.getResourceAsStream("/Sprites/Sandshrew.png"))));
 
             sprites.put("Clefairy", ImageIO.read(Objects.requireNonNull(PokemonSprite.class.getResourceAsStream("/Sprites/Clefairy.png"))));
