@@ -42,6 +42,12 @@ public class PokemonSprite {
 
             sprites.put("Clefairy", ImageIO.read(Objects.requireNonNull(PokemonSprite.class.getResourceAsStream("/Sprites/Clefairy.png"))));
 
+            sprites.put("Vulpix", ImageIO.read(Objects.requireNonNull(PokemonSprite.class.getResourceAsStream("/Sprites/Vulpix.png"))));
+
+            sprites.put("Jigglypuff", ImageIO.read(Objects.requireNonNull(PokemonSprite.class.getResourceAsStream("/Sprites/Jigglypuff.png"))));
+
+            sprites.put("Zubat", ImageIO.read(Objects.requireNonNull(PokemonSprite.class.getResourceAsStream("/Sprites/Zubat.png"))));
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
