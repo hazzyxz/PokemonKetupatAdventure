@@ -49,6 +49,8 @@ public class SaveLoad {
                 case "Pewter City": gp.currentScreen = new PewterCity(gp, keyH); break;
                 case "Cerulean City": gp.currentScreen = new CeruleanCity(gp, keyH); break;
                 case "Lavender Town": gp.currentScreen = new LavenderTown(gp, keyH); break;
+                case "Vermillion City": gp.currentScreen = new VermillionCity(gp, keyH); break;
+                case "Saffron City": gp.currentScreen = new SaffronCity(gp, keyH); break;
             }
 
 

@@ -1,14 +1,18 @@
 package backend;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.swing.*;
+
+import static main.ApplicationMain.userInput;
+import static screens.SaffronCity.answerRivalsRace;
 
 public class RivalsRace {
 
@@ -21,14 +25,40 @@ public class RivalsRace {
         JFrame frame = new JFrame();
         RacePanel panel = new RacePanel();
         panel.setBounds(0, 0, 600, 600);
-        frame.setLayout(null);
+        frame.setLayout(new BorderLayout());
         frame.setResizable(false);
         frame.setTitle("Rival Race");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 600);
         frame.setLocationRelativeTo(null);
+        frame.add(panel, BorderLayout.CENTER);
+
+        JTextField inputField = new JTextField();
+
+        Action action = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                userInput = inputField.getText();
+                inputField.setText("");
+            }
+        };
+        
+        Font pokemon_classic20 = null;
+
+        try {
+            InputStream is = RivalsRace.class.getResourceAsStream("/Font/Pokemon Classic.ttf");
+            pokemon_classic20 = Font.createFont(Font.TRUETYPE_FONT, is);
+            pokemon_classic20 = pokemon_classic20.deriveFont(Font.PLAIN, 20);
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
+
+        inputField.setFont(pokemon_classic20);
+        inputField.setFocusable(true);
+        inputField.addActionListener(action);
+        frame.add(inputField, BorderLayout.SOUTH);
+
         frame.setVisible(true);
-        frame.add(panel);
         panel.setVisible(true);
 
         Node SaffronCity = new Node("Saffron City");
@@ -109,18 +139,37 @@ public class RivalsRace {
         // Prompt the user for their answer
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the shortest path to the destination (format: City1 -> City2 -> ... -> Destination): ");
-        String userInput = scanner.nextLine();
+        do {
+            answerRivalsRace = userInput;
+        } while (answerRivalsRace.isEmpty());
 
         // Compare user's answer with the correct path
         String correctPath = randomDestination.getShortestPath().stream()
                 .map(Node::getName)
                 .collect(Collectors.joining(" -> ")) + " -> " + randomDestination.getName();
 
-        if (userInput.trim().equalsIgnoreCase(correctPath.trim())) {
-            System.out.println("Correct! You've found the shortest path.");
+        if (answerRivalsRace.trim().equalsIgnoreCase(correctPath.trim())) {
+            int response = JOptionPane.showConfirmDialog(null,
+                    "Congrats! You win absolutely nothing! Continue your journey.",
+                    "You Win!",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (response == -1) {
+                frame.dispose();
+            }
         } else {
-            System.out.println("Incorrect. The correct path is: " + correctPath);
+            int response = JOptionPane.showConfirmDialog(null,
+                    "Bruh, wrong answer. Skill issue lol, go learn basic maths",
+                    "bruh momemnt",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (response == -1) {
+                frame.dispose();
+            }
         }
+        frame.dispose();
 
     }
 
@@ -180,6 +229,8 @@ class RacePanel extends JPanel {
     boolean virdian;
     boolean pallet;
     boolean cinnabar;
+    boolean win;
+    boolean lose;
 
     RacePanel() {
         photo = new PhotoRace();
@@ -188,6 +239,8 @@ class RacePanel extends JPanel {
         virdian =false;
         pallet=false;
         cinnabar=false;
+        win = false;
+        lose = false;
     }
 
     @Override
@@ -237,6 +290,13 @@ class RacePanel extends JPanel {
             String text2="Find the shortest path to beat him in the race.";
             g2d.drawString(text2, 50, 360);
             g2d.drawImage(photo.getAF(),38 ,365, this);
+        }
+
+        if (win) {
+
+        }
+        if (lose) {
+
         }
     }
 }
