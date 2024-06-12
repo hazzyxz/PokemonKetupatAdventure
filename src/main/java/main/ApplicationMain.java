@@ -18,7 +18,6 @@ public class ApplicationMain extends JFrame {
     public ApplicationMain() {
         super();
         this.setTitle("Pokemon Ketupat Adventure");
-        gamePanel = new GamePanel();
         inputField = new JTextField();
 
         Action action = new AbstractAction() {
@@ -40,6 +39,9 @@ public class ApplicationMain extends JFrame {
 
         inputField.setFont(pokemon_classic20);
         inputField.setFocusable(true);
+
+        gamePanel = new GamePanel(inputField);
+
         gamePanel.setFocusable(true);
         inputField.addActionListener(action);
         this.add(gamePanel, BorderLayout.CENTER);

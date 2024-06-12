@@ -18,6 +18,14 @@ public class SafariZone extends Screen {
     boolean catchPokemon;
     boolean sortPokemon;
 
+    boolean hasCharmander = false;
+    boolean hasBulbasaur = false;
+    boolean hasSnorlax = false;
+    boolean hasMachop = false;
+    boolean hasJigglypuff = false;
+    boolean hasEevee = false;
+    boolean hasPikachu = false;
+
     public SafariZone(GamePanel gp, KeyHandler keyH, Screen currentScreen) {
         super(gp, keyH, "/Backgrounds/SafariZone.png");
         cityMap = false;
@@ -29,6 +37,8 @@ public class SafariZone extends Screen {
     @Override
     public void update() {
         super.update();
+
+        checkTextField();
 
         if (catchPokemon && userInput.contains("/catch")) {
             try {
@@ -95,31 +105,31 @@ public class SafariZone extends Screen {
 
         pokemon_classic20 = pokemon_classic20.deriveFont(Font.PLAIN, 20);
         g2.setFont(pokemon_classic20);
-        g2.setColor(Color.WHITE);
+        if (!hasBulbasaur) g2.setColor(Color.WHITE); else g2.setColor(Color.RED);
         g2.drawString("Bulbasaur",x+ gp.tileSize*12, y+gp.tileSize*15);
 
         g2.setFont(pokemon_classic20);
-        g2.setColor(Color.WHITE);
+        if (!hasPikachu) g2.setColor(Color.WHITE); else g2.setColor(Color.RED);
         g2.drawString("Pikachu",x+ gp.tileSize*8, y+gp.tileSize*9);
 
         g2.setFont(pokemon_classic20);
-        g2.setColor(Color.WHITE);
+        if (!hasSnorlax) g2.setColor(Color.WHITE); else g2.setColor(Color.RED);
         g2.drawString("Snorlax",x+ gp.tileSize*23, y+gp.tileSize*10);
 
         g2.setFont(pokemon_classic20);
-        g2.setColor(Color.WHITE);
+        if (!hasJigglypuff) g2.setColor(Color.WHITE); else g2.setColor(Color.RED);
         g2.drawString("Jigglypuff",x+ gp.tileSize*3, y+gp.tileSize*21);
 
         g2.setFont(pokemon_classic20);
-        g2.setColor(Color.WHITE);
+        if (!hasEevee) g2.setColor(Color.WHITE); else g2.setColor(Color.RED);
         g2.drawString("Eevee",x+ gp.tileSize*3, y+gp.tileSize*12);
 
         g2.setFont(pokemon_classic20);
-        g2.setColor(Color.WHITE);
+        if (!hasMachop) g2.setColor(Color.WHITE); else g2.setColor(Color.RED);
         g2.drawString("Machop",x+ gp.tileSize*25, y+gp.tileSize*24);
 
         g2.setFont(pokemon_classic20);
-        g2.setColor(Color.WHITE);
+        if (!hasCharmander) g2.setColor(Color.WHITE); else g2.setColor(Color.RED);
         g2.drawString("Charmander",x+ gp.tileSize*9, y+gp.tileSize*29);
 
 
@@ -175,6 +185,16 @@ public class SafariZone extends Screen {
 
 
     }
+
+    void checkTextField() {
+        hasCharmander = gp.inputField.getText().contains("Charmander");
+        hasBulbasaur = gp.inputField.getText().contains("Bulbasaur");
+        hasSnorlax = gp.inputField.getText().contains("Snorlax");
+        hasMachop = gp.inputField.getText().contains("Machop");
+        hasJigglypuff = gp.inputField.getText().contains("Jigglypuff");
+        hasEevee = gp.inputField.getText().contains("Eevee");
+        hasPikachu = gp.inputField.getText().contains("Pikachu");
+     }
 
 
 }

@@ -36,14 +36,16 @@ public class GamePanel extends JPanel implements Runnable{
     public Screen currentScreen = new StartScreen(this, keyH);
     public Player player = new Player();
     public SaveLoad saveLoad = new SaveLoad(this, keyH);
+    public JTextField inputField;
 
-    public GamePanel() {
+    public GamePanel(JTextField input) {
         // SETS THE GAME PANEL SETTINGS
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+        this.inputField = input;
     }
 
     public void startGameThread() {
