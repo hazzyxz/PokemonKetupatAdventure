@@ -40,7 +40,7 @@ public class SafariZone extends Screen {
 
         checkTextField();
 
-        if (catchPokemon && userInput.contains("/catch")) {
+        if (catchPokemon && userInput.contains("/catch") && hasCharmander && hasBulbasaur && hasSnorlax && hasMachop && hasJigglypuff && hasPikachu && hasEevee) {
             try {
                 String[] str = userInput.split("");
                 StringBuilder strBuilder = new StringBuilder();
