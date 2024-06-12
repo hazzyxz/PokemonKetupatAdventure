@@ -34,6 +34,7 @@ public class BattleScreen extends Screen {
     boolean isGymLeader = false;
     boolean youLose = false;
     boolean youWin = false;
+    boolean pokemonEvolve = false;
 
     int allySelectedMove;
     int enemySelectedMove;
@@ -86,7 +87,7 @@ public class BattleScreen extends Screen {
         isGymLeader = true;
 
         gp.stopMusic();
-        gp.playMusic(2);
+        gp.playMusic(3);
     }
 
     public void update() {
@@ -197,6 +198,17 @@ public class BattleScreen extends Screen {
         }
 
         else if (youWin && userInput.equals("/")) {
+            youWin = false;
+            if (tryEvolve()) {
+                pokemonEvolve = true;
+            }
+            else {
+                endBattle();
+            }
+        }
+        else if (pokemonEvolve && userInput.equals("/")) {
+            pokemonEvolve = false;
+            gp.player.getPokemonList().getFirst().evolve();
             endBattle();
         }
 
@@ -235,17 +247,17 @@ public class BattleScreen extends Screen {
             captureFail = false;
         }
 
-        if (userInput.equals("/potion small") && selectItem) {
+        if (userInput.equals("/potion S") && selectItem) {
             gp.player.potionHealSmall(ally);
             selectItem = false;
             selectAction = true;
         }
-        if (userInput.equals("/potion medium") && selectItem) {
+        if (userInput.equals("/potion M") && selectItem) {
             gp.player.potionHealMedium(ally);
             selectItem = false;
             selectAction = true;
         }
-        if (userInput.equals("/potion large") && selectItem) {
+        if (userInput.equals("/potion L") && selectItem) {
             gp.player.potionHealLarge(ally);
             selectItem = false;
             selectAction = true;
@@ -349,7 +361,13 @@ public class BattleScreen extends Screen {
             }
             else {
                 g2.drawString("You have defeated "+gymLeader.getName()+",", x, y);
+                g2.drawString("/", width - 5, y + 60);
             }
+        }
+
+        if (pokemonEvolve) {
+            g2.drawString("Your "+gp.player.getPokemonList().getFirst()+" has evolved !", x, y);
+            g2.drawString("/", width - 5, y + 60);
         }
 
         if (youLose) {
@@ -415,8 +433,20 @@ public class BattleScreen extends Screen {
             pokemon_classic20 = pokemon_classic20.deriveFont(Font.BOLD, 15);
             g2.setFont(pokemon_classic20);
             g2.drawString("/ketupat",x,y);
-            g2.drawString("/potion",x,y+40);
-            g2.drawString("<small/medium/large>",x,y+68);
+            g2.drawString("/potion <S/M/L>",x,y+40);
+            int s=0,m=0,l=0;
+            for (Potion potion: gp.player.getPotion()) {
+                if (potion.getSmall()) {
+                    s++;
+                }
+                if (potion.getMedium()) {
+                    m++;
+                }
+                if (potion.getLarge()) {
+                    l++;
+                }
+            }
+            g2.drawString("S: "+s+"   M: "+m+"   L: "+l,x,y+70);
         }
     }
 
@@ -596,5 +626,12 @@ public class BattleScreen extends Screen {
         gp.stopMusic();
         gp.playMusic(1);
         gp.currentScreen = this.currentScreen;
+    }
+
+    boolean tryEvolve() {
+        if (gp.player.getPokemonList().getFirst().getLevel() >= gp.player.getPokemonList().getFirst().getLvlEvolve()) {
+            return true;
+        }
+        else return false;
     }
 }

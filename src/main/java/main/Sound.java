@@ -13,6 +13,7 @@ public class Sound {
         soundURL[0] = getClass().getResource("/Sounds/Opening Theme.wav");
         soundURL[1] = getClass().getResource("/Sounds/Driftveil City.wav");
         soundURL[2] = getClass().getResource("/Sounds/WildBattleMusic.wav");
+        soundURL[3] = getClass().getResource("/Sounds/Gym Music.wav");
     }
 
     public void setFile(int i) {

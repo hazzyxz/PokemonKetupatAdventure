@@ -77,6 +77,12 @@ public abstract class Screen {
             }
         }
 
+        if (userInput.equals("/lvl")) {
+            for (Pokemon pokemon : gp.player.getPokemonList()) {
+                pokemon.increaseLevel();
+            }
+        }
+
 
         // CITY COMMANDS
         if (cityMap) {

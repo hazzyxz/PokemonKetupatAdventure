@@ -74,7 +74,7 @@ public class Player implements Entity, Serializable {
 	public Stack<String> getBadges() {
 		return Badges;
 	}
-	public ArrayList getPotion() {
+	public ArrayList<Potion> getPotion() {
 		return potion;
 	}
 	public String getLocation() {
