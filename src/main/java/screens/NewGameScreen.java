@@ -21,7 +21,7 @@ public class NewGameScreen extends Screen {
         oakTalking = false;
         chosenName = false;
 
-        dialogues[0] = "Hey lancau, nama u apa?\n\n\n/myname <name>";
+        dialogues[0] = "Hey, nama kamu apa??\n\n\n/myname <name>";
         dialogues[2] = "Saya Professor Shah";
         dialogues[3] = "Banyak haiwan nama pokemon\nkat sini";
         dialogues[4] = "Sila tangkap semua dan\nkalahkan semua gym Leaders";
